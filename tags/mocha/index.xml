@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mocha on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/mocha/</link>
+    <description>Recent content in Mocha on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Jun 2014 13:36:57 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/mocha/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Basic setup for a Node.js-based TDD Code Kata</title>
+      <link>https://tommyblue.it/post/basic-setup-for-a-node-js-based-tdd-code-kata/</link>
+      <pubDate>Fri, 27 Jun 2014 13:36:57 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/basic-setup-for-a-node-js-based-tdd-code-kata/</guid>
+      <description>In the last post I suggested a minimal setup to begin with ruby-based TDD. In this post I want to show a possibile minimal setup for node.js-based TDD (node.js and npm must be installed). The kata will be again The Game of Life.
+I&amp;rsquo;m not an expert of Node.js, so I hope what I&amp;rsquo;m writing is correct :)
+I&amp;rsquo;ll use the test framework Mocha and expect.js, a &amp;ldquo;Minimalistic BDD-style assertions for Node.</description>
+    </item>
+    
+  </channel>
+</rss>

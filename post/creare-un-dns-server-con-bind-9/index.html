@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Creare un DNS server con Bind 9 - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Creare un DNS server con Bind 9</h2>
+      <section class="post-meta">
+        <time class="post-date">May 07, 2006</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>Quando digitate un indirizzo sul vostro browser: per esempio &ldquo;www.google.it&rdquo;, la prima cosa che il browser fa è chiedere a qualcuno a che indirizzo IP corrisponde quel &ldquo;google.it&rdquo;&hellip; Questo qualcuno è proprio il server DNS di turno.</p>
+
+<p>Un comando comodo per fare i vostri esperimenti con la risoluzione dei nomi è nslookup:
+<div class="&quot;codice&quot;">#nslookup www.google.it</p>
+
+<p>Server:         127.0.0.1
+Address:        127.0.0.1#53</p>
+
+<p>Non-authoritative answer:
+www.google.it   canonical name = www.google.com.
+www.google.com  canonical name = www.google.akadns.net.
+Name:   www.google.akadns.net
+Address: 66.102.11.99
+Name:   www.google.akadns.net
+Address: 66.102.11.104</div>
+Le prime due righe che vediamo, ci dicono proprio l&rsquo;indirizzo del server DNS che è stato usato per risolvere l&rsquo;indirizzo (nel mio caso, 127.0.0.1 sono sempre io).
+C&rsquo;è scritto che la risposta che ci viene data non è autoritativa ovvero, il server DNS che è stato interrogato non è quello che gestisce google.it, ma conosce il suo indirizzo per &ldquo;sentito dire&rdquo; allora la risposta non è certa, perchè dall&rsquo;ultima volta che l&rsquo;indirizzo è stato interrogato l&rsquo;indirizzo potrebbe essere stato cambiato (per ovviare a questo si mettono delle scadenze per la memoria brevi: TIME TO LIVE come vedremo dopo).
+Le righe seguienti si commentano da sole, l&rsquo;indirizzo viene risolto con due indirizzi IP per questioni di bilanciamento del carico: generalmente i browser si collegano al primo e scartano i rimanenti (ci pensa il server DNS a restituire gli IP con ordine casuale).
+Quello che vogliamo fare è realizzare un server DNS sulla nostra Linux Box (Debian in particolare) in modo da avvantaggiarci di una cache nella risoluzione degli indirizzi che renderà  la navigazione piu&rsquo; veloce (a volte molto più veloce, visto che ultimamente non è raro che i server DNS siano oberati di lavoro e rallentati).</p>
+
+<p>Vediamo un esempio di miglioramento di prestazioni:
+Faccio prima una richiesta per risolvere un indirizzo e ne misuro i tempi:
+<div class="&quot;codice&quot;">#time nslookup www.isc.org</p>
+
+<p>Server:         127.0.0.1
+Address:        127.0.0.1#53</p>
+
+<p>Non-authoritative answer:
+Name:   www.isc.org
+Address: 204.152.184.88</p>
+
+<p>real    0m0.361s
+user    0m0.004s
+sys     0m0.002s</div>
+361ms per la prima richiesta (fatta al dns locale, che però non trovandola in cache la richiede al DNS del mio provider) e ci è andata anche abbastanza di lusso.
+Ad una seconda richiesta dello stesso indirizzo questa volta bind conoscerà  già  la risposta e risponderà  più velocemente:
+<div class="&quot;codice&quot;">#time nslookup www.isc.org</p>
+
+<p>Server:         127.0.0.1
+Address:        127.0.0.1#53</p>
+
+<p>Non-authoritative answer:
+Name:   www.isc.org
+Address: 204.152.184.88</p>
+
+<p>real    0m0.008s
+user    0m0.002s
+sys     0m0.002s</div>
+solo 8 millisecondi. Wow!
+<h3>Installare bind9</h3>
+Con Debian è semplicissimo:
+<span class="&quot;codice&quot;">apt-get install bind9 bind9-host dnsutils</span>.
+Usiamo bind9 che è la versione successiva al pacchetto bind (che sarebbe bind8)&hellip; A me mi piace piu&rsquo; maggiormente!
+Tutto qui!
+<h3>Configurazione</h3>
+Ci sono tre modi di funzionamento di un dnsserver ( &ldquo;che funsia o che no?&rdquo;) nel caso in cui un indirizzo non sia presente nel database interno (nel caso in cui il DNS non sia autoritativo per quella zona):
+<ol>
+    <li>ROOT ONLY: Viene fatta richiesta ai root server il cui indirizzo è noto e da qui si scende fino a trovare l&rsquo;IP corretto. I root server sono i DNS autoritativi per le zone come .it, .com, .net e così via</li>
+    <li>FORWARD ONLY: La richiesta viene passata al DNS server del nostro provider (o quello che abbiamo impostato), se lui non ha risposta restituiamo un errore.</li>
+    <li>FORWARD FIRST: Prima la richiesta viene passata al DNS del nostro provider, se questo non ha risposta vengono interrogati i root server.</li>
+</ol>
+Così com&rsquo;è in Debian, bind9 è installato come &ldquo;root only&rdquo;, noi lo imposteremo come &ldquo;forward first&rdquo; sia perchè in genere il DNS del nostro provider ci risponde piu&rsquo; velocemente degli altri (anche avendo una buona cache), sia per generare meno traffico inutile in Internet.
+<h4>Impostare il dns come forward first</h4>
+Andiamo in /etc/bind (tutti i settaggi sono qui) e cambiamo il file named.conf.options così:
+<div class="&quot;codice&quot;">options {
+directory &ldquo;/var/cache/bind&rdquo;;</p>
+
+<p><strong> forward first;
+forwarders {
+195.210.91.100; #DNS server per Libero
+193.70.192.100;
+};
+</strong>
+auth-nxdomain no;    # conform to RFC1035
+};</div>
+In pratica ho solo aggiunto la dicitura &ldquo;forward first;&rdquo; e ho decommentato il blocco &ldquo;forwarders&rdquo; inserendogli i DNS di Libero (perchè mi collego con loro) se avete un altro provider cercate quali sono gli indirizzi dei suoi name server.
+Ogni volta che fate qualche modifica, per renderle effettive dovete riavviare bind con <span class="&quot;codice&quot;">/etc/init.d/bind9 restart</span>.</p>
+
+<p>Questo è già  sufficente per avere un server cacheonly. Il passaggio successivo renderà  il dominio autoritativo per la rete locale.
+<h3>Impostare il DNS server come autoritativo per la rete locale</h3>
+Questo passaggio renderà  un po&rsquo; piu&rsquo; sapiente il nostro server DNS che sarà  in grado di risolvere un po&rsquo; di indirizzi nella rete locale senza dover ricorrere al file /etc/hosts di ogni computer.
+Potrebbe essere utile per esempio per creare un dominio di secondo livello &ldquo;pippo.localhost&rdquo; che vada a prendere un sito diverso nel nostro server apache&hellip; quale che sia l&rsquo;utilizzo, vediamo come impostarlo.
+Facciamo un esempio: con un computer che si chiama sito.local (e questo è il suo nome completo o FQDN) c&rsquo;è chi preferisce mantenere nomi completi composti da tre parti, come <strong>sito.local.net</strong>, fate come ritenete opportuno.
+Voglio creare una entry che permetta di risolvere <strong>subsito.sito.local</strong> allo stesso indirizzo (nel mio caso c&rsquo;è sempre un Apache che lo aspetta al varco).
+Per farlo il nostro server DNS sarà  autoritativo per la rete local, vediamo come impostarlo:
+<h4>Creiamo una nuova zona</h4>
+Modifichiamo ancora il file /etc/bind/named.conf e aggiungiamo la zona &ldquo;local&rdquo; per la risoluzione degli IP:
+<div class="&quot;codice&quot;">zone &ldquo;local&rdquo; in {
+type master;
+file &ldquo;/etc/bind/db.localnet&rdquo;;
+};</div>
+&ldquo;local&rdquo; è il nome della rete della quale dettiamo legge (type master), le specifiche della zona le prenderemo dal file &ldquo;/etc/bind/db.localnet&rdquo; (in genere si tiene DB.NOMEDOMINO, ma in questo caso db.local c&rsquo;era già  ;-) ).
+<h4>Creare il file di zona</h4>
+Creiamo ora il database per la risoluzione da nome a IP, in /etc/bind/db.localnet, e al suo interno scriviamo questi comandi (i commenti sono preceduti da &ldquo;puntoevirgola&rdquo; e non da &ldquo;//&rdquo;):
+<div class="&quot;codice&quot;">$TTL 3h</p>
+
+<p>\@. IN SOA sito.local. hostmaster.sito.local. (
+2005030801;     Serial
+3h;     Refresh
+1h;     Retry
+1w;     Expire
+1h)     ;Negative cache</p>
+
+<p>;dns server
+IN NS sito.local.</p>
+
+<p>;database risolutivo
+sito.local.     IN  A   127.0.0.1
+router.local.   IN  A   192.168.1.1</p>
+
+<p>;alias
+subsito.sito.local.      IN      CNAME   sito.local.
+</div></p>
+
+<p>Cosa abbiamo fatto?
+Innanzi tutto abbia impostato il &ldquo;Time to live&rdquo;, la vita delle nostre richieste, per quanto tempo vengono considerate attendibili, 3 ore.
+Nella riga 3, abbiamo detto che sito.local è l&rsquo;autorità  del &ldquo;dominio&rdquo; local&hellip; La @ al posto di &ldquo;local.&rdquo; dice a bind di prendere il nome della zona da named.conf. Facciamo attenzione che tutti i nomi finiscono con un punto &ldquo;.&rdquo; per indicare che sono nomi completi, se specifichiamo sito.local (senza il punto finale) verrà  inteso sito.local.local (con anche il nome della zona). hostmaster.sito.local è l&rsquo;indirizzo email dell&rsquo;amministratore che va inteso come hostmaster@sito.local (la @ è appunto un carattere riservato in bind).
+Piu&rsquo; sotto, specifichiamo uno o piu&rsquo; DNS server con la parola chiave &ldquo;NS&rdquo; (name server).
+Ogni entry del database dei nomi viene specificata con la direttiva &ldquo;A&rdquo;, mentre gli alias (pseudonimi) con la direttiva CNAME.
+In questo caso abbiamo specificato subsito.sito.local come pseudonimo di sito.local, e abbiamo specificato l&rsquo;IP di sito.local e di router.local.
+<h3>This is the end my old friend</h3>
+Controlliamo il file named.conf <span class="&quot;codice&quot;">named-checkconf</span> e il file di zona &ldquo;db.localnet&rdquo; con <span class="&quot;codice&quot;">named-checkzone local db.localnet</span>.  Se non ci sono errori riavviamo dunque bind con <span class="&quot;codice&quot;">/etc/init.d/bind9 restart</span> e ci godiamo il nostro server DNS. Ciao!</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="https://tommyblue.it/tags/bind/">bind</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

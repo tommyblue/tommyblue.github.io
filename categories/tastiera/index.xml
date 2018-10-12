@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tastiera on TommyBlue.it</title>
+    <link>https://tommyblue.it/categories/tastiera/</link>
+    <description>Recent content in Tastiera on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Nov 2010 17:12:56 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/categories/tastiera/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Configurare su Linux la tastiera come su MacOSX</title>
+      <link>https://tommyblue.it/post/configurare-su-linux-la-tastiera-come-su-macosx/</link>
+      <pubDate>Wed, 24 Nov 2010 17:12:56 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/configurare-su-linux-la-tastiera-come-su-macosx/</guid>
+      <description>Saltando spesso da Mac a Fedora ho sempre odiato veder cambiare il comportamento della tastiera. Riassumo quindi i pochi passaggi necessari a riprodurre su Linux (quasi) lo stesso comportamento della tastiera in Mac.
+Innanzitutto il layout. La mia tastiera è &amp;ldquo;Internazionale Inglese&amp;rdquo;, ovvero, oltre alla disposizione USA, ha il tasto `~ a sinistra della z e il tasto Â§Â± a sinistra dell&amp;rsquo;1. Per ottenere questo layout ho impostato (in Gnome da Sistema &amp;gt; Preferenze &amp;gt; Tastiera) la tastiera USA e creato nella mia home il file .</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      How to logrotate rails logs - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">How to logrotate rails logs</h2>
+      <section class="post-meta">
+        <time class="post-date">April 11, 2014</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<p>If you deploy a rails app forgetting to configure logs automatic rotation, few weeks later won&rsquo;t be difficult to find something like this:</p>
+
+<pre><code>$ ls -lh log/production.log
+  -rw-rw-r-- 1 www-data www-data 93,2M apr 10 17:49 production.log
+</code></pre>
+
+<p>Think if you have to find some error log inside a 100MB file, not easy&hellip; :)</p>
+
+<p>Setting log rotation isn&rsquo;t difficult at all. I know two main ways.</p>
+
+<h2 id="use-syslog">Use syslog</h2>
+
+<p>This is a really easy solution. Rails will use standard syslog as logger, which means the logs will rotate automatically.</p>
+
+<p>Open <code>config/environments/production.rb</code> and add this line:</p>
+
+<pre><code class="language-prettyprint">config.logger = SyslogLogger.new
+</code></pre>
+
+<p>If you want to avoid your logs to be mixed with system logs you need to add some parameters:</p>
+
+<pre><code class="language-prettyprint">config.logger = SyslogLogger.new('/var/log/&lt;APP_NAME&gt;.log')
+</code></pre>
+
+<h2 id="use-logrotate">Use logrotate</h2>
+
+<p>This is the cleaner way, but requires to create a file in the server, inside the <code>/etc/logrotate.d/</code> folder. This is a possible content of the <code>/etc/logrotate.d/rails_apps</code> file:</p>
+
+<pre><code>/path/to/rails/app/log/*.log {
+    weekly
+    missingok
+    rotate 28
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}
+</code></pre>
+
+<p>The <code>copytruncate</code> option is required unless you want to restart the rails app after log rotation. Otherwise the app will continue to use the old log file, if it exists, or will stop logging (or, worse, will crash) if the file is deleted.
+Below the <code>copytruncate</code> details from <a href="http://linuxcommand.org/man_pages/logrotate8.html">the logrotate man page</a>:</p>
+
+<pre><code>copytruncate
+      Truncate  the  original log file in place after creating a copy,
+      instead of moving the old log file and optionally creating a new
+      one,  It  can be used when some program can not be told to close
+      its logfile and thus might continue writing (appending)  to  the
+      previous log file forever.  Note that there is a very small time
+      slice between copying the file and truncating it, so  some  log-
+      ging  data  might be lost.  When this option is used, the create
+      option will have no effect, as the old log file stays in  place.
+</code></pre>
+
+<p>To check the logrotate script you can use the <code>logrotate</code> command with the debug (<code>-d</code>) option, which executes a dry-run:</p>
+
+<pre><code class="language-prettyprint">sudo logrotate -d /etc/logrotate.d/rails_apps
+</code></pre>
+
+<p>If everything seems ok you can wait until the next day or manually launch the rotation with:</p>
+
+<pre><code class="language-prettyprint">sudo logrotate -v /etc/logrotate.d/rails_apps
+</code></pre>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/rails/">rails</a>
+          <a href="https://tommyblue.it/tags/logs/">logs</a>
+          <a href="https://tommyblue.it/tags/deploy/">deploy</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

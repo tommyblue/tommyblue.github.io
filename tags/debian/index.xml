@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debian on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/debian/</link>
+    <description>Recent content in Debian on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Sep 2010 13:51:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Configurare i check passivi in Nagios per l&#39;integrazione con Munin</title>
+      <link>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</link>
+      <pubDate>Thu, 16 Sep 2010 13:51:16 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</guid>
+      <description>&lt;p&gt;Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con &lt;a href=&#34;http://www.nagios.org/download/addons&#34; target=&#34;_blank&#34;&gt;NSCA&lt;/a&gt; e come usare Munin per avvertire Nagios di ciò che non va&amp;rsquo;.&lt;/p&gt;
+
+&lt;p&gt;Intanto ricordo i link alla prima e alla seconda parte della guida:
+&lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/&#34;&gt;Parte 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/&#34;&gt;Parte 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Tornando a Nagios e Munin: l&amp;rsquo;uso dei check passivi può tornare utile se si va ad installare Nagios in una rete in cui è già  presente Munin che, per chi non lo conoscesse, è un software che crea grafici di andamento di una lunga serie di servizi o aspetti dei server (anch&amp;rsquo;esso configurabile con agenti su vari server e un&amp;rsquo;applicazione centralizzata per la raccolta dei dati).
+Se Munin non fosse già  installato si può valutare una configurazione Nagios-centrica con i check effettuati da NRPE e i grafici fatti con &lt;a href=&#34;http://nagiosgraph.sourceforge.net/&#34; target=&#34;_blank&#34;&gt;NagiosGraph&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios â€“ parte 2</title>
+      <link>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</link>
+      <pubDate>Wed, 17 Feb 2010 13:01:37 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/&#34;&gt;&lt;strong&gt;Leggi la prima parte della guida&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In questa seconda parte della guida illustrerò alcune &lt;strong&gt;configurazioni di base&lt;/strong&gt; per i check di &lt;a title=&#34;Nagios&#34; href=&#34;http://www.nagios.org/&#34; target=&#34;_blank&#34;&gt;Nagios&lt;/a&gt; e l&amp;rsquo;uso dell&amp;rsquo;addon &lt;strong&gt;NRPE&lt;/strong&gt; per check locali su sistemi remoti.
+&lt;h3&gt;La struttura&lt;/h3&gt;
+In questa guida prenderò in considerazione la struttura qui si seguito che permette di illustrare vari tipi di configurazione:
+&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-860&#34; title=&#34;Schema Nagios&#34; src=&#34;https://tommyblue.it/uploads/2010/02/schema-nagios.jpg&#34; alt=&#34;&#34; width=&#34;450&#34; height=&#34;454&#34; /&gt;&lt;/p&gt;
+Una panoramica sugli host e i servizi:
+&lt;ul&gt;
+    &lt;li&gt;Host A, server Linux con:
+&lt;ul&gt;
+    &lt;li&gt;Server HTTP Apache&lt;/li&gt;
+    &lt;li&gt;VMWare Server con una macchina virtuale E con un server Zimbra&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+    &lt;li&gt;Host B, server Linux con:
+&lt;ul&gt;
+    &lt;li&gt;Server HTTP Apache&lt;/li&gt;
+    &lt;li&gt;Server MySQL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+Quindi E dipende da C che a sua volta dipende da A. Invece D dipende da B.
+Entrambi i server Apache rispondono sulle porte 80 e 443, l&amp;rsquo;interfaccia di amministrazione di VMWare Server risponde sulla porta 8333 (con SSL).
+La macchina virtuale Zimbra fornisce i servizi SMTP, POP3 e le interfaccie di webmail e amministrazione (porta 7071).
+Infine nella macchina B il server MySQL risponde solo sull&amp;rsquo;interfaccia locale, non è quindi possibile accedervi dall&amp;rsquo;esterno.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Chiudersi fuori casa</title>
+      <link>https://tommyblue.it/post/chiudersi-fuori-casa/</link>
+      <pubDate>Fri, 16 May 2008 13:39:48 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/chiudersi-fuori-casa/</guid>
+      <description>&lt;p&gt;o quasi \&amp;ldquo;al volo\&amp;ldquo;&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;+++&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#39;https://tommyblue.it/uploads/2008/04/lvm.png&#39;&gt;&lt;img src=&#34;https://tommyblue.it/uploads/2008/04/lvm-300x259.png&#34; alt=&#34;Schema LVM&#34; title=&#34;Schema LVM&#34; width=&#34;300&#34; height=&#34;259&#34; class=&#34;alignleft size-medium wp-image-140&#34; /&gt;&lt;/a&gt;Nel mio MacMini, oltre a MacOSX, erano installate due distribuzioni Linux: Gentoo 2007.0 e Fedora 8.&lt;/p&gt;
+
+&lt;p&gt;Dato che Gentoo non ne ha voluto sapere di far partire X ho iniziato ad usare in maniera assidua Fedora e ben presto è finito lo spazio sulla radice &lt;em&gt;/&lt;/em&gt;, quindi ho deciso di cancellare il volume logico di Gentoo ed espandere quello di Fedora, insomma il vero pane di &lt;strong&gt;LVM&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

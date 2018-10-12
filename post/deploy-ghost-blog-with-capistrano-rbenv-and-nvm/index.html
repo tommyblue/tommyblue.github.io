@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Deploy ghost blog with capistrano, rbenv and nvm - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Deploy ghost blog with capistrano, rbenv and nvm</h2>
+      <section class="post-meta">
+        <time class="post-date">April 01, 2014</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>I just moved this blog from <a href="http://jekyllrb.com/">Jekyll</a> to <a href="https://ghost.org/">Ghost</a> (<strong>v.0.4.2</strong> while writing this post) and I had to find a fast way to deploy new changes to the server.
+I&rsquo;m pretty confident with <a href="http://capistranorb.com/">Capistrano</a> so, although Ghost doesn&rsquo;t use Ruby, I decided to use it to manage deployments.
+A cool gem allow node apps to be deployed with Capistrano: <a href="https://github.com/loopj/capistrano-node-deploy">capistrano-node-deploy</a></p>
+
+<p>This is the <code>Gemfile</code>:</p>
+
+<pre><code>source 'https://rubygems.org'
+gem 'capistrano', '~&gt; 2.15.5'
+gem 'capistrano-node-deploy', '~&gt; 1.2.14'
+gem 'capistrano-shared_file', '~&gt; 0.1.3'
+gem 'capistrano-rbenv', '~&gt; 1.0.5'
+</code></pre>
+
+<p>If you don&rsquo;t use <a href="https://github.com/sstephenson/rbenv">rbenv</a> just remove the related line in the <code>Gemfile</code> and change the <code>Capfile</code> accordingly.</p>
+
+<p>This configuration works well, but it has some problem if you use <a href="https://github.com/creationix/nvm">nvm</a> instead of a system-wide installation of node and npm.</p>
+
+<p>To fix them I had to add some variables (<code>nvm_path</code>, <code>node_binary</code> and <code>npm_binary</code>) and totally override the <code>node:install_packages</code> task. Whithout this changes the deploy task ends with messages like:</p>
+
+<pre><code>/usr/bin/env: node
+No such file or directory
+</code></pre>
+
+<p>or:</p>
+
+<pre><code>node: not found
+</code></pre>
+
+<p>This isn&rsquo;t really a good way, because you must change the <code>nvm_path</code> every time you upgrade nvm, but it&rsquo;s the only way I actually found :)</p>
+
+<p>I also changed the <code>app_command</code> variable to launch <code>node ~/apps/tommyblue.it/current/index</code> instead of <code>node ~/apps/tommyblue.it/current/core/index</code> in the upstart script. The second command doesn&rsquo;t actually works although is the gem&rsquo;s default.</p>
+
+<p>This is the full content of the <code>Capfile</code> (remember to change <UPPERCASE VALUES> to your own):</p>
+
+<pre><code class="language-prettyprint">require &quot;capistrano/node-deploy&quot;
+require &quot;capistrano/shared_file&quot;
+require &quot;capistrano-rbenv&quot;
+set :rbenv_ruby_version, &quot;2.1.1&quot;
+
+set :application, &quot;tommyblue.it&quot;
+set :user, &quot;&lt;USERNAME&gt;&quot;
+set :deploy_to, &quot;/home/#{user}/apps/#{application}&quot;
+
+set :app_command, &quot;index&quot;
+
+set :node_user, &quot;&lt;USERNAME&gt;&quot;
+set :node_env, &quot;production&quot;
+set :nvm_path, &quot;/home/&lt;USERNAME&gt;/.nvm/v0.10.26/bin&quot;
+set :node_binary, &quot;#{nvm_path}/node&quot;
+set :npm_binary, &quot;#{nvm_path}/npm&quot;
+
+set :use_sudo, false
+set :scm, :git
+set :repository,  &quot;&lt;GIT REPO URL&gt;&quot;
+
+default_run_options[:pty] = true
+set :ssh_options, { forward_agent: true }
+
+server &quot;&lt;SERVER HOSTNAME OR IP&gt;&quot;, :web, :app, :db, primary: true
+
+set :shared_files,    [&quot;config.js&quot;]
+set :shared_children, [&quot;content/data&quot;, &quot;content/images&quot;]
+
+set :keep_releases, 3
+
+namespace :deploy do
+  task :mkdir_shared do
+    run &quot;cd #{shared_path} &amp;&amp; mkdir -p data images files&quot;
+  end
+
+  task :generate_sitemap do
+    run &quot;cd #{latest_release} &amp;&amp; ./ghost_sitemap.sh #{latest_release}&quot;
+  end
+end
+
+namespace :node do
+  desc &quot;Check required packages and install if packages are not installed&quot;
+  task :install_packages do
+    run &quot;mkdir -p #{previous_release}/node_modules ; cp -r #{previous_release}/node_modules #{release_path}&quot; if previous_release
+    run &quot;cd #{release_path} &amp;&amp; PATH=#{nvm_path}:$PATH #{npm_binary} install --loglevel warn&quot;
+  end
+end
+
+after &quot;deploy:create_symlink&quot;, &quot;deploy:mkdir_shared&quot;
+after &quot;node:restart&quot;, &quot;deploy:generate_sitemap&quot;
+after &quot;deploy:generate_sitemap&quot;, &quot;deploy:cleanup&quot;
+</code></pre>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/ghost/">ghost</a>
+          <a href="https://tommyblue.it/tags/capistrano/">capistrano</a>
+          <a href="https://tommyblue.it/tags/node/">node</a>
+          <a href="https://tommyblue.it/tags/rbenv/">rbenv</a>
+          <a href="https://tommyblue.it/tags/nvm/">nvm</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

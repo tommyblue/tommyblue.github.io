@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="generator" content="Hugo 0.49" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://tommyblue.it/index.xml" rel="alternate" type="application/rss+xml" title="TommyBlue.it" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+	<main class="content" role="main">
+    
+    <div class="extra-pagination">
+      
+
+<nav class="pagination" role="navigation">
+    
+        <a class="newer-posts" href="/page/3/">&larr; Newer Posts</a>
+    
+    <span class="page-number">Page 4 of 5</span>
+    
+        <a class="older-posts" href="/page/5/">Older Posts &rarr;</a>
+    
+</nav>
+
+    </div>
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/universi-paralleli/">Universi Paralleli</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      <p><p style="text-align: center;"><a href="/uploads/2009/11/parallelo.jpg"><img class="aligncenter Come <a href="http://www.tommyblue.it/2009/10/08/unicorn-rack-http-server-for-unix-and-fast-clients/">avevo promesso</a> avrei dedicato del tempo ad indagare circa le possibilità  offerte da <a href="http://unicorn.bogomips.org/" target="_blank">Unicorn</a> per il deploy delle applicazioni Ruby On Rails. Di seguito un riepilogo di quel che ho fatto per configurare il nuovo deploy di <a href="http://kickin.kreations.it" target="_blank">Kickin&rsquo;</a> utilizzando Unicorn, Nginx e Apache.
+<h3>Unicorn</h3>
+L&rsquo;installazione di Unicorn si fa &ldquo;di tacco&rdquo; (per una descrizione più dettagliata <a href="http://www.tommyblue.it/2009/10/08/unicorn-rack-http-server-for-unix-and-fast-clients/">leggete il vecchio post</a>), basta un semplice:
+<pre>gem install unicorn</pre>
+Per le applicazioni anzichè farle rispondere su socket tcp ho deciso di utilizzare le socket Unix (posiziondole in /tmp), quindi il comando completo (da lanciare dentro la root dell&rsquo;applicazione Rails) è:
+<pre>unicorn_rails -D -E production -l /tmp/kickin.kreations.it.sock</pre>
+ovvero lancio unicorn in modalità  demone (<strong>-D</strong>), con l&rsquo;environment production (<strong>-E production</strong>) e sulla socket /tmp/kickin.kreations.it.sock (<strong>-l /tmp/kickin.kreations.it.sock</strong>). Per la lista completa delle opzioni c&rsquo;è il solito <strong>-h</strong> :)</p> &hellip; <a class="read-more" href="/post/universi-paralleli/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">November 11, 2009</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/sostituzioni-in-vim/">Sostituzioni in Vim</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Per sostituire un parola con un&rsquo;altra in Vim il comando è il seguente: :rs/foo/bar/a dove r è il range, foo è la parola da sostituire con bar e a sono gli argomenti.
+Ad esempio per sostituire in tutto il file tutte le occorrenze di foo con bar il comando è: :%s/foo/bar/g Uteriori informazioni a questo indirizzo. &hellip; <a class="read-more" href="/post/sostituzioni-in-vim/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">September 10, 2009</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/attivare-un-array-raid-software-esistente-con-mdadm/">Attivare un array raid software esistente con mdadm</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
+Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&rsquo;opzione -s (&ndash;scan) la configurazione viene letta dal file. &hellip; <a class="read-more" href="/post/attivare-un-array-raid-software-esistente-con-mdadm/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">September 09, 2009</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/convertire-il-filesystem-della-partizione-root/">Convertire il filesystem della partizione root</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Ovvero come installare Fedora 10 da cd utilizzando XFS come filesystem per la root (/) :)
+Nota: avrete bisogno di due partizioni di almeno 4&frasl;5 GB
+L&rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (in particolare per espandere le partizioni &ldquo;al volo&rdquo;), cosa che spiegherò di seguito. I passi sono molto semplici:  Avviate dal cd di Fedora 10 Installate normalmente Fedora utilizzando una partizione LVM di almenoÂ 5. &hellip; <a class="read-more" href="/post/convertire-il-filesystem-della-partizione-root/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">March 19, 2009</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/usare-i-tab-in-vim/">Usare i Tab in Vim</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Splittare lo schermo e passare da un file all&rsquo;altro con Vim non è certo la cosa più comoda del mondo&hellip; e se ne devono essere accorti anche gli sviluppatori che, dalla versione 7, hanno implementato i Tab in Vim.
+ Usarli è piuttosto semplice: :tabe nomefile per aprire un file in un tab e :tabp e :tabn per passare da uno all&rsquo;altro  :D &hellip; <a class="read-more" href="/post/usare-i-tab-in-vim/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">February 02, 2009</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/chiudersi-fuori-casa/">Chiudersi fuori casa</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      <p>o quasi \&ldquo;al volo\&ldquo;&rdquo;</p>
+
+<p>+++</p>
+
+<p><a href='/uploads/2008/04/lvm.png'><img src="/uploads/2008/04/lvm-300x259.png" alt="Schema LVM" title="Schema LVM" width="300" height="259" class="alignleft size-medium wp-image-140" /></a>Nel mio MacMini, oltre a MacOSX, erano installate due distribuzioni Linux: Gentoo 2007.0 e Fedora 8.</p>
+
+<p>Dato che Gentoo non ne ha voluto sapere di far partire X ho iniziato ad usare in maniera assidua Fedora e ben presto è finito lo spazio sulla radice <em>/</em>, quindi ho deciso di cancellare il volume logico di Gentoo ed espandere quello di Fedora, insomma il vero pane di <strong>LVM</strong>.</p> &hellip; <a class="read-more" href="/post/chiudersi-fuori-casa/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">May 16, 2008</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/backup-di-mysql/">Backup di MySQL</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      In attesa di riuscire a capire qualcosa di Bacula ho trovato un ottimo script di backup per MySQL che si avvale solo dell&rsquo;uso di mysqldump: automysqlbackup. Da sourceforge si scarica direttamente lo script, che io ho spostato in /etc/cron.daily, ma che puo&rsquo; essere anche lanciato manualmente. All&rsquo;inizio del file di script ci sono solo un paio di settaggi da fare, in particolare va impostato un utente mysql a cui vanno dati i permessi di SELECT, LOCK TABLES e SHOW VIEW &hellip; <a class="read-more" href="/post/backup-di-mysql/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">September 28, 2007</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/hacking-della-fonera/">Hacking della Fonera</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Da quasi 24 ore sono un felice possessore della Fonera. Chi non fosse a conoscenza del Movimento Fon può leggerne qui i dettagli: http://it.fon.com/ http://blog.fon.com/it/ In 2 parole i possessori della Fonera condividono la loro connessione Internet con gli altri Foneros, divisi in Linus (chi condivide la propria connessione e può accedere liberamente a qualunque rete FON) e Bill (chi non condivide ma sfrutta solo le connessioni dei Linus). Potete vedere la posizione di tutte le Fonere nel mondo da qui. &hellip; <a class="read-more" href="/post/hacking-della-fonera/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">January 19, 2007</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/creare-un-dns-server-con-bind-9/">Creare un DNS server con Bind 9</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Quando digitate un indirizzo sul vostro browser: per esempio &ldquo;www.google.it&rdquo;, la prima cosa che il browser fa è chiedere a qualcuno a che indirizzo IP corrisponde quel &ldquo;google.it&rdquo;&hellip; Questo qualcuno è proprio il server DNS di turno.
+Un comando comodo per fare i vostri esperimenti con la risoluzione dei nomi è nslookup: #nslookup www.google.it
+Server: 127.0.0.1 Address: 127.0.0.1#53
+Non-authoritative answer: www.google.it canonical name = www.google.com. www.google.com canonical name = www.google.akadns.net. Name: www. &hellip; <a class="read-more" href="/post/creare-un-dns-server-con-bind-9/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">May 07, 2006</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/bittorrent-uso-e-gestione-remota-con-screen/">Bittorrent - uso e gestione remota con screen</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Il pacchetto da installare è bittorent Una volta installato si entra nella cartella creata per il download dei torrent e si lancia screen che emulerà un terminale. In questo terminale emulato si lancerà macondo:~$ btlaunchmanycurses . Viene usata dal programma una chiara interfaccia ncurses che mostra i download/upload attivi. Con questo programma tutti i file .torrent aggiunti alla cartella di download vengono automaticamente aggiunti ai download in corso. Se adesso volete scollegare screen dalla console è sufficiente usare Ctrl-a + Ctrl-d. &hellip; <a class="read-more" href="/post/bittorrent-uso-e-gestione-remota-con-screen/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">May 07, 2006</time>
+	</footer>
+</article>
+
+		
+    
+
+<nav class="pagination" role="navigation">
+    
+        <a class="newer-posts" href="/page/3/">&larr; Newer Posts</a>
+    
+    <span class="page-number">Page 4 of 5</span>
+    
+        <a class="older-posts" href="/page/5/">Older Posts &rarr;</a>
+    
+</nav>
+
+	</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

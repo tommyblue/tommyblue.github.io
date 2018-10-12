@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apache on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/apache/</link>
+    <description>Recent content in Apache on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Sep 2010 13:51:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/apache/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Configurare i check passivi in Nagios per l&#39;integrazione con Munin</title>
+      <link>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</link>
+      <pubDate>Thu, 16 Sep 2010 13:51:16 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</guid>
+      <description>&lt;p&gt;Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con &lt;a href=&#34;http://www.nagios.org/download/addons&#34; target=&#34;_blank&#34;&gt;NSCA&lt;/a&gt; e come usare Munin per avvertire Nagios di ciò che non va&amp;rsquo;.&lt;/p&gt;
+
+&lt;p&gt;Intanto ricordo i link alla prima e alla seconda parte della guida:
+&lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/&#34;&gt;Parte 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/&#34;&gt;Parte 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Tornando a Nagios e Munin: l&amp;rsquo;uso dei check passivi può tornare utile se si va ad installare Nagios in una rete in cui è già  presente Munin che, per chi non lo conoscesse, è un software che crea grafici di andamento di una lunga serie di servizi o aspetti dei server (anch&amp;rsquo;esso configurabile con agenti su vari server e un&amp;rsquo;applicazione centralizzata per la raccolta dei dati).
+Se Munin non fosse già  installato si può valutare una configurazione Nagios-centrica con i check effettuati da NRPE e i grafici fatti con &lt;a href=&#34;http://nagiosgraph.sourceforge.net/&#34; target=&#34;_blank&#34;&gt;NagiosGraph&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios â€“ parte 2</title>
+      <link>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</link>
+      <pubDate>Wed, 17 Feb 2010 13:01:37 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/&#34;&gt;&lt;strong&gt;Leggi la prima parte della guida&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In questa seconda parte della guida illustrerò alcune &lt;strong&gt;configurazioni di base&lt;/strong&gt; per i check di &lt;a title=&#34;Nagios&#34; href=&#34;http://www.nagios.org/&#34; target=&#34;_blank&#34;&gt;Nagios&lt;/a&gt; e l&amp;rsquo;uso dell&amp;rsquo;addon &lt;strong&gt;NRPE&lt;/strong&gt; per check locali su sistemi remoti.
+&lt;h3&gt;La struttura&lt;/h3&gt;
+In questa guida prenderò in considerazione la struttura qui si seguito che permette di illustrare vari tipi di configurazione:
+&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-860&#34; title=&#34;Schema Nagios&#34; src=&#34;https://tommyblue.it/uploads/2010/02/schema-nagios.jpg&#34; alt=&#34;&#34; width=&#34;450&#34; height=&#34;454&#34; /&gt;&lt;/p&gt;
+Una panoramica sugli host e i servizi:
+&lt;ul&gt;
+    &lt;li&gt;Host A, server Linux con:
+&lt;ul&gt;
+    &lt;li&gt;Server HTTP Apache&lt;/li&gt;
+    &lt;li&gt;VMWare Server con una macchina virtuale E con un server Zimbra&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+    &lt;li&gt;Host B, server Linux con:
+&lt;ul&gt;
+    &lt;li&gt;Server HTTP Apache&lt;/li&gt;
+    &lt;li&gt;Server MySQL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+Quindi E dipende da C che a sua volta dipende da A. Invece D dipende da B.
+Entrambi i server Apache rispondono sulle porte 80 e 443, l&amp;rsquo;interfaccia di amministrazione di VMWare Server risponde sulla porta 8333 (con SSL).
+La macchina virtuale Zimbra fornisce i servizi SMTP, POP3 e le interfaccie di webmail e amministrazione (porta 7071).
+Infine nella macchina B il server MySQL risponde solo sull&amp;rsquo;interfaccia locale, non è quindi possibile accedervi dall&amp;rsquo;esterno.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios - parte 1</title>
+      <link>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/</link>
+      <pubDate>Fri, 12 Feb 2010 18:49:08 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/</guid>
+      <description>&lt;p&gt;&lt;img class=&#34;alignleft size-full wp-image-813&#34; title=&#34;Embedded PC&#34; src=&#34;https://tommyblue.it/uploads/2010/02/embedded.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;254&#34; /&gt;Se, come me, avete vari server a giro per il mondo a cui fare da baby-sitter, probabilmente avrete sentito la necessità  di avere tutto sotto controllo e di scoprire (e magari risolvere) i problemi non appena si presentano.&lt;/p&gt;
+
+&lt;p&gt;Dopo aver configurato sistemi di monitoraggio per alcune P.A. e aziende, mi sono deciso a farlo anche per i miei server e descriverò in queste pagine ciò che ho fatto o sto ancora facendo.&lt;/p&gt;
+
+&lt;p&gt;Dividerò questa guida in più parti, per renderla più leggibile e per poter facilmente aggiungere nuove parti via via che incremento le funzionalità  del sistema.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Apache2 in SSL</title>
+      <link>https://tommyblue.it/post/apache2-in-ssl/</link>
+      <pubDate>Sun, 07 May 2006 05:42:27 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/apache2-in-ssl/</guid>
+      <description>Creazione del certificato macondo:~# rm -rf /root/CertAuth macondo:~# mkdir /root/CertAuth macondo:~# chmod 700 /root/CertAuth macondo:~# cd /root/CertAuth macondo:~/CertAuth# /usr/lib/ssl/misc/CA.pl -newca CA certificate filename (or enter to create) Making CA certificate ... Generating a 1024 bit RSA private key ...............++++++ ..............................................................++++++ writing new private key to &#39;./demoCA/private/cakey.pem&#39; Enter PEM pass phrase: Verifying - Enter PEM pass phrase: ----- You are about to be asked to enter information that will be incorporated into your certificate request.</description>
+    </item>
+    
+  </channel>
+</rss>

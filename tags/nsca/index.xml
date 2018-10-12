@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nsca on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/nsca/</link>
+    <description>Recent content in Nsca on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Sep 2010 13:51:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/nsca/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Configurare i check passivi in Nagios per l&#39;integrazione con Munin</title>
+      <link>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</link>
+      <pubDate>Thu, 16 Sep 2010 13:51:16 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</guid>
+      <description>&lt;p&gt;Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con &lt;a href=&#34;http://www.nagios.org/download/addons&#34; target=&#34;_blank&#34;&gt;NSCA&lt;/a&gt; e come usare Munin per avvertire Nagios di ciò che non va&amp;rsquo;.&lt;/p&gt;
+
+&lt;p&gt;Intanto ricordo i link alla prima e alla seconda parte della guida:
+&lt;ul&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/&#34;&gt;Parte 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/&#34;&gt;Parte 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Tornando a Nagios e Munin: l&amp;rsquo;uso dei check passivi può tornare utile se si va ad installare Nagios in una rete in cui è già  presente Munin che, per chi non lo conoscesse, è un software che crea grafici di andamento di una lunga serie di servizi o aspetti dei server (anch&amp;rsquo;esso configurabile con agenti su vari server e un&amp;rsquo;applicazione centralizzata per la raccolta dei dati).
+Se Munin non fosse già  installato si può valutare una configurazione Nagios-centrica con i check effettuati da NRPE e i grafici fatti con &lt;a href=&#34;http://nagiosgraph.sourceforge.net/&#34; target=&#34;_blank&#34;&gt;NagiosGraph&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

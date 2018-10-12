@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Riflessioni on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/riflessioni/</link>
+    <description>Recent content in Riflessioni on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Nov 2009 23:35:31 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/riflessioni/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Universi Paralleli</title>
+      <link>https://tommyblue.it/post/universi-paralleli/</link>
+      <pubDate>Wed, 11 Nov 2009 23:35:31 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/universi-paralleli/</guid>
+      <description>&lt;p&gt;&lt;p style=&#34;text-align: center;&#34;&gt;&lt;a href=&#34;https://tommyblue.it/uploads/2009/11/parallelo.jpg&#34;&gt;&lt;img class=&#34;aligncenter Come &lt;a href=&#34;http://www.tommyblue.it/2009/10/08/unicorn-rack-http-server-for-unix-and-fast-clients/&#34;&gt;avevo promesso&lt;/a&gt; avrei dedicato del tempo ad indagare circa le possibilità  offerte da &lt;a href=&#34;http://unicorn.bogomips.org/&#34; target=&#34;_blank&#34;&gt;Unicorn&lt;/a&gt; per il deploy delle applicazioni Ruby On Rails. Di seguito un riepilogo di quel che ho fatto per configurare il nuovo deploy di &lt;a href=&#34;http://kickin.kreations.it&#34; target=&#34;_blank&#34;&gt;Kickin&amp;rsquo;&lt;/a&gt; utilizzando Unicorn, Nginx e Apache.
+&lt;h3&gt;Unicorn&lt;/h3&gt;
+L&amp;rsquo;installazione di Unicorn si fa &amp;ldquo;di tacco&amp;rdquo; (per una descrizione più dettagliata &lt;a href=&#34;http://www.tommyblue.it/2009/10/08/unicorn-rack-http-server-for-unix-and-fast-clients/&#34;&gt;leggete il vecchio post&lt;/a&gt;), basta un semplice:
+&lt;pre&gt;gem install unicorn&lt;/pre&gt;
+Per le applicazioni anzichè farle rispondere su socket tcp ho deciso di utilizzare le socket Unix (posiziondole in /tmp), quindi il comando completo (da lanciare dentro la root dell&amp;rsquo;applicazione Rails) è:
+&lt;pre&gt;unicorn_rails -D -E production -l /tmp/kickin.kreations.it.sock&lt;/pre&gt;
+ovvero lancio unicorn in modalità  demone (&lt;strong&gt;-D&lt;/strong&gt;), con l&amp;rsquo;environment production (&lt;strong&gt;-E production&lt;/strong&gt;) e sulla socket /tmp/kickin.kreations.it.sock (&lt;strong&gt;-l /tmp/kickin.kreations.it.sock&lt;/strong&gt;). Per la lista completa delle opzioni c&amp;rsquo;è il solito &lt;strong&gt;-h&lt;/strong&gt; :)&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

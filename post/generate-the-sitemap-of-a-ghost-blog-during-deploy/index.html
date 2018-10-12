@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Generate the sitemap of a Ghost blog during deploy - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Generate the sitemap of a Ghost blog during deploy</h2>
+      <section class="post-meta">
+        <time class="post-date">April 02, 2014</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>Waiting for a sitemap generator inside the core of <a href="https://ghost.org/">Ghost</a> (planned as <em><a href="https://github.com/TryGhost/Ghost/wiki/Planned-Features">&ldquo;future implementation&rdquo;</a></em>) I decided to implement a way to generate an up-to-date <code>sitemap.xml</code> during deployment.
+As you can read in the <a href="/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/">previous post</a> I&rsquo;m deploying this blog with <a href="http://capistranorb.com/">Capistrano</a> and <a href="https://github.com/loopj/capistrano-node-deploy">capistrano-node-deploy</a>.
+So I added a <code>deploy:generate_sitemap</code> task which is executed at the end of the deployment process.</p>
+
+<p>This is the <code>Capfile</code> extract:</p>
+
+<pre><code class="language-prettyprint">namespace :deploy do  
+  task :generate_sitemap do
+    run &quot;cd #{latest_release} &amp;&amp; ./ghost_sitemap.sh #{latest_release}&quot;
+  end
+end
+after &quot;node:restart&quot;, &quot;deploy:generate_sitemap&quot;  
+</code></pre>
+
+<p>So at the end of the deployment the <code>ghost_sitemap.sh</code> script is executed. The script is placed in the blog root and is a personalized version of the code you can find here: <a href="http://ghost.centminmod.com/ghost-sitemap-generator/">http://ghost.centminmod.com/ghost-sitemap-generator/</a></p>
+
+<p>It essentially does 3 things:</p>
+
+<ul>
+<li>Puts the <code>sitemap.xml</code> link in the <code>robots.txt</code> file</li>
+<li>Scans (using <code>wget</code>) the website and generates the <code>sitemap.xml</code> file in the <code>content</code> folder</li>
+<li>Notifies <a href="https://www.google.com/webmasters/tools/home">Google Webmaster Tools</a></li>
+</ul>
+
+<p>What I changed of the original script is:</p>
+
+<pre><code>url=&quot;www.tommyblue.it&quot;
+webroot=&quot;${1}/content&quot;
+path=&quot;${webroot}/sitemap.xml&quot;
+user='&lt;USER&gt;'
+group='&lt;GROUP&gt;'
+</code></pre>
+
+<p><code>user</code> and <code>group</code> will be used to <code>chmod</code> the <code>sitemap.xml</code> file, so check that the web user (probably <code>www-data</code>) can read that file.</p>
+
+<p>This process has a big problem: the sitemap is generated only during deploy, not when I publish a new post. A workaround is to run <code>cap deploy:generate_sitemap</code> after a new post is published.</p>
+
+<p>It works but I need an automatic way. Any idea?</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/ghost/">ghost</a>
+          <a href="https://tommyblue.it/tags/capistrano/">capistrano</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

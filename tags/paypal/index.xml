@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paypal on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/paypal/</link>
+    <description>Recent content in Paypal on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Jul 2013 20:12:19 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/paypal/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Paypal Express Checkout with Ruby on Rails and paypal-sdk-merchant</title>
+      <link>https://tommyblue.it/post/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/</link>
+      <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/</guid>
+      <description>In my last work, Agrimè.it, an ecommerce built using Ruby on rails, I had to implement the cart payment using Paypal Express Checkout.
+Sadly, I found that was the worst time to do it, because Paypal was migrating the classic API to the new REST API and the documentation was a real mess! Walking through the doc links, I jumped (without a particular logic) from the new to the old API reference and vice versa.</description>
+    </item>
+    
+  </channel>
+</rss>

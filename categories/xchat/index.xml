@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xchat on TommyBlue.it</title>
+    <link>https://tommyblue.it/categories/xchat/</link>
+    <description>Recent content in Xchat on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Jul 2013 11:44:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/categories/xchat/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bip: un proxy IRC per rimanere sempre connessi</title>
+      <link>https://tommyblue.it/post/bip-un-proxy-irc-per-rimanere-sempre-connessi/</link>
+      <pubDate>Thu, 04 Jul 2013 11:44:28 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/bip-un-proxy-irc-per-rimanere-sempre-connessi/</guid>
+      <description>Bip è un proxy IRC, ovvero un demone che rimane collegato ai server IRC anche quando tu non lo sei. Quando poi ti ricolleghi a Bip ritrovi lo storico dei messaggi dalla tua ultima connessione.
+Configurare il demone Il demone può essere lanciato su un sever con un semplice:
+~$ bip
+Immediatamente il processo entra in background e rimane attivo finchè non lo si uccide. La configurazione è nel file ~/.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Raid - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://tommyblue.it/categories/raid/index.xml" rel="alternate" type="application/rss+xml" title="TommyBlue.it" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="tag-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+
+<main class="content" role="main">
+  
+    
+  
+
+	<div class="extra-pagination">
+	    
+
+<nav class="pagination" role="navigation">
+    
+    <span class="page-number">Page 1 of 1</span>
+    
+</nav>
+
+	</div>
+  
+  <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/sostituire-un-disco-in-un-raid-software/">Sostituire un disco in un raid software</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Ho recentemente scoperto un&rsquo;interessante opzione di sfdisk che risolve molti problemi quando si deve sostituire un disco di un raid software. Integro quindi l&rsquo;articolo originale segnlando questa opzione, da usare nel caso in cui al comando:
+sfdisk -d /dev/sda | sfdisk /dev/sdb  sfdisk si rifiuti di partizionare correttamente /dev/sdb a causa di problemi con i cilindri. Dato che Linux è molto meno schizzinoso del DOS, esiste un&rsquo;opzione per ignorare problemi che con Linux, appunto, non sono tali: &hellip; <a class="read-more" href="/post/sostituire-un-disco-in-un-raid-software/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">April 26, 2012</time>
+	</footer>
+</article>
+
+  
+  <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/sostituire-un-disco-in-un-raid-1-con-mdadm/">Sostituire un disco in un Raid 1 con mdadm</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&rsquo;anno e che, puntualmente, mi scordo come si fa :-)
+Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
+La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat &hellip; <a class="read-more" href="/post/sostituire-un-disco-in-un-raid-1-con-mdadm/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">September 28, 2010</time>
+	</footer>
+</article>
+
+  
+  <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/attivare-un-array-raid-software-esistente-con-mdadm/">Attivare un array raid software esistente con mdadm</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
+Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&rsquo;opzione -s (&ndash;scan) la configurazione viene letta dal file. &hellip; <a class="read-more" href="/post/attivare-un-array-raid-software-esistente-con-mdadm/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">September 09, 2009</time>
+	</footer>
+</article>
+
+  
+  
+
+<nav class="pagination" role="navigation">
+    
+    <span class="page-number">Page 1 of 1</span>
+    
+</nav>
+
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

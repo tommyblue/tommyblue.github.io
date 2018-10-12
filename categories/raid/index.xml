@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Raid on TommyBlue.it</title>
+    <link>https://tommyblue.it/categories/raid/</link>
+    <description>Recent content in Raid on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 26 Apr 2012 11:47:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/categories/raid/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sostituire un disco in un raid software</title>
+      <link>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-software/</link>
+      <pubDate>Thu, 26 Apr 2012 11:47:30 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-software/</guid>
+      <description>Ho recentemente scoperto un&amp;rsquo;interessante opzione di sfdisk che risolve molti problemi quando si deve sostituire un disco di un raid software. Integro quindi l&amp;rsquo;articolo originale segnlando questa opzione, da usare nel caso in cui al comando:
+sfdisk -d /dev/sda | sfdisk /dev/sdb  sfdisk si rifiuti di partizionare correttamente /dev/sdb a causa di problemi con i cilindri. Dato che Linux è molto meno schizzinoso del DOS, esiste un&amp;rsquo;opzione per ignorare problemi che con Linux, appunto, non sono tali:</description>
+    </item>
+    
+    <item>
+      <title>Sostituire un disco in un Raid 1 con mdadm</title>
+      <link>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-1-con-mdadm/</link>
+      <pubDate>Tue, 28 Sep 2010 12:16:31 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
+      <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
+Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
+La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
+    </item>
+    
+    <item>
+      <title>Attivare un array raid software esistente con mdadm</title>
+      <link>https://tommyblue.it/post/attivare-un-array-raid-software-esistente-con-mdadm/</link>
+      <pubDate>Wed, 09 Sep 2009 05:53:20 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
+      <description>Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
+Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
+    </item>
+    
+  </channel>
+</rss>

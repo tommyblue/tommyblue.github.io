@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Create a contact form for Jekyll - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Create a contact form for Jekyll</h2>
+      <section class="post-meta">
+        <time class="post-date">August 28, 2012</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>As I promised to a reader who wrote me an email some days ago, with this post I&rsquo;ll explain how I built the contact form of this website using Sinatra and Sendgrid. As you know (or you&rsquo;re just learning) this site is made by <a href="https://github.com/mojombo/jekyll">Jekyll</a>, a static site generator written in Ruby. As the result of the work of Jekyll it is a static HTML website, so it&rsquo;s not immediate to build a contact form. I tried to find a JS solution to maintain a full static website, but didn&rsquo;t find any. So I wrote a few Ruby lines and the contact form is now working.</p>
+
+<p>How to let the form work is strictly dependent on how you deploy your Jekyll website. I use <a href="http://www.heroku.com/">Heroku</a> so I deploy the site as a <a href="https://devcenter.heroku.com/articles/rack">Rack-based app</a> using <a href="http://www.sinatrarb.com/">Sinatra</a>, this how-to works only if you have my deployment configuration. If not, you must adapt it to your needs.</p>
+
+<p>The first step is to register a free account to <a href="http://www.google.com/recaptcha">reCAPTCHA</a> and get the public and private API keys. Then register a <a href="https://devcenter.heroku.com/articles/sendgrid">Sendgrid free account as Heroku add-on</a> in your website app.</p>
+
+<p>To use a rack-based app on Heroku you need a <em>config.ru</em> file, this is mine:</p>
+
+<pre><code class="language-prettyprint">
+require 'rubygems'
+require 'sinatra'
+require 'rack/recaptcha'
+
+use Rack::Recaptcha, :public_key =&gt; 'MyPublicKey', :private_key =&gt; 'TheS3cr3tS3cr3tKey'
+helpers Rack::Recaptcha::Helpers
+enable :sessions
+
+require './application'
+run Sinatra::Application
+
+</code></pre>
+
+<p>Just insert the reCAPTCHA keys and the file is ready. Now the <em>application.rb</em> file called by the <em>require</em> above:</p>
+
+<pre><code class="language-prettyprint">
+set :public, Proc.new { File.join(root, &quot;_site&quot;) }
+
+post '/send' do
+  if recaptcha_valid?
+    session[:captcha] = true
+    { :message =&gt; 'success' }.to_json
+  else
+    session[:captcha] = false
+    { :message =&gt; 'failure' }.to_json
+  end
+end
+
+post '/send_email' do
+    require 'pony'
+    require 'json'
+
+    if session[:captcha]
+      session[:captcha] = false
+      res = Pony.mail(
+	:from =&gt; params[:name] + &quot;&lt;&quot; + params[:email] + &quot;&gt;&quot;,
+	:to =&gt; 'me@mydomain.com',
+	:subject =&gt; &quot;Message from your awesome website :)&quot;,
+	:body =&gt; params[:message],
+	:port =&gt; '587',
+	:via =&gt; :smtp,
+	:via_options =&gt; {
+	  :address              =&gt; 'smtp.sendgrid.net',
+	  :port                 =&gt; '587',
+	  :enable_starttls_auto =&gt; true,
+	  :user_name            =&gt; ENV['SENDGRID_USERNAME'],
+	  :password             =&gt; ENV['SENDGRID_PASSWORD'],
+	  :authentication       =&gt; :plain,
+	  :domain               =&gt; 'heroku.com'
+	})
+      content_type :json
+      if res
+	  { :message =&gt; 'success' }.to_json
+      else
+	  { :message =&gt; 'failure' }.to_json
+      end
+    else
+      { :message =&gt; 'failure' }.to_json
+    end
+end
+
+before do
+    response.headers['Cache-Control'] = 'public, max-age=36000'
+end
+
+not_found do
+    File.read('_site/404.html')
+end
+
+get '/*' do
+    file_name = &quot;_site#{request.path_info}/index.html&quot;.gsub(%r{\/+},'/')
+    if File.exists?(file_name)
+	File.read(file_name)
+    else
+	raise Sinatra::NotFound
+    end
+end
+
+</code></pre>
+
+<p>As you see in the code I use two methods, <em>send</em> and <em>send_email</em>: the first check the captcha and set a session variable, returning a JSON message (<em>success</em>). The second method sends the email using Pony only if the captcha was verified.
+The SendGrid username and password are loaded automatically from your Heroku environment.</p>
+
+<p>The last step is to create the contact form page, including the reCAPTCHA js:</p>
+
+<pre><code class="language-prettyprint">
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://www.google.com/recaptcha/api/js/recaptcha_ajax.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+  function showRecaptcha(element) {
+     Recaptcha.create(&quot;MyPublicKey&quot;, element, {
+       theme: &quot;red&quot;,
+       callback: Recaptcha.focus_response_field});
+   }
+   $(document).ready(function(){
+	showRecaptcha('recaptcha_div');
+	
+	$(&quot;#form&quot;).submit(function(ev){
+	    ev.preventDefault();
+	    if (!$(this).valid()) return;
+	    $.ajax({
+	      type: &quot;post&quot;,
+	      url: &quot;/send&quot;,
+	      data: $('#form').serialize(),
+	      dataType: &quot;json&quot;,
+	      success: function(response) {
+		if(response.message === &quot;success&quot;) {
+		  $.ajax({
+		      type: &quot;post&quot;,
+		      url: &quot;/send_email&quot;,
+		      data: $('#form').serialize(),
+		      dataType: &quot;json&quot;,
+		      success: function(response) {
+			  $('#form').html(&quot;&lt;div id='message'&gt;&lt;/div&gt;&quot;);
+			  if(response.message === &quot;success&quot;) {
+			      $('#message').html(&quot;&lt;h2&gt;Message successfully sent.&lt;/h2&gt;&quot;).hide().fadeIn(1500);
+			  } else {
+			      $('#message').html(&quot;&lt;h2&gt;Error sending the message&lt;/h2&gt;&quot;).hide().fadeIn(1500);
+			  }
+		      },
+		      error: function(xhr, ajaxOptions, thrownError){
+			  $('#form').html(&quot;&lt;div id='message'&gt;&lt;/div&gt;&quot;);
+			  $('#message').html(&quot;&lt;h2&gt;Error sending the message&lt;/h2&gt;&quot;).hide().fadeIn(1500);
+		      } 
+		  });
+		} else {
+		  showRecaptcha('recaptcha_div');
+		  $('#notice').html(&quot;Captcha failed!&quot;).hide().fadeIn(1500);
+		}
+	      },
+	      error: function(xhr, ajaxOptions, thrownError){
+		  $('#form').html(&quot;&lt;div id='message'&gt;&lt;/div&gt;&quot;);
+		  $('#message').html(&quot;&lt;h2&gt;Error sending the message&lt;/h2&gt;&quot;).hide().fadeIn(1500);
+	      }
+	    });
+	});
+    });
+&lt;/script&gt;
+
+</code></pre>
+
+<p><strong>The code seems a bit tricky :)</strong> but it&rsquo;s simple. It just intercepts the form submission, send a first POST call to <em>/send</em> and, if the captcha is verified, generates a second POST call to <em>/send_email</em>, which sends the email.
+The last piece is the form HTML code:</p>
+
+<pre><code class="language-prettyprint">
+&lt;form id=&quot;form&quot; method=&quot;post&quot;&gt;
+	&lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;
+	&lt;input type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot; /&gt;
+
+	&lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
+	&lt;input type=&quot;text&quot; name=&quot;email&quot; id=&quot;email&quot; /&gt;
+
+	&lt;label for=&quot;message&quot; class=&quot;label&quot;&gt;Message&lt;/label&gt;
+	&lt;textarea name=&quot;message&quot; id=&quot;message&quot;&gt;&lt;/textarea&gt;
+
+	&lt;div id=&quot;recaptcha_div&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;notice&quot;&gt;&lt;/div&gt;
+
+	&lt;input class=&quot;submit&quot; type=&quot;submit&quot; value=&quot;Send&quot; /&gt;
+&lt;/form&gt;
+
+</code></pre>
+
+<p>That&rsquo;s it, now you can send email from a <em>static</em> website.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/jekyll/">jekyll</a>
+          <a href="https://tommyblue.it/tags/sito/">sito</a>
+          <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/sinatra/">sinatra</a>
+          <a href="https://tommyblue.it/tags/heroku/">heroku</a>
+          <a href="https://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="https://tommyblue.it/tags/ruby/">ruby</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

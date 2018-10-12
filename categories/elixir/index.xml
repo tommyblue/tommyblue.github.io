@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elixir on TommyBlue.it</title>
+    <link>https://tommyblue.it/categories/elixir/</link>
+    <description>Recent content in Elixir on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 31 Mar 2018 19:34:35 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/categories/elixir/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>API Authentication with Phoenix and React - part 2</title>
+      <link>https://tommyblue.it/post/api-authentication-with-phoenix-and-react-part-2/</link>
+      <pubDate>Sat, 31 Mar 2018 19:34:35 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/api-authentication-with-phoenix-and-react-part-2/</guid>
+      <description>In the first part of this post I&amp;rsquo;ve shown how to configure the API server to let the user authenticate, return an authentication token, and request it to access protected routes. Now I&amp;rsquo;m going to configure a React app to consume that API and manage authentication.
+The app uses React Router to manage routes and Redux for the state of the app.
+Protect private routes I&amp;rsquo;m going to define a PrivateRoute component as a wrapper around Route.</description>
+    </item>
+    
+    <item>
+      <title>API Authentication with Phoenix and React - part 1</title>
+      <link>https://tommyblue.it/post/api-authentication-with-phoenix-and-react-part-1/</link>
+      <pubDate>Wed, 28 Mar 2018 20:08:09 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/api-authentication-with-phoenix-and-react-part-1/</guid>
+      <description>Scenario: you just wrote a cool web app using React for the frontend part and Phoenix as the API server. Then you realize everybody can poke around your stuff and you decide it’s time to restrict the access to known users, how to do it?
+I’ll configure a Phoenix server to manage access tokens, used by a React app to make authenticated calls.
+This blog post only deals with the backend part and consists of these steps:</description>
+    </item>
+    
+  </channel>
+</rss>

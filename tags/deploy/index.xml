@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/deploy/</link>
+    <description>Recent content in Deploy on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Apr 2014 06:59:27 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/deploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to logrotate rails logs</title>
+      <link>https://tommyblue.it/post/how-to-logrotate-rails-logs/</link>
+      <pubDate>Fri, 11 Apr 2014 06:59:27 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/how-to-logrotate-rails-logs/</guid>
+      <description>If you deploy a rails app forgetting to configure logs automatic rotation, few weeks later won&amp;rsquo;t be difficult to find something like this:
+$ ls -lh log/production.log -rw-rw-r-- 1 www-data www-data 93,2M apr 10 17:49 production.log  Think if you have to find some error log inside a 100MB file, not easy&amp;hellip; :)
+Setting log rotation isn&amp;rsquo;t difficult at all. I know two main ways.
+Use syslog This is a really easy solution.</description>
+    </item>
+    
+  </channel>
+</rss>

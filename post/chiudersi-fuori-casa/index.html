@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Chiudersi fuori casa - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Chiudersi fuori casa</h2>
+      <section class="post-meta">
+        <time class="post-date">May 16, 2008</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>o quasi \&ldquo;al volo\&ldquo;&rdquo;</p>
+
+<p>+++</p>
+
+<p><a href='/uploads/2008/04/lvm.png'><img src="/uploads/2008/04/lvm-300x259.png" alt="Schema LVM" title="Schema LVM" width="300" height="259" class="alignleft size-medium wp-image-140" /></a>Nel mio MacMini, oltre a MacOSX, erano installate due distribuzioni Linux: Gentoo 2007.0 e Fedora 8.</p>
+
+<p>Dato che Gentoo non ne ha voluto sapere di far partire X ho iniziato ad usare in maniera assidua Fedora e ben presto è finito lo spazio sulla radice <em>/</em>, quindi ho deciso di cancellare il volume logico di Gentoo ed espandere quello di Fedora, insomma il vero pane di <strong>LVM</strong>.</p>
+
+<p>Di seguito qualche appunto dato che, come avrete capito, questo blog è la mia <strong>memoria ausiliaria</strong> :)
+
+Tanto per cominciare, dato che uso LVM per la radice, non ho potuto utilizzare l&rsquo;ottimo <strong>gestore di LVM</strong> presente in Fedora ed ho quindi riavviato usando il <strong>cd minimale di Gentoo che supporta LVM</strong>.
+Prima però, col suddetto tool ho eliminato il volume <em>lvm0-gentoo</em>. Il tutto è molto user-friendly e non sto quindi a spiegare come si fa.</p>
+
+<p>Appena avviato Gentoo bisogna caricare il modulo <em>dm-mod</em> con:
+<code>~# modprobe dm-mod</code></p>
+
+<p>quindi attiviamo il gruppo di volumi logici che, nel mio caso, si trova in <em>/dev/lvm0</em>
+<code>~# vgchange -a y /dev/lvm0</code></p>
+
+<p>e diamogli uno sguardo:
+<code>~# vgdisplay /dev/lvm0</code></p>
+
+<p><em>Attenzione in entrambi i precedenti comandi a non usare trailing slashes altrimenti non funziona.</em>
+Notiamo lo spazio libero:
+<code>Free PE  <sup>112</sup>&frasl;<sub>3</sub>.50GB</code></p>
+
+<p>Per espandere un volume possiamo usare entrambe le unità  di misura, io ho usato la prima:
+<code>~# lvextend -l+112 /dev/lvm0/fedora</code></p>
+
+<p>altrimenti avrei potuto usare:
+<code>~# lvextend -L+3.50G /dev/lvm0/fedora</code></p>
+
+<p>Per concludere bisogna estendere anche il filesystem, nel mio caso <em>ext3</em>. Prima però bisogna eseguirne un check:
+<code>~# e2fsck -f /dev/lvm0/fedora
+[..]
+~# resize2fs /dev/lvm0/fedora
+resize2fs 1.39 (29-May-2006)
+Resizing the filesystem on /dev/lvm0/fedora to 1941504 (4k) blocks
+The filesystem on /dev/lvm0/fedora is now 1941504 blocks long.</code></p>
+
+<p>Finito, riavviando la radice adesso ha le nuove dimensioni e per l&rsquo;ennesima <strong>l&rsquo;aver usato LVM mi ha risparmiato molte imprecazioni e, forse, formattazioni&hellip;</strong></p>
+
+<p><strong>Link utili</strong>
+<a href="http://tldp.org/HOWTO/LVM-HOWTO/">http://tldp.org/HOWTO/LVM-HOWTO/</a>
+<a href="http://web.mit.edu/rhel-doc/3/rhel-sag-it-3/ch-lvm-intro.html">http://web.mit.edu/rhel-doc/3/rhel-sag-it-3/ch-lvm-intro.html</a>
+<a href="http://it.wikipedia.org/wiki/Gestore_logico_dei_volumi">http://it.wikipedia.org/wiki/Gestore_logico_dei_volumi</a></p>
+
+<p><strong>Edit:</strong>
+Aggiungo che per estendere una partizione con filesystem XFS è sufficiente:
+<code>~# xfs_growfs /home
+</code>
+nel caso della partizione home. Il tutto deve essere eseguito con la <strong>partizione montata</strong> :)</p>
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/debian/">debian</a>
+          <a href="https://tommyblue.it/tags/vulnerability/">vulnerability</a>
+          <a href="https://tommyblue.it/tags/software-libero/">software libero</a>
+          <a href="https://tommyblue.it/tags/openssl/">openssl</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

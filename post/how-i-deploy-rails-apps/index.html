@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      How I deploy Rails apps - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">How I deploy Rails apps</h2>
+      <section class="post-meta">
+        <time class="post-date">July 17, 2013</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<p>In various mailing lists I read a lot of threads about deploying a Rails app. I want to contribute to the topic with this post, where I&rsquo;ll describe how I&rsquo;m now deploying my rails apps in a VPS (actually it&rsquo;s not a virtual but a physical server, but it&rsquo;s the same..).</p>
+
+<p>In the past I used <a href="https://www.phusionpassenger.com/">Pushion Passenger</a> but it was a very young project and when <a href="http://unicorn.bogomips.org/">Unicorn</a> showed up, I felt in love :)
+I wrote a <a href="http://www.tommyblue.it/2009/11/14/deploy-di-applicazioni-rails-con-unicorn-e-nginx">similar post</a> some years ago, the idea is the same, but the structure is now more solid.</p>
+
+<p>The tools I&rsquo;m now using are:</p>
+
+<ul>
+<li>Unicorn as Rack HTTP server</li>
+<li><a href="http://nginx.org/">Nginx</a> as proxy server</li>
+<li>Supervise (part of Daemontools) to monitor the unicorn app</li>
+<li><a href="https://github.com/capistrano/capistrano">Capistrano</a> to manage the deploy</li>
+<li><a href="https://github.com/sstephenson/rbenv">Rbenv</a> to manage the ruby environment</li>
+</ul>
+
+<p>The server&rsquo;s o.s. is Ubuntu 12.04 LTS.</p>
+
+<h2 id="rbenv">Rbenv</h2>
+
+<p>To install rbenv and ruby-build:</p>
+
+<pre><code>sudo apt-get install build-essential zlib1g-dev openssl libopenssl-ruby1.9.1 libssl-dev libruby1.9.1 libreadline-dev git-core
+git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+echo 'export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;' &gt;&gt; ~/.bashrc
+echo 'eval &quot;$(rbenv init -)&quot;' &gt;&gt; ~/.bashrc
+exec $SHELL -l
+mkdir -p ~/.rbenv/plugins
+cd ~/.rbenv/plugins
+git clone git://github.com/sstephenson/ruby-build.git
+rbenv install 2.0.0-p247
+rbenv rehash
+rbenv global 2.0.0-p247
+rbenv local 2.0.0-p247
+</code></pre>
+
+<p>Just check if everything went ok:</p>
+
+<pre><code>$ ruby -v
+ruby 2.0.0p247 (2013-06-27 revision 41674) [x86_64-linux]
+</code></pre>
+
+<p>Read <a href="http://robots.thoughtbot.com/post/47273164981/using-rbenv-to-manage-rubies-and-gems">this post</a> to switch to Rbenv if you&rsquo;re using <a href="https://rvm.io/">RVM</a></p>
+
+<h2 id="capistrano">Capistrano</h2>
+
+<p>Create the required folder in the server:</p>
+
+<pre><code>mkdir ~/apps
+</code></pre>
+
+<p>Now configure your app to be deployed:</p>
+
+<pre><code>cd ~/my_app_path
+echo &quot;gem 'capistrano'&quot; &gt;&gt; Gemfile
+bundle install
+capify .
+</code></pre>
+
+<p>edit the <em>Capfile</em> file if you need, then edit <em>config/deploy.rb</em>. This is a working example:</p>
+
+<pre><code class="language-prettyprint">
+require &quot;bundler/capistrano&quot;
+require &quot;capistrano-rbenv&quot;
+set :rbenv_ruby_version, &quot;2.0.0-p247&quot;
+
+set :user, &quot;server_username&quot;
+set :application, &quot;my_app&quot;
+set :deploy_to, &quot;/home/#{user}/apps/#{application}&quot;
+set :deploy_via, :remote_cache
+
+set :use_sudo, false
+set :scm, :git
+set :repository,  &quot;your_app_git_repo&quot;
+
+default_run_options[:pty] = true
+set :ssh_options, { forward_agent: true }
+
+server &quot;my_server.my_domain&quot;, :web, :app, :db, primary: true
+
+set :branch, &quot;master&quot;
+set :rails_env, &quot;production&quot;
+
+after &quot;deploy&quot;, &quot;deploy:cleanup&quot; # keep only the last 5 releases
+
+# Daemontools start/stop
+namespace :deploy do
+  %w[start stop restart].each do |command|
+    desc &quot;#{command} unicorn server&quot;
+    task command, roles: :app, except: {no_release: true} do
+      if command == &quot;start&quot;
+        sudo &quot;/usr/bin/svc -u /etc/service/my_app&quot;
+      elsif command == &quot;stop&quot;
+        sudo &quot;/usr/bin/svc -d /etc/service/my_app&quot;
+      else
+        sudo &quot;/usr/bin/svc -t /etc/service/my_app&quot;
+      end
+    end
+  end
+
+  task :setup_config, roles: :app do
+    run &quot;mkdir -p #{shared_path}/config&quot;
+  end
+  after &quot;deploy:setup&quot;, &quot;deploy:setup_config&quot;
+
+  task :symlink_config, roles: :app do
+    run &quot;ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml&quot;
+  end
+  after &quot;deploy:finalize_update&quot;, &quot;deploy:symlink_config&quot;
+
+  desc &quot;Make sure local git is in sync with remote.&quot;
+  task :check_revision, roles: :web do
+    unless `git rev-parse HEAD` == `git rev-parse origin/#{branch}`
+      puts &quot;WARNING: HEAD is not the same as origin/#{branch}&quot;
+      puts &quot;Run `git push` to sync changes.&quot;
+      exit
+    end
+  end
+  before &quot;deploy&quot;, &quot;deploy:check_revision&quot;
+end
+
+</code></pre>
+
+<p>You can create the required folders with:</p>
+
+<pre><code>cap deploy:setup
+</code></pre>
+
+<p>Log in to the server and check the <em>~/apps/my_app/shared</em> folder. Add these folders if they don&rsquo;t exist:</p>
+
+<pre><code>cd ~/apps/my_app/shared
+mkdir config logs pids sockets
+</code></pre>
+
+<p>in the <em>config</em> folder create a <em>database.yml</em> file with the rails production environment configurations.</p>
+
+<h2 id="unicorn">Unicorn</h2>
+
+<p>Add the unicorn gem to the rails app:</p>
+
+<pre><code>cd ~/my_app_path
+echo &quot;gem 'unicorn'&quot; &gt;&gt; Gemfile
+bundle install
+</code></pre>
+
+<p>Add the unicorn configuration in the <em>shared/config/unicorn.rb</em> file (in the server):</p>
+
+<pre><code class="language-prettyprint">
+worker_processes 2
+working_directory &quot;/home/my_user/apps/my_app/current&quot; # available in 0.94.0+
+listen &quot;/home/my_user/apps/my_app/shared/sockets/my_app.sock&quot;, :backlog =&gt; 64
+timeout 30
+pid &quot;/home/my_user/apps/my_app/shared/pids/unicorn.pid&quot;
+stderr_path &quot;/home/my_user/apps/my_app/shared/log/unicorn.stderr.log&quot;
+stdout_path &quot;/home/my_user/apps/my_app/shared/log/unicorn.stdout.log&quot;
+
+preload_app true
+GC.respond_to?(:copy_on_write_friendly=) and
+  GC.copy_on_write_friendly = true
+
+before_fork do |server, worker|
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.connection.disconnect!
+end
+
+after_fork do |server, worker|
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.establish_connection
+end
+
+</code></pre>
+
+<p>To launch unicorn I create the <em>~/service</em> folder. There I create a folder for each project. So:</p>
+
+<pre><code>mkdir -p ~/service/my_app
+</code></pre>
+
+<p>Then the required files.</p>
+
+<p><strong>~/service/my_app/run (must be executable)</strong></p>
+
+<pre><code class="language-prettyprint">
+#!/bin/bash
+
+exec su - my_user -c '/home/my_user/service/load_my_app.sh bundle exec unicorn_rails -E production -c /home/my_user/apps/my_app/shared/config/unicorn.rb'
+# If you want to launch unicorn manually use te line below instead of the line above (use sudo!). Useful for debugging
+# exec su - my_user -c '/home/my_user/service/load_my_app.sh bundle exec unicorn_rails -E production -l /home/my_user/apps/my_app/shared/sockets/my_app.sock'
+
+</code></pre>
+
+<p><strong>~/service/load_my_app.sh</strong></p>
+
+<pre><code class="language-prettyprint">
+#!/bin/bash
+
+export RAILS_ENV=&quot;production&quot;
+export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;
+eval &quot;$(rbenv init -)&quot;
+cd /home/my_user/apps/my_app/current/
+exec $@
+
+</code></pre>
+
+<p>As pointed in the comment, you can use the <em>run</em> file to test the app, just modify the file then launch it as root:</p>
+
+<pre><code>cd ~/service/my_app
+sudo ./run
+</code></pre>
+
+<p>You&rsquo;ll see the familiar unicorn startup process, then it will listen for connections in the given socket.</p>
+
+<p>That&rsquo;s it, now jump to supervise</p>
+
+<h2 id="daemontools">Daemontools</h2>
+
+<p>Install the required packages:</p>
+
+<pre><code>sudo apt-get install daemontools daemontools-run
+</code></pre>
+
+<p>After this command you&rsquo;ll have the <em>svc</em> executable. Before using it, create the symbolic link in the <em>/etc/service</em> folder:</p>
+
+<pre><code>cd /etc/service
+sudo ln -s /home/my_user/service/my_app
+</code></pre>
+
+<p>Supervise automatically launches, at server sturtup, the <em>run</em> executable in the folders present in <em>/etc/service/</em></p>
+
+<p>To manually startup the app, use <em>svc</em>:</p>
+
+<pre><code>sudo svc -u /etc/service/my_app
+</code></pre>
+
+<p>This is the same command used by capistrano during deploy (se configuration above).</p>
+
+<h2 id="nginx">Nginx</h2>
+
+<p>If everything went as expected, the rails app is running and listening for connections in the unix socket at <em>/home/my_user/apps/my_app/shared/sockets/my_app.sock</em>. Now configure Nginx to use that socket.</p>
+
+<p><strong>/etc/nginx/sites-available/www.my_app.my_domain</strong></p>
+
+<pre><code class="language-prettyprint">
+upstream backend_my_app {
+  server unix:/home/my_user/apps/my_app/shared/sockets/my_app.sock fail_timeout=0;
+}
+
+server {
+	listen [::]:80;
+
+  client_max_body_size 4G;
+  keepalive_timeout 5;
+
+  try_files $uri/index.html $uri.html $uri @app;
+
+	root /home/my_user/apps/my_app/current/public/;
+	index index.html index.htm;
+
+	server_name my_app.my_domain www.my_app.my_domain;
+
+  location @app {
+    gzip_static on;
+    proxy_pass http://backend_my_app;
+    proxy_redirect off;
+
+    proxy_set_header        Host    $host;
+    proxy_set_header        X-Real-IP       $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+
+    root /home/my_user/apps/my_app/current/public/;
+    index  index.html index.htm;
+  }
+
+  location ~* ^/font.+\.(svg|ttf|woff|eot)$ {
+    root /home/my_user/apps/my_app/current/public/;
+  }
+
+  error_page   500 502 503 504  /50x.html;
+  location = /50x.html {
+    root   /var/www/nginx-default;
+  }
+
+  access_log  /var/log/nginx/access.log;
+  error_log  /var/log/nginx/error.log;
+}
+
+</code></pre>
+
+<p>Symlink this file in <em>/etc/nginx/sites-enabled/</em> and restart nginx, your app should be online.</p>
+
+<p>When you&rsquo;ll deploy a new version of the app, Capistrano will require the sudo password to send a TERM signal to supervise, which will restart the rails app.</p>
+
+<p>That&rsquo;s it, it seems a lot of configuration (and maybe is) but it works great and there are very little differences between the projects, so <strong>CTRL-C+CTRL-V</strong> works great! :)</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="https://tommyblue.it/tags/rails/">rails</a>
+          <a href="https://tommyblue.it/tags/ruby/">ruby</a>
+          <a href="https://tommyblue.it/tags/unicorn/">unicorn</a>
+          <a href="https://tommyblue.it/tags/supervise/">supervise</a>
+          <a href="https://tommyblue.it/tags/rbenv/">rbenv</a>
+          <a href="https://tommyblue.it/tags/capistrano/">capistrano</a>
+          <a href="https://tommyblue.it/tags/nginx/">nginx</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

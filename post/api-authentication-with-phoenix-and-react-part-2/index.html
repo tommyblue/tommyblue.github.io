@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      API Authentication with Phoenix and React - part 2 - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+        <img src="/images/2018/03/1_-MTuYZ4k46A8JJdWlq_x5A-1.png"></img>
+      
+      <h2 class="post-title">API Authentication with Phoenix and React - part 2</h2>
+      <section class="post-meta">
+        <time class="post-date">March 31, 2018</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<p><a href="https://www.tommyblue.it/2018/03/29/api-authentication-with-phoenix-and-react-part-1/">In the first part of this post</a> I&rsquo;ve shown how to configure the API server to let the user authenticate, return an authentication token, and request it to access protected routes.
+Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app to consume that API and manage authentication.</p>
+
+<p>The app uses <a href="https://reacttraining.com/react-router/">React Router</a> to manage routes and <a href="https://redux.js.org/">Redux</a> for the state of the app.</p>
+
+<h2 id="protect-private-routes">Protect private routes</h2>
+
+<p>I&rsquo;m going to define a <code>PrivateRoute</code> component as a wrapper around <code>Route</code>. The component will check the user authentication.</p>
+
+<p>The router configuration will have a standard <code>Route</code> component for the <code>Login</code> page and will use <code>PrivateRoute</code> for the rest of the routes:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">Router</span>&gt;
+    &lt;<span style="color:#f92672">Switch</span>&gt;
+        &lt;<span style="color:#f92672">Route</span> <span style="color:#a6e22e">path</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/login&#39;</span> <span style="color:#a6e22e">component</span><span style="color:#f92672">=</span><span style="color:#e6db74">{Login}</span> /&gt;
+        &lt;<span style="color:#f92672">PrivateRoute</span> <span style="color:#a6e22e">path</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/private&#39;</span> <span style="color:#a6e22e">component</span><span style="color:#f92672">=</span><span style="color:#e6db74">{PrivateComponent}/</span>&gt;
+    &lt;/<span style="color:#f92672">Switch</span>&gt;
+&lt;/<span style="color:#f92672">Router</span>&gt;</code></pre></div>
+
+<p>The <code>PrivateRoute</code> component will check the <code>isAuthenticated</code> flag in the state and will redirect back to login if <code>false</code> or will render the private component otherwise:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Route</span>, <span style="color:#a6e22e">Redirect</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-router-dom&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">connect</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mapStateToProps</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span> =&gt; {
+    <span style="color:#66d9ef">return</span> {
+        <span style="color:#a6e22e">isAuthenticated</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">isAuthenticated</span>,
+    };
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrivateRoute</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+    <span style="color:#a6e22e">render</span>() {
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">isAuthenticated</span>) {
+            <span style="color:#66d9ef">return</span> (
+                &lt;<span style="color:#f92672">Redirect</span>
+                    <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span>
+                    <span style="color:#a6e22e">pathname</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#34;/</span><span style="color:#a6e22e">login</span><span style="color:#960050;background-color:#1e0010">&#34;,</span>
+                    <span style="color:#a6e22e">state</span><span style="color:#960050;background-color:#1e0010">:</span> { <span style="color:#a6e22e">from</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">this.props.location</span> }
+                    }}
+                /&gt;
+            );
+        }
+
+        <span style="color:#66d9ef">return</span> (
+            &lt;<span style="color:#f92672">Route</span> <span style="color:#a6e22e">component</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.props.Component}</span> {<span style="color:#a6e22e">...this.props</span>} /&gt;
+        );
+    }
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">connect</span>(<span style="color:#a6e22e">mapStateToProps</span>)(<span style="color:#a6e22e">PrivateRoute</span>);</code></pre></div>
+
+<h2 id="sign-in-and-receive-the-token-from-the-server">Sign in and receive the token from the server</h2>
+
+<p>The <code>Login</code> component will simply show a form and will manage the initial authentication, saving the token in a cookie for later use:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">connect</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+
+<span style="color:#66d9ef">import</span> {
+    <span style="color:#a6e22e">signIn</span>,
+} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../actions&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mapStateToProps</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span> =&gt; {
+    <span style="color:#66d9ef">return</span> {
+        <span style="color:#a6e22e">isAuthenticated</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">isAuthenticated</span>,
+    };
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mapDispatchToProps</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">dispatch</span> =&gt; {
+    <span style="color:#66d9ef">return</span> {
+        <span style="color:#a6e22e">onSignIn</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">email</span>, <span style="color:#a6e22e">password</span>) =&gt; <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">signIn</span>(<span style="color:#a6e22e">email</span>, <span style="color:#a6e22e">password</span>)),
+    };
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Login</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+        <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">onSignIn</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">onSignIn</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">this</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>};
+    }
+
+    <span style="color:#a6e22e">render</span>() {
+        <span style="color:#66d9ef">return</span> (
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span>&gt;
+                &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span>&gt;<span style="color:#a6e22e">Login</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+                {<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">isAuthenticated</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">alreadyAuthenticated</span>() <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">form</span>()}
+            &lt;/<span style="color:#f92672">div</span>&gt;
+        );
+    }
+
+    <span style="color:#a6e22e">alreadyAuthenticated</span>() {
+        <span style="color:#66d9ef">return</span> (<span style="color:#e6db74">&#34;You&#39;re already authenticated.&#34;</span>)
+    }
+
+    <span style="color:#a6e22e">form</span>() {
+        <span style="color:#66d9ef">return</span> (
+            &lt;<span style="color:#f92672">form</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;field&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;label&#34;</span>&gt;<span style="color:#a6e22e">Email</span>&lt;/<span style="color:#f92672">label</span>&gt;
+                    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;control&#34;</span>&gt;
+                        &lt;<span style="color:#f92672">input</span>
+                            <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input&#34;</span>
+                            <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;email&#34;</span>
+                            <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Your email address&#34;</span>
+                            <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.state.email}</span>
+                            <span style="color:#a6e22e">autoFocus</span><span style="color:#f92672">=</span><span style="color:#e6db74">{true}</span>
+                            <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{(e)</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>})}
+                        <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+                    &lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;/<span style="color:#f92672">div</span>&gt;
+
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;field&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;label&#34;</span>&gt;<span style="color:#a6e22e">Password</span>&lt;/<span style="color:#f92672">label</span>&gt;
+                    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;control&#34;</span>&gt;
+                        &lt;<span style="color:#f92672">input</span>
+                            <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input&#34;</span>
+                            <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span>
+                            <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Your password&#34;</span>
+                            <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.state.password}</span>
+                            <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{(e)</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({...<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>})}
+                        <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+                    &lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;/<span style="color:#f92672">div</span>&gt;
+
+                &lt;<span style="color:#f92672">button</span>
+                    <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button is-primary&#34;</span>
+                    <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{this.onSignIn}</span>
+                &gt;<span style="color:#a6e22e">Sign</span> <span style="color:#66d9ef">in</span>&lt;/<span style="color:#f92672">button</span>&gt;
+            &lt;/<span style="color:#f92672">form</span>&gt;
+        );
+    }
+
+    <span style="color:#a6e22e">onSignIn</span>() {
+        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">onSignIn</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">email</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">password</span>);
+    }
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">connect</span>(
+    <span style="color:#a6e22e">mapStateToProps</span>,
+    <span style="color:#a6e22e">mapDispatchToProps</span>
+)(<span style="color:#a6e22e">Login</span>);</code></pre></div>
+
+<p>The <code>signIn</code> action is where the &ldquo;magic&rdquo; happens:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signIn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">email</span>, <span style="color:#a6e22e">password</span>) =&gt; ((<span style="color:#a6e22e">dispatch</span>) =&gt; {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`http://&lt;server_url&gt;/api/sessions/sign_in}`</span>, {
+        <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>,
+        <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+            <span style="color:#e6db74">&#39;Accept&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>,
+            <span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/json&#39;</span>
+        },
+        <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({<span style="color:#a6e22e">email</span>, <span style="color:#a6e22e">password</span>}),
+      }).<span style="color:#a6e22e">then</span>(
+        <span style="color:#a6e22e">response</span> =&gt; {
+            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
+                <span style="color:#75715e">// Manage error
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">errorOnFetch</span>(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>));
+            }
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>().<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">signInSuccessfull</span>(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">data</span>)));
+        },
+        <span style="color:#a6e22e">error</span> =&gt; {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">errorOnFetch</span>(<span style="color:#a6e22e">error</span>))
+        }
+    );
+});
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signInSuccessfull</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">data</span>) =&gt; {
+    <span style="color:#a6e22e">setAuthToken</span>(<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">token</span>);
+    <span style="color:#66d9ef">return</span> {
+        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">AUTHENTICATION_SUCCEDED</span>,
+    }
+};</code></pre></div>
+
+<p>Two main things happen in the <code>signInSuccessfull</code> method: the token returned by the server is passed to the <code>setAuthToken</code> method and the <code>AUTHENTICATION_SUCCEEDED</code> action is returned to the redux reducer.</p>
+
+<p>The reducer sets the <code>isAuthenticated</code> flag to <code>true</code> (do you remember the check in the <code>PrivateRoute</code> component?):
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mainReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">AUTHENTICATION_SUCCEDED</span><span style="color:#f92672">:</span>
+            <span style="color:#66d9ef">return</span> ({...<span style="color:#a6e22e">state</span>,
+                <span style="color:#a6e22e">isAuthenticated</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+            });
+        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">AUTHENTICATION_SIGNOUT</span><span style="color:#f92672">:</span>
+            <span style="color:#66d9ef">return</span> ({...<span style="color:#a6e22e">state</span>,
+                <span style="color:#a6e22e">isAuthenticated</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
+            });
+    }
+}</code></pre></div></p>
+
+<p>The <code>setAuthToken</code> method saves the token in a cookie, so that it will be then available for the next requests:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setAuthToken</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">token</span>) =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cookies</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Cookies</span>();
+    <span style="color:#a6e22e">cookies</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;my_auth_token&#39;</span>, <span style="color:#a6e22e">token</span>, {
+        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/&#39;</span>
+    });
+};</code></pre></div>
+
+<p>I&rsquo;m using the <a href="https://github.com/reactivestack/cookies/tree/master/packages/universal-cookie">universal-cookie</a> package here, so we need to install it:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add universal-cookie</code></pre></div>
+
+<p>Other useful methods will permit to get the cookie or delete it:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getAuthToken</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cookies</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Cookies</span>();
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cookies</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;my_auth_token&#39;</span>);
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">removeAuthToken</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cookies</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Cookies</span>();
+    <span style="color:#a6e22e">cookies</span>.<span style="color:#a6e22e">remove</span>(<span style="color:#e6db74">&#39;my_auth_token&#39;</span>, {
+        <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/&#39;</span>,
+    });
+};</code></pre></div>
+
+<h2 id="use-the-token-for-private-routes">Use the token for private routes</h2>
+
+<p>At this point we have a valid token saved in a cookie. We just need to use it when making a request for a private API endpoint.</p>
+
+<p>I&rsquo;ll use a wrapper function around <code>fetch</code> to add the Authorization header to the requests:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">authFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">options</span>) =&gt; (
+    <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">mergeAuthHeaders</span>(<span style="color:#a6e22e">options</span>)).<span style="color:#a6e22e">then</span>(
+        <span style="color:#a6e22e">response</span> =&gt; {
+            <span style="color:#75715e">// Sign out if we receive a 401!
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">401</span>) {
+                <span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">signOut</span>());
+                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#34;Unauthorized&#34;</span>);
+            }
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>;
+        },
+        <span style="color:#a6e22e">error</span> =&gt; <span style="color:#a6e22e">error</span>
+    )
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mergeAuthHeaders</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">baseOptions</span>) =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_</span>.<span style="color:#a6e22e">isUndefined</span>(<span style="color:#a6e22e">baseOptions</span>) <span style="color:#f92672">?</span> {} <span style="color:#f92672">:</span> <span style="color:#a6e22e">baseOptions</span>;
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">_</span>.<span style="color:#a6e22e">has</span>(<span style="color:#a6e22e">options</span>, <span style="color:#e6db74">&#39;headers&#39;</span>)) {
+        <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">headers</span> <span style="color:#f92672">=</span> {};
+    }
+    <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">headers</span> <span style="color:#f92672">=</span> {
+        ...<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">headers</span>,
+        <span style="color:#e6db74">&#39;Authorization&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`Bearer </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">getAuthToken</span>()<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
+    };
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">options</span>;
+}</code></pre></div>
+
+<p>The <code>authFetch</code> method receives a URL to fetch and the options for the <code>fetch</code> method. It merges the authentication header in the options and makes the request.
+If it receives a 401 response, then it makes the sign out, deleting the cookie and setting the <code>isAuthenticated</code> flag to <code>false</code>:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signOut</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">removeAuthToken</span>();
+    <span style="color:#66d9ef">return</span> {
+        <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">AUTHENTICATION_SIGNOUT</span>,
+    }
+};</code></pre></div>
+
+<p>That&rsquo;s it, you should probably add more logic to manage side cases and errors, but this is enough to consume the APIs we built.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/elixir/">elixir</a>
+          <a href="https://tommyblue.it/tags/react/">react</a>
+          <a href="https://tommyblue.it/tags/phoenix/">phoenix</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

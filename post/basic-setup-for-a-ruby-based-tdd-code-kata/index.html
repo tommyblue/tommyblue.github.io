@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Basic setup for a Ruby-based TDD Code Kata - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Basic setup for a Ruby-based TDD Code Kata</h2>
+      <section class="post-meta">
+        <time class="post-date">June 24, 2014</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>In the last weeks with the guys of the <a href="http://firenze.ruby-it.org/">Firenze Ruby Social Club</a> we started to think about organizing some <a href="http://en.wikipedia.org/wiki/Kata_%28programming%29">Code Katas</a> to play with <a href="http://en.wikipedia.org/wiki/Test-driven_development">test-driven development</a> and yesterday we met to play with <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">The Game of Life</a>.</p>
+
+<p>We used Ruby and RSpec with a simple setup that I want to report here if you&rsquo;d like to play with some katas.</p>
+
+<p>Although probably a Kata exercise won&rsquo;t need many gems, in ruby projects I like to always use a <code>Gemfile</code> with the required gems:</p>
+
+<pre><code class="language-prettyprint">ruby '2.1.2'
+source 'https://rubygems.org'
+gem 'rspec'
+</code></pre>
+
+<p>After a <code>bundle install</code> you&rsquo;re ready to start writing some code (if you don&rsquo;t have the <code>bundle</code> command, install the bundler gem with <code>gem install bundler</code>).</p>
+
+<p>A basic example to begin TDD with <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">the Game of Life</a> could be this:</p>
+
+<p><code>game_of_life_spec.rb</code>:</p>
+
+<pre><code class="language-prettyprint">require './game_of_life'
+
+describe GameOfLife::Universe do
+  it &quot;should have an initial size&quot; do
+    u = GameOfLife::Universe.new(6)
+    expect(u.size).to eq(36)
+  end
+end
+</code></pre>
+
+<p><code>game_of_life.rb</code>:</p>
+
+<pre><code class="language-prettyprint">module GameOfLife
+  class Universe
+    attr_reader :size
+    def initialize(side)
+      @size = side**2
+    end
+  end
+end
+</code></pre>
+
+<p>With this minimalistic setup, the test passes:</p>
+
+<pre><code class="language-prettyprint">~$ bundle exec rspec --color game_of_life_spec.rb
+.
+
+Finished in 0.00095 seconds (files took 0.0966 seconds to load)
+1 example, 0 failures
+</code></pre>
+
+<p>You&rsquo;re now ready to start playing with TDD in Ruby :)</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/ruby/">ruby</a>
+          <a href="https://tommyblue.it/tags/tdd/">tdd</a>
+          <a href="https://tommyblue.it/tags/kata/">kata</a>
+          <a href="https://tommyblue.it/tags/testing/">testing</a>
+          <a href="https://tommyblue.it/tags/rspec/">rspec</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

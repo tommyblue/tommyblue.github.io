@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Apache - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://tommyblue.it/tags/apache/index.xml" rel="alternate" type="application/rss+xml" title="TommyBlue.it" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="tag-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+
+<main class="content" role="main">
+  
+    
+      <h2 class="tag-title">Apache</h2>
+    
+  
+
+	<div class="extra-pagination">
+	    
+
+<nav class="pagination" role="navigation">
+    
+    <span class="page-number">Page 1 of 1</span>
+    
+</nav>
+
+	</div>
+  
+  <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/">Configurare i check passivi in Nagios per l&#39;integrazione con Munin</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      <p>Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con <a href="http://www.nagios.org/download/addons" target="_blank">NSCA</a> e come usare Munin per avvertire Nagios di ciò che non va&rsquo;.</p>
+
+<p>Intanto ricordo i link alla prima e alla seconda parte della guida:
+<ul>
+    <li><a href="http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/">Parte 1</a></li>
+    <li><a href="http://www.tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/">Parte 2</a></li>
+</ul>
+Tornando a Nagios e Munin: l&rsquo;uso dei check passivi può tornare utile se si va ad installare Nagios in una rete in cui è già  presente Munin che, per chi non lo conoscesse, è un software che crea grafici di andamento di una lunga serie di servizi o aspetti dei server (anch&rsquo;esso configurabile con agenti su vari server e un&rsquo;applicazione centralizzata per la raccolta dei dati).
+Se Munin non fosse già  installato si può valutare una configurazione Nagios-centrica con i check effettuati da NRPE e i grafici fatti con <a href="http://nagiosgraph.sourceforge.net/" target="_blank">NagiosGraph</a>.</p> &hellip; <a class="read-more" href="/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">September 16, 2010</time>
+	</footer>
+</article>
+
+  
+  <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/">Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios â€“ parte 2</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      <p><a href="http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/"><strong>Leggi la prima parte della guida</strong></a></p>
+
+<p>In questa seconda parte della guida illustrerò alcune <strong>configurazioni di base</strong> per i check di <a title="Nagios" href="http://www.nagios.org/" target="_blank">Nagios</a> e l&rsquo;uso dell&rsquo;addon <strong>NRPE</strong> per check locali su sistemi remoti.
+<h3>La struttura</h3>
+In questa guida prenderò in considerazione la struttura qui si seguito che permette di illustrare vari tipi di configurazione:
+<p style="text-align: center;"><img class="aligncenter size-full wp-image-860" title="Schema Nagios" src="/uploads/2010/02/schema-nagios.jpg" alt="" width="450" height="454" /></p>
+Una panoramica sugli host e i servizi:
+<ul>
+    <li>Host A, server Linux con:
+<ul>
+    <li>Server HTTP Apache</li>
+    <li>VMWare Server con una macchina virtuale E con un server Zimbra</li>
+</ul>
+</li>
+    <li>Host B, server Linux con:
+<ul>
+    <li>Server HTTP Apache</li>
+    <li>Server MySQL</li>
+</ul>
+</li>
+</ul>
+Quindi E dipende da C che a sua volta dipende da A. Invece D dipende da B.
+Entrambi i server Apache rispondono sulle porte 80 e 443, l&rsquo;interfaccia di amministrazione di VMWare Server risponde sulla porta 8333 (con SSL).
+La macchina virtuale Zimbra fornisce i servizi SMTP, POP3 e le interfaccie di webmail e amministrazione (porta 7071).
+Infine nella macchina B il server MySQL risponde solo sull&rsquo;interfaccia locale, non è quindi possibile accedervi dall&rsquo;esterno.</p> &hellip; <a class="read-more" href="/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">February 17, 2010</time>
+	</footer>
+</article>
+
+  
+  <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/">Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios - parte 1</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      <p><img class="alignleft size-full wp-image-813" title="Embedded PC" src="/uploads/2010/02/embedded.jpg" alt="" width="300" height="254" />Se, come me, avete vari server a giro per il mondo a cui fare da baby-sitter, probabilmente avrete sentito la necessità  di avere tutto sotto controllo e di scoprire (e magari risolvere) i problemi non appena si presentano.</p>
+
+<p>Dopo aver configurato sistemi di monitoraggio per alcune P.A. e aziende, mi sono deciso a farlo anche per i miei server e descriverò in queste pagine ciò che ho fatto o sto ancora facendo.</p>
+
+<p>Dividerò questa guida in più parti, per renderla più leggibile e per poter facilmente aggiungere nuove parti via via che incremento le funzionalità  del sistema.</p> &hellip; <a class="read-more" href="/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">February 12, 2010</time>
+	</footer>
+</article>
+
+  
+  <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/post/apache2-in-ssl/">Apache2 in SSL</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Creazione del certificato macondo:~# rm -rf /root/CertAuth macondo:~# mkdir /root/CertAuth macondo:~# chmod 700 /root/CertAuth macondo:~# cd /root/CertAuth macondo:~/CertAuth# /usr/lib/ssl/misc/CA.pl -newca CA certificate filename (or enter to create) Making CA certificate ... Generating a 1024 bit RSA private key ...............++++++ ..............................................................++++++ writing new private key to './demoCA/private/cakey.pem' Enter PEM pass phrase: Verifying - Enter PEM pass phrase: ----- You are about to be asked to enter information that will be incorporated into your certificate request. &hellip; <a class="read-more" href="/post/apache2-in-ssl/">&raquo;</a>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">May 07, 2006</time>
+	</footer>
+</article>
+
+  
+  
+
+<nav class="pagination" role="navigation">
+    
+    <span class="page-number">Page 1 of 1</span>
+    
+</nav>
+
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Torrent on TommyBlue.it</title>
+    <link>https://tommyblue.it/categories/torrent/</link>
+    <description>Recent content in Torrent on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 May 2006 05:45:44 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/categories/torrent/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bittorrent - uso e gestione remota con screen</title>
+      <link>https://tommyblue.it/post/bittorrent-uso-e-gestione-remota-con-screen/</link>
+      <pubDate>Sun, 07 May 2006 05:45:44 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/post/bittorrent-uso-e-gestione-remota-con-screen/</guid>
+      <description>Il pacchetto da installare è bittorent Una volta installato si entra nella cartella creata per il download dei torrent e si lancia screen che emulerà un terminale. In questo terminale emulato si lancerà macondo:~$ btlaunchmanycurses . Viene usata dal programma una chiara interfaccia ncurses che mostra i download/upload attivi. Con questo programma tutti i file .torrent aggiunti alla cartella di download vengono automaticamente aggiunti ai download in corso. Se adesso volete scollegare screen dalla console è sufficiente usare Ctrl-a + Ctrl-d.</description>
+    </item>
+    
+  </channel>
+</rss>
