@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rspec on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/rspec/</link>
+    <link>http://tommyblue.it/categories/rspec/</link>
     <description>Recent content in Rspec on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 24 Jun 2014 10:53:00 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/rspec/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/rspec/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Basic setup for a Ruby-based TDD Code Kata</title>
-      <link>https://tommyblue.it/post/basic-setup-for-a-ruby-based-tdd-code-kata/</link>
+      <link>http://tommyblue.it/2014/06/24/basic-setup-for-a-ruby-based-tdd-code-kata/</link>
       <pubDate>Tue, 24 Jun 2014 10:53:00 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/basic-setup-for-a-ruby-based-tdd-code-kata/</guid>
+      <guid>http://tommyblue.it/2014/06/24/basic-setup-for-a-ruby-based-tdd-code-kata/</guid>
       <description>In the last weeks with the guys of the Firenze Ruby Social Club we started to think about organizing some Code Katas to play with test-driven development and yesterday we met to play with The Game of Life.
 We used Ruby and RSpec with a simple setup that I want to report here if you&amp;rsquo;d like to play with some katas.
 Although probably a Kata exercise won&amp;rsquo;t need many gems, in ruby projects I like to always use a Gemfile with the required gems:</description>

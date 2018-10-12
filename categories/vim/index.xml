@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vim on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/vim/</link>
+    <link>http://tommyblue.it/categories/vim/</link>
     <description>Recent content in Vim on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 01 Sep 2012 17:38:51 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/vim/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/vim/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Passare a Vim grazie ad Emacs</title>
-      <link>https://tommyblue.it/post/passare-a-vim-grazie-ad-emacs/</link>
+      <link>http://tommyblue.it/2012/09/01/passare-a-vim-grazie-ad-emacs/</link>
       <pubDate>Sat, 01 Sep 2012 17:38:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/passare-a-vim-grazie-ad-emacs/</guid>
+      <guid>http://tommyblue.it/2012/09/01/passare-a-vim-grazie-ad-emacs/</guid>
       <description>Grazie Sciamp per avermi convinto a passare a Vim parlandomi di Emacs :)
 Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambiare editor passando da Textmate a qualcos&amp;rsquo;altro, ho intravisto Sublime Text 2, ma volevo qualcosa di open source. Da un po&amp;rsquo; di tempo Alessandro stava rompendo le scatole a tutti su quanto è figo Emacs :) e avevo iniziato a lavorarci un po&amp;rsquo;, ma non sono mai riuscito ad entrarci in sintonia.</description>
     </item>
     
     <item>
       <title>Eliminare le righe di commento con Vim</title>
-      <link>https://tommyblue.it/post/eliminare-le-righe-di-commento-con-vim/</link>
+      <link>http://tommyblue.it/2010/01/21/eliminare-le-righe-di-commento-con-vim/</link>
       <pubDate>Thu, 21 Jan 2010 09:23:29 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/eliminare-le-righe-di-commento-con-vim/</guid>
+      <guid>http://tommyblue.it/2010/01/21/eliminare-le-righe-di-commento-con-vim/</guid>
       <description>Muovendo i miei primi passi nelle regular expressions ho cercato la regexp per eliminare le righe di commento da un file, ovviamente con Vim. Il risultato è questo: :g/^\s#./d mi resta da capire perché questa seconda regexp non funziona: :g/1+.*/d  # [return]   </description>
     </item>
     

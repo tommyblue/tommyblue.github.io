@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Memoria Ausiliaria on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/memoria-ausiliaria/</link>
+    <link>http://tommyblue.it/categories/memoria-ausiliaria/</link>
     <description>Recent content in Memoria Ausiliaria on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 04 Jul 2013 11:44:28 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/memoria-ausiliaria/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/memoria-ausiliaria/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Bip: un proxy IRC per rimanere sempre connessi</title>
-      <link>https://tommyblue.it/post/bip-un-proxy-irc-per-rimanere-sempre-connessi/</link>
+      <link>http://tommyblue.it/2013/07/04/bip-un-proxy-irc-per-rimanere-sempre-connessi/</link>
       <pubDate>Thu, 04 Jul 2013 11:44:28 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/bip-un-proxy-irc-per-rimanere-sempre-connessi/</guid>
+      <guid>http://tommyblue.it/2013/07/04/bip-un-proxy-irc-per-rimanere-sempre-connessi/</guid>
       <description>Bip è un proxy IRC, ovvero un demone che rimane collegato ai server IRC anche quando tu non lo sei. Quando poi ti ricolleghi a Bip ritrovi lo storico dei messaggi dalla tua ultima connessione.
 Configurare il demone Il demone può essere lanciato su un sever con un semplice:
 ~$ bip
@@ -25,30 +25,30 @@ Immediatamente il processo entra in background e rimane attivo finchè non lo si
     
     <item>
       <title>Accesso SSH inverso</title>
-      <link>https://tommyblue.it/post/accesso-ssh-inverso/</link>
+      <link>http://tommyblue.it/2011/11/10/accesso-ssh-inverso/</link>
       <pubDate>Thu, 10 Nov 2011 10:09:40 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/accesso-ssh-inverso/</guid>
+      <guid>http://tommyblue.it/2011/11/10/accesso-ssh-inverso/</guid>
       <description>Può tornare utile accedere via SSH ad un pc/server non pubblico. Capita ad esempio quando un cliente disperato sta provando a mettere le mani sul server impallato e tu stai cercando di dettargli i comandi al telefono (generalmente con pessimi risultati).
 Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&amp;rsquo;utente test, basta che digiti il comando: ssh -R 9000:127.</description>
     </item>
     
     <item>
       <title>Configurare su Linux la tastiera come su MacOSX</title>
-      <link>https://tommyblue.it/post/configurare-su-linux-la-tastiera-come-su-macosx/</link>
+      <link>http://tommyblue.it/2010/11/24/configurare-su-linux-la-tastiera-come-su-macosx/</link>
       <pubDate>Wed, 24 Nov 2010 17:12:56 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/configurare-su-linux-la-tastiera-come-su-macosx/</guid>
+      <guid>http://tommyblue.it/2010/11/24/configurare-su-linux-la-tastiera-come-su-macosx/</guid>
       <description>Saltando spesso da Mac a Fedora ho sempre odiato veder cambiare il comportamento della tastiera. Riassumo quindi i pochi passaggi necessari a riprodurre su Linux (quasi) lo stesso comportamento della tastiera in Mac.
 Innanzitutto il layout. La mia tastiera è &amp;ldquo;Internazionale Inglese&amp;rdquo;, ovvero, oltre alla disposizione USA, ha il tasto `~ a sinistra della z e il tasto Â§Â± a sinistra dell&amp;rsquo;1. Per ottenere questo layout ho impostato (in Gnome da Sistema &amp;gt; Preferenze &amp;gt; Tastiera) la tastiera USA e creato nella mia home il file .</description>
     </item>
     
     <item>
       <title>Sostituire un disco in un Raid 1 con mdadm</title>
-      <link>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-1-con-mdadm/</link>
+      <link>http://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</link>
       <pubDate>Tue, 28 Sep 2010 12:16:31 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
+      <guid>http://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
       <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
 La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
@@ -56,39 +56,39 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
     
     <item>
       <title>Eliminare le righe di commento con Vim</title>
-      <link>https://tommyblue.it/post/eliminare-le-righe-di-commento-con-vim/</link>
+      <link>http://tommyblue.it/2010/01/21/eliminare-le-righe-di-commento-con-vim/</link>
       <pubDate>Thu, 21 Jan 2010 09:23:29 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/eliminare-le-righe-di-commento-con-vim/</guid>
+      <guid>http://tommyblue.it/2010/01/21/eliminare-le-righe-di-commento-con-vim/</guid>
       <description>Muovendo i miei primi passi nelle regular expressions ho cercato la regexp per eliminare le righe di commento da un file, ovviamente con Vim. Il risultato è questo: :g/^\s#./d mi resta da capire perché questa seconda regexp non funziona: :g/1+.*/d  # [return]   </description>
     </item>
     
     <item>
       <title>Sostituzioni in Vim</title>
-      <link>https://tommyblue.it/post/sostituzioni-in-vim/</link>
+      <link>http://tommyblue.it/2009/09/10/sostituzioni-in-vim/</link>
       <pubDate>Thu, 10 Sep 2009 05:41:42 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/sostituzioni-in-vim/</guid>
+      <guid>http://tommyblue.it/2009/09/10/sostituzioni-in-vim/</guid>
       <description>Per sostituire un parola con un&amp;rsquo;altra in Vim il comando è il seguente: :rs/foo/bar/a dove r è il range, foo è la parola da sostituire con bar e a sono gli argomenti.
 Ad esempio per sostituire in tutto il file tutte le occorrenze di foo con bar il comando è: :%s/foo/bar/g Uteriori informazioni a questo indirizzo.</description>
     </item>
     
     <item>
       <title>Attivare un array raid software esistente con mdadm</title>
-      <link>https://tommyblue.it/post/attivare-un-array-raid-software-esistente-con-mdadm/</link>
+      <link>http://tommyblue.it/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/</link>
       <pubDate>Wed, 09 Sep 2009 05:53:20 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
+      <guid>http://tommyblue.it/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
       <description>Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
 Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
     </item>
     
     <item>
       <title>Usare i Tab in Vim</title>
-      <link>https://tommyblue.it/post/usare-i-tab-in-vim/</link>
+      <link>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</link>
       <pubDate>Mon, 02 Feb 2009 19:59:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/usare-i-tab-in-vim/</guid>
+      <guid>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</guid>
       <description>Splittare lo schermo e passare da un file all&amp;rsquo;altro con Vim non è certo la cosa più comoda del mondo&amp;hellip; e se ne devono essere accorti anche gli sviluppatori che, dalla versione 7, hanno implementato i Tab in Vim.
  Usarli è piuttosto semplice: :tabe nomefile per aprire un file in un tab e :tabp e :tabn per passare da uno all&amp;rsquo;altro  :D</description>
     </item>

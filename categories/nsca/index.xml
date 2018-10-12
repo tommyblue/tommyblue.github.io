@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nsca on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/nsca/</link>
+    <link>http://tommyblue.it/categories/nsca/</link>
     <description>Recent content in Nsca on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 16 Sep 2010 13:51:16 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/nsca/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/nsca/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Configurare i check passivi in Nagios per l&#39;integrazione con Munin</title>
-      <link>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</link>
+      <link>http://tommyblue.it/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/</link>
       <pubDate>Thu, 16 Sep 2010 13:51:16 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</guid>
+      <guid>http://tommyblue.it/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/</guid>
       <description>&lt;p&gt;Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con &lt;a href=&#34;http://www.nagios.org/download/addons&#34; target=&#34;_blank&#34;&gt;NSCA&lt;/a&gt; e come usare Munin per avvertire Nagios di ciò che non va&amp;rsquo;.&lt;/p&gt;
 
 &lt;p&gt;Intanto ricordo i link alla prima e alla seconda parte della guida:

@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Alix on TommyBlue.it</title>
-    <link>https://tommyblue.it/tags/alix/</link>
+    <link>http://tommyblue.it/tags/alix/</link>
     <description>Recent content in Alix on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 03 Aug 2011 12:41:51 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/tags/alix/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/tags/alix/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>IPv6 in pochi passi con ALIX e SixXS</title>
-      <link>https://tommyblue.it/post/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
+      <link>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
       <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
+      <guid>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
       <description>Come ormai saprete (1 - 2) ho un debole per gli embedded ALIX di PcEngines. In questo caso userò una scheda 2d13 con RTC, indispensabileÂ perchéÂ se il vostro orologio non è sincronizzato con quello del broker IPv4-IPv6 (Â±30 secondi) non avrete la connessione IPv6!
 Come da tradizione il sistema operativo è Debian Voyage, ma tutta la procedura può comunque essere applicata ad una qualsiasi macchina con installato un os Debian-based (a meno di qualche piccola modifica).</description>
     </item>
     
     <item>
       <title>Configurare i check passivi in Nagios per l&#39;integrazione con Munin</title>
-      <link>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</link>
+      <link>http://tommyblue.it/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/</link>
       <pubDate>Thu, 16 Sep 2010 13:51:16 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</guid>
+      <guid>http://tommyblue.it/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/</guid>
       <description>&lt;p&gt;Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con &lt;a href=&#34;http://www.nagios.org/download/addons&#34; target=&#34;_blank&#34;&gt;NSCA&lt;/a&gt; e come usare Munin per avvertire Nagios di ciò che non va&amp;rsquo;.&lt;/p&gt;
 
 &lt;p&gt;Intanto ricordo i link alla prima e alla seconda parte della guida:
@@ -40,16 +40,16 @@ Se Munin non fosse già  installato si può valutare una configurazione Nagios-
     
     <item>
       <title>Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios â€“ parte 2</title>
-      <link>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</link>
+      <link>http://tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-%C3%A2-parte-2/</link>
       <pubDate>Wed, 17 Feb 2010 13:01:37 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</guid>
+      <guid>http://tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-%C3%A2-parte-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/&#34;&gt;&lt;strong&gt;Leggi la prima parte della guida&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;In questa seconda parte della guida illustrerò alcune &lt;strong&gt;configurazioni di base&lt;/strong&gt; per i check di &lt;a title=&#34;Nagios&#34; href=&#34;http://www.nagios.org/&#34; target=&#34;_blank&#34;&gt;Nagios&lt;/a&gt; e l&amp;rsquo;uso dell&amp;rsquo;addon &lt;strong&gt;NRPE&lt;/strong&gt; per check locali su sistemi remoti.
 &lt;h3&gt;La struttura&lt;/h3&gt;
 In questa guida prenderò in considerazione la struttura qui si seguito che permette di illustrare vari tipi di configurazione:
-&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-860&#34; title=&#34;Schema Nagios&#34; src=&#34;https://tommyblue.it/uploads/2010/02/schema-nagios.jpg&#34; alt=&#34;&#34; width=&#34;450&#34; height=&#34;454&#34; /&gt;&lt;/p&gt;
+&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-860&#34; title=&#34;Schema Nagios&#34; src=&#34;http://tommyblue.it/uploads/2010/02/schema-nagios.jpg&#34; alt=&#34;&#34; width=&#34;450&#34; height=&#34;454&#34; /&gt;&lt;/p&gt;
 Una panoramica sugli host e i servizi:
 &lt;ul&gt;
     &lt;li&gt;Host A, server Linux con:
@@ -73,11 +73,11 @@ Infine nella macchina B il server MySQL risponde solo sull&amp;rsquo;interfaccia
     
     <item>
       <title>Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios - parte 1</title>
-      <link>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/</link>
+      <link>http://tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios---parte-1/</link>
       <pubDate>Fri, 12 Feb 2010 18:49:08 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/</guid>
-      <description>&lt;p&gt;&lt;img class=&#34;alignleft size-full wp-image-813&#34; title=&#34;Embedded PC&#34; src=&#34;https://tommyblue.it/uploads/2010/02/embedded.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;254&#34; /&gt;Se, come me, avete vari server a giro per il mondo a cui fare da baby-sitter, probabilmente avrete sentito la necessità  di avere tutto sotto controllo e di scoprire (e magari risolvere) i problemi non appena si presentano.&lt;/p&gt;
+      <guid>http://tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios---parte-1/</guid>
+      <description>&lt;p&gt;&lt;img class=&#34;alignleft size-full wp-image-813&#34; title=&#34;Embedded PC&#34; src=&#34;http://tommyblue.it/uploads/2010/02/embedded.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;254&#34; /&gt;Se, come me, avete vari server a giro per il mondo a cui fare da baby-sitter, probabilmente avrete sentito la necessità  di avere tutto sotto controllo e di scoprire (e magari risolvere) i problemi non appena si presentano.&lt;/p&gt;
 
 &lt;p&gt;Dopo aver configurato sistemi di monitoraggio per alcune P.A. e aziende, mi sono deciso a farlo anche per i miei server e descriverò in queste pagine ciò che ho fatto o sto ancora facendo.&lt;/p&gt;
 

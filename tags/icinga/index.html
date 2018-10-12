@@ -13,7 +13,7 @@
 
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://tommyblue.it/tags/icinga/index.xml" rel="alternate" type="application/rss+xml" title="TommyBlue.it" />
+    <link href="http://tommyblue.it/tags/icinga/index.xml" rel="alternate" type="application/rss+xml" title="TommyBlue.it" />
     
     <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
@@ -75,12 +75,12 @@
   <article class="post">
 	<header class="post-header">
     
-		<h2 class="post-title"><a href="/post/monitoraggio-distribuito-con-nagiosicinga-e-nsca/">Monitoraggio distribuito con Nagios/Icinga e NSCA</a></h2>
+		<h2 class="post-title"><a href="/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/">Monitoraggio distribuito con Nagios/Icinga e NSCA</a></h2>
 	</header>
 	<section class="post-excerpt">
     <p>
       Sebbene Icinga/Nagios e NRPE siano un&rsquo;ottima coppia per monitorare le macchine (sia via socket che internamente), a volte possono non bastare. Potrebbe infatti essere utile distribuire i check su più macchine, sia per un fattore di carico sia per aggirare eventuali firewall.
-Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto qui, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale. &hellip; <a class="read-more" href="/post/monitoraggio-distribuito-con-nagiosicinga-e-nsca/">&raquo;</a>
+Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto qui, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale. &hellip; <a class="read-more" href="/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/">&raquo;</a>
     </p>
 	</section>
 	<footer class="post-meta">
@@ -92,12 +92,12 @@ Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come 
   <article class="post">
 	<header class="post-header">
     
-		<h2 class="post-title"><a href="/post/realizzare-un-sistema-di-monitoraggio-con-icinga/">Realizzare un sistema di monitoraggio con Icinga</a></h2>
+		<h2 class="post-title"><a href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">Realizzare un sistema di monitoraggio con Icinga</a></h2>
 	</header>
 	<section class="post-excerpt">
     <p>
       In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON . &hellip; <a class="read-more" href="/post/realizzare-un-sistema-di-monitoraggio-con-icinga/">&raquo;</a>
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON . &hellip; <a class="read-more" href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">&raquo;</a>
     </p>
 	</section>
 	<footer class="post-meta">

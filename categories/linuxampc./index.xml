@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linuxampc. on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/linuxampc./</link>
+    <link>http://tommyblue.it/categories/linuxampc./</link>
     <description>Recent content in Linuxampc. on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 10 Sep 2009 05:41:42 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/linuxampc./index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/linuxampc./index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Sostituzioni in Vim</title>
-      <link>https://tommyblue.it/post/sostituzioni-in-vim/</link>
+      <link>http://tommyblue.it/2009/09/10/sostituzioni-in-vim/</link>
       <pubDate>Thu, 10 Sep 2009 05:41:42 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/sostituzioni-in-vim/</guid>
+      <guid>http://tommyblue.it/2009/09/10/sostituzioni-in-vim/</guid>
       <description>Per sostituire un parola con un&amp;rsquo;altra in Vim il comando è il seguente: :rs/foo/bar/a dove r è il range, foo è la parola da sostituire con bar e a sono gli argomenti.
 Ad esempio per sostituire in tutto il file tutte le occorrenze di foo con bar il comando è: :%s/foo/bar/g Uteriori informazioni a questo indirizzo.</description>
     </item>

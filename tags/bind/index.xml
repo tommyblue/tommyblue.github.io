@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bind on TommyBlue.it</title>
-    <link>https://tommyblue.it/tags/bind/</link>
+    <link>http://tommyblue.it/tags/bind/</link>
     <description>Recent content in Bind on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 03 Apr 2012 13:34:43 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/tags/bind/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/tags/bind/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Bind Log Analyzer: Simple analysis and SQL storage for Bind logs</title>
-      <link>https://tommyblue.it/post/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-dns-server-logs/</link>
+      <link>http://tommyblue.it/2012/04/03/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-logs/</link>
       <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-dns-server-logs/</guid>
+      <guid>http://tommyblue.it/2012/04/03/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-logs/</guid>
       <description>Bind Log Analyzer is my first gem :)
 It analyzes a Bind query log file and stores the logs into a database (using ActiveRecord). See the details and the source code on GitHub and get the gem on RubyGems. Or simply install it with:
 gem install bind_log_analyzer  Starting from version 0.2.1 it includes a simple Sinatra webserver to show some reports and (soon) some cool graphs.</description>
@@ -24,10 +24,10 @@ gem install bind_log_analyzer  Starting from version 0.2.1 it includes a simple 
     
     <item>
       <title>Creare un DNS server con Bind 9</title>
-      <link>https://tommyblue.it/post/creare-un-dns-server-con-bind-9/</link>
+      <link>http://tommyblue.it/2006/05/07/creare-un-dns-server-con-bind-9/</link>
       <pubDate>Sun, 07 May 2006 05:59:40 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/creare-un-dns-server-con-bind-9/</guid>
+      <guid>http://tommyblue.it/2006/05/07/creare-un-dns-server-con-bind-9/</guid>
       <description>Quando digitate un indirizzo sul vostro browser: per esempio &amp;ldquo;www.google.it&amp;rdquo;, la prima cosa che il browser fa è chiedere a qualcuno a che indirizzo IP corrisponde quel &amp;ldquo;google.it&amp;rdquo;&amp;hellip; Questo qualcuno è proprio il server DNS di turno.
 Un comando comodo per fare i vostri esperimenti con la risoluzione dei nomi è nslookup: #nslookup www.google.it
 Server: 127.0.0.1 Address: 127.0.0.1#53

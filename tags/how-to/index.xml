@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>How To on TommyBlue.it</title>
-    <link>https://tommyblue.it/tags/how-to/</link>
+    <link>http://tommyblue.it/tags/how-to/</link>
     <description>Recent content in How To on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Jul 2013 13:18:07 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/tags/how-to/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/tags/how-to/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>How I deploy Rails apps</title>
-      <link>https://tommyblue.it/post/how-i-deploy-rails-apps/</link>
+      <link>http://tommyblue.it/2013/07/17/how-i-deploy-rails-apps/</link>
       <pubDate>Wed, 17 Jul 2013 13:18:07 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/how-i-deploy-rails-apps/</guid>
+      <guid>http://tommyblue.it/2013/07/17/how-i-deploy-rails-apps/</guid>
       <description>In various mailing lists I read a lot of threads about deploying a Rails app. I want to contribute to the topic with this post, where I&amp;rsquo;ll describe how I&amp;rsquo;m now deploying my rails apps in a VPS (actually it&amp;rsquo;s not a virtual but a physical server, but it&amp;rsquo;s the same..).
 In the past I used Pushion Passenger but it was a very young project and when Unicorn showed up, I felt in love :) I wrote a similar post some years ago, the idea is the same, but the structure is now more solid.</description>
     </item>
     
     <item>
       <title>Bip: un proxy IRC per rimanere sempre connessi</title>
-      <link>https://tommyblue.it/post/bip-un-proxy-irc-per-rimanere-sempre-connessi/</link>
+      <link>http://tommyblue.it/2013/07/04/bip-un-proxy-irc-per-rimanere-sempre-connessi/</link>
       <pubDate>Thu, 04 Jul 2013 11:44:28 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/bip-un-proxy-irc-per-rimanere-sempre-connessi/</guid>
+      <guid>http://tommyblue.it/2013/07/04/bip-un-proxy-irc-per-rimanere-sempre-connessi/</guid>
       <description>Bip è un proxy IRC, ovvero un demone che rimane collegato ai server IRC anche quando tu non lo sei. Quando poi ti ricolleghi a Bip ritrovi lo storico dei messaggi dalla tua ultima connessione.
 Configurare il demone Il demone può essere lanciato su un sever con un semplice:
 ~$ bip
@@ -35,99 +35,99 @@ Immediatamente il processo entra in background e rimane attivo finchè non lo si
     
     <item>
       <title>Paypal Express Checkout with Ruby on Rails and paypal-sdk-merchant</title>
-      <link>https://tommyblue.it/post/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/</link>
+      <link>http://tommyblue.it/2013/07/02/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/</link>
       <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/</guid>
+      <guid>http://tommyblue.it/2013/07/02/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/</guid>
       <description>In my last work, Agrimè.it, an ecommerce built using Ruby on rails, I had to implement the cart payment using Paypal Express Checkout.
 Sadly, I found that was the worst time to do it, because Paypal was migrating the classic API to the new REST API and the documentation was a real mess! Walking through the doc links, I jumped (without a particular logic) from the new to the old API reference and vice versa.</description>
     </item>
     
     <item>
       <title>Passare a Vim grazie ad Emacs</title>
-      <link>https://tommyblue.it/post/passare-a-vim-grazie-ad-emacs/</link>
+      <link>http://tommyblue.it/2012/09/01/passare-a-vim-grazie-ad-emacs/</link>
       <pubDate>Sat, 01 Sep 2012 17:38:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/passare-a-vim-grazie-ad-emacs/</guid>
+      <guid>http://tommyblue.it/2012/09/01/passare-a-vim-grazie-ad-emacs/</guid>
       <description>Grazie Sciamp per avermi convinto a passare a Vim parlandomi di Emacs :)
 Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambiare editor passando da Textmate a qualcos&amp;rsquo;altro, ho intravisto Sublime Text 2, ma volevo qualcosa di open source. Da un po&amp;rsquo; di tempo Alessandro stava rompendo le scatole a tutti su quanto è figo Emacs :) e avevo iniziato a lavorarci un po&amp;rsquo;, ma non sono mai riuscito ad entrarci in sintonia.</description>
     </item>
     
     <item>
       <title>Create a contact form for Jekyll</title>
-      <link>https://tommyblue.it/post/create-a-contact-form-for-jekyll/</link>
+      <link>http://tommyblue.it/2012/08/28/create-a-contact-form-for-jekyll/</link>
       <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/create-a-contact-form-for-jekyll/</guid>
+      <guid>http://tommyblue.it/2012/08/28/create-a-contact-form-for-jekyll/</guid>
       <description>As I promised to a reader who wrote me an email some days ago, with this post I&amp;rsquo;ll explain how I built the contact form of this website using Sinatra and Sendgrid. As you know (or you&amp;rsquo;re just learning) this site is made by Jekyll, a static site generator written in Ruby. As the result of the work of Jekyll it is a static HTML website, so it&amp;rsquo;s not immediate to build a contact form.</description>
     </item>
     
     <item>
       <title>Monitoraggio distribuito con Nagios/Icinga e NSCA</title>
-      <link>https://tommyblue.it/post/monitoraggio-distribuito-con-nagiosicinga-e-nsca/</link>
+      <link>http://tommyblue.it/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/</link>
       <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/monitoraggio-distribuito-con-nagiosicinga-e-nsca/</guid>
+      <guid>http://tommyblue.it/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/</guid>
       <description>Sebbene Icinga/Nagios e NRPE siano un&amp;rsquo;ottima coppia per monitorare le macchine (sia via socket che internamente), a volte possono non bastare. Potrebbe infatti essere utile distribuire i check su più macchine, sia per un fattore di carico sia per aggirare eventuali firewall.
 Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto qui, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale.</description>
     </item>
     
     <item>
       <title>Sostituire un disco in un raid software</title>
-      <link>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-software/</link>
+      <link>http://tommyblue.it/2012/04/26/sostituire-un-disco-in-un-raid-software/</link>
       <pubDate>Thu, 26 Apr 2012 11:47:30 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-software/</guid>
+      <guid>http://tommyblue.it/2012/04/26/sostituire-un-disco-in-un-raid-software/</guid>
       <description>Ho recentemente scoperto un&amp;rsquo;interessante opzione di sfdisk che risolve molti problemi quando si deve sostituire un disco di un raid software. Integro quindi l&amp;rsquo;articolo originale segnlando questa opzione, da usare nel caso in cui al comando:
 sfdisk -d /dev/sda | sfdisk /dev/sdb  sfdisk si rifiuti di partizionare correttamente /dev/sdb a causa di problemi con i cilindri. Dato che Linux è molto meno schizzinoso del DOS, esiste un&amp;rsquo;opzione per ignorare problemi che con Linux, appunto, non sono tali:</description>
     </item>
     
     <item>
       <title>Accesso SSH inverso</title>
-      <link>https://tommyblue.it/post/accesso-ssh-inverso/</link>
+      <link>http://tommyblue.it/2011/11/10/accesso-ssh-inverso/</link>
       <pubDate>Thu, 10 Nov 2011 10:09:40 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/accesso-ssh-inverso/</guid>
+      <guid>http://tommyblue.it/2011/11/10/accesso-ssh-inverso/</guid>
       <description>Può tornare utile accedere via SSH ad un pc/server non pubblico. Capita ad esempio quando un cliente disperato sta provando a mettere le mani sul server impallato e tu stai cercando di dettargli i comandi al telefono (generalmente con pessimi risultati).
 Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&amp;rsquo;utente test, basta che digiti il comando: ssh -R 9000:127.</description>
     </item>
     
     <item>
       <title>IPv6 in pochi passi con ALIX e SixXS</title>
-      <link>https://tommyblue.it/post/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
+      <link>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
       <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
+      <guid>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
       <description>Come ormai saprete (1 - 2) ho un debole per gli embedded ALIX di PcEngines. In questo caso userò una scheda 2d13 con RTC, indispensabileÂ perchéÂ se il vostro orologio non è sincronizzato con quello del broker IPv4-IPv6 (Â±30 secondi) non avrete la connessione IPv6!
 Come da tradizione il sistema operativo è Debian Voyage, ma tutta la procedura può comunque essere applicata ad una qualsiasi macchina con installato un os Debian-based (a meno di qualche piccola modifica).</description>
     </item>
     
     <item>
       <title>Realizzare un sistema di monitoraggio con Icinga</title>
-      <link>https://tommyblue.it/post/realizzare-un-sistema-di-monitoraggio-con-icinga/</link>
+      <link>http://tommyblue.it/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/</link>
       <pubDate>Tue, 08 Mar 2011 15:45:38 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/realizzare-un-sistema-di-monitoraggio-con-icinga/</guid>
+      <guid>http://tommyblue.it/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/</guid>
       <description>In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
 Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&amp;rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &amp;ndash;system icinga adduser &amp;ndash;system &amp;ndash;no-create-home &amp;ndash;home /usr/local/icinga &amp;ndash;ingroup icinga &amp;ndash;disabled-password icinga addgroup &amp;ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&amp;gt; mysql -u root -p mysql&amp;gt; CREATE DATABASE icinga; GRANT USAGE ON .</description>
     </item>
     
     <item>
       <title>Configurare su Linux la tastiera come su MacOSX</title>
-      <link>https://tommyblue.it/post/configurare-su-linux-la-tastiera-come-su-macosx/</link>
+      <link>http://tommyblue.it/2010/11/24/configurare-su-linux-la-tastiera-come-su-macosx/</link>
       <pubDate>Wed, 24 Nov 2010 17:12:56 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/configurare-su-linux-la-tastiera-come-su-macosx/</guid>
+      <guid>http://tommyblue.it/2010/11/24/configurare-su-linux-la-tastiera-come-su-macosx/</guid>
       <description>Saltando spesso da Mac a Fedora ho sempre odiato veder cambiare il comportamento della tastiera. Riassumo quindi i pochi passaggi necessari a riprodurre su Linux (quasi) lo stesso comportamento della tastiera in Mac.
 Innanzitutto il layout. La mia tastiera è &amp;ldquo;Internazionale Inglese&amp;rdquo;, ovvero, oltre alla disposizione USA, ha il tasto `~ a sinistra della z e il tasto Â§Â± a sinistra dell&amp;rsquo;1. Per ottenere questo layout ho impostato (in Gnome da Sistema &amp;gt; Preferenze &amp;gt; Tastiera) la tastiera USA e creato nella mia home il file .</description>
     </item>
     
     <item>
       <title>Sostituire un disco in un Raid 1 con mdadm</title>
-      <link>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-1-con-mdadm/</link>
+      <link>http://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</link>
       <pubDate>Tue, 28 Sep 2010 12:16:31 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
+      <guid>http://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
       <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
 La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
@@ -135,10 +135,10 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
     
     <item>
       <title>Configurare i check passivi in Nagios per l&#39;integrazione con Munin</title>
-      <link>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</link>
+      <link>http://tommyblue.it/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/</link>
       <pubDate>Thu, 16 Sep 2010 13:51:16 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/configurare-i-check-passivi-in-nagios-per-l-integrazione-con-munin/</guid>
+      <guid>http://tommyblue.it/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/</guid>
       <description>&lt;p&gt;Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con &lt;a href=&#34;http://www.nagios.org/download/addons&#34; target=&#34;_blank&#34;&gt;NSCA&lt;/a&gt; e come usare Munin per avvertire Nagios di ciò che non va&amp;rsquo;.&lt;/p&gt;
 
 &lt;p&gt;Intanto ricordo i link alla prima e alla seconda parte della guida:
@@ -152,16 +152,16 @@ Se Munin non fosse già  installato si può valutare una configurazione Nagios-
     
     <item>
       <title>Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios â€“ parte 2</title>
-      <link>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</link>
+      <link>http://tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-%C3%A2-parte-2/</link>
       <pubDate>Wed, 17 Feb 2010 13:01:37 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/</guid>
+      <guid>http://tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-%C3%A2-parte-2/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/&#34;&gt;&lt;strong&gt;Leggi la prima parte della guida&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;In questa seconda parte della guida illustrerò alcune &lt;strong&gt;configurazioni di base&lt;/strong&gt; per i check di &lt;a title=&#34;Nagios&#34; href=&#34;http://www.nagios.org/&#34; target=&#34;_blank&#34;&gt;Nagios&lt;/a&gt; e l&amp;rsquo;uso dell&amp;rsquo;addon &lt;strong&gt;NRPE&lt;/strong&gt; per check locali su sistemi remoti.
 &lt;h3&gt;La struttura&lt;/h3&gt;
 In questa guida prenderò in considerazione la struttura qui si seguito che permette di illustrare vari tipi di configurazione:
-&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-860&#34; title=&#34;Schema Nagios&#34; src=&#34;https://tommyblue.it/uploads/2010/02/schema-nagios.jpg&#34; alt=&#34;&#34; width=&#34;450&#34; height=&#34;454&#34; /&gt;&lt;/p&gt;
+&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img class=&#34;aligncenter size-full wp-image-860&#34; title=&#34;Schema Nagios&#34; src=&#34;http://tommyblue.it/uploads/2010/02/schema-nagios.jpg&#34; alt=&#34;&#34; width=&#34;450&#34; height=&#34;454&#34; /&gt;&lt;/p&gt;
 Una panoramica sugli host e i servizi:
 &lt;ul&gt;
     &lt;li&gt;Host A, server Linux con:
@@ -185,11 +185,11 @@ Infine nella macchina B il server MySQL risponde solo sull&amp;rsquo;interfaccia
     
     <item>
       <title>Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios - parte 1</title>
-      <link>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/</link>
+      <link>http://tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios---parte-1/</link>
       <pubDate>Fri, 12 Feb 2010 18:49:08 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/</guid>
-      <description>&lt;p&gt;&lt;img class=&#34;alignleft size-full wp-image-813&#34; title=&#34;Embedded PC&#34; src=&#34;https://tommyblue.it/uploads/2010/02/embedded.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;254&#34; /&gt;Se, come me, avete vari server a giro per il mondo a cui fare da baby-sitter, probabilmente avrete sentito la necessità  di avere tutto sotto controllo e di scoprire (e magari risolvere) i problemi non appena si presentano.&lt;/p&gt;
+      <guid>http://tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios---parte-1/</guid>
+      <description>&lt;p&gt;&lt;img class=&#34;alignleft size-full wp-image-813&#34; title=&#34;Embedded PC&#34; src=&#34;http://tommyblue.it/uploads/2010/02/embedded.jpg&#34; alt=&#34;&#34; width=&#34;300&#34; height=&#34;254&#34; /&gt;Se, come me, avete vari server a giro per il mondo a cui fare da baby-sitter, probabilmente avrete sentito la necessità  di avere tutto sotto controllo e di scoprire (e magari risolvere) i problemi non appena si presentano.&lt;/p&gt;
 
 &lt;p&gt;Dopo aver configurato sistemi di monitoraggio per alcune P.A. e aziende, mi sono deciso a farlo anche per i miei server e descriverò in queste pagine ciò che ho fatto o sto ancora facendo.&lt;/p&gt;
 
@@ -198,19 +198,19 @@ Infine nella macchina B il server MySQL risponde solo sull&amp;rsquo;interfaccia
     
     <item>
       <title>Eliminare le righe di commento con Vim</title>
-      <link>https://tommyblue.it/post/eliminare-le-righe-di-commento-con-vim/</link>
+      <link>http://tommyblue.it/2010/01/21/eliminare-le-righe-di-commento-con-vim/</link>
       <pubDate>Thu, 21 Jan 2010 09:23:29 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/eliminare-le-righe-di-commento-con-vim/</guid>
+      <guid>http://tommyblue.it/2010/01/21/eliminare-le-righe-di-commento-con-vim/</guid>
       <description>Muovendo i miei primi passi nelle regular expressions ho cercato la regexp per eliminare le righe di commento da un file, ovviamente con Vim. Il risultato è questo: :g/^\s#./d mi resta da capire perché questa seconda regexp non funziona: :g/1+.*/d  # [return]   </description>
     </item>
     
     <item>
       <title>DNS e Postfix: come non generare &#34;spam&#34;</title>
-      <link>https://tommyblue.it/post/dns-e-postfix-come-non-generare-spam/</link>
+      <link>http://tommyblue.it/2010/01/18/dns-e-postfix-come-non-generare-spam/</link>
       <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/dns-e-postfix-come-non-generare-spam/</guid>
+      <guid>http://tommyblue.it/2010/01/18/dns-e-postfix-come-non-generare-spam/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Ho recentemente configurato alcuni server per l&amp;rsquo;invio di email. Parte del lavoro ha riguardato la corretta configurazione di Postfix e del server DNS per evitare che le email inviate venissero rilevate come spam.
@@ -220,30 +220,30 @@ Infine nella macchina B il server MySQL risponde solo sull&amp;rsquo;interfaccia
     
     <item>
       <title>Sostituzioni in Vim</title>
-      <link>https://tommyblue.it/post/sostituzioni-in-vim/</link>
+      <link>http://tommyblue.it/2009/09/10/sostituzioni-in-vim/</link>
       <pubDate>Thu, 10 Sep 2009 05:41:42 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/sostituzioni-in-vim/</guid>
+      <guid>http://tommyblue.it/2009/09/10/sostituzioni-in-vim/</guid>
       <description>Per sostituire un parola con un&amp;rsquo;altra in Vim il comando è il seguente: :rs/foo/bar/a dove r è il range, foo è la parola da sostituire con bar e a sono gli argomenti.
 Ad esempio per sostituire in tutto il file tutte le occorrenze di foo con bar il comando è: :%s/foo/bar/g Uteriori informazioni a questo indirizzo.</description>
     </item>
     
     <item>
       <title>Attivare un array raid software esistente con mdadm</title>
-      <link>https://tommyblue.it/post/attivare-un-array-raid-software-esistente-con-mdadm/</link>
+      <link>http://tommyblue.it/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/</link>
       <pubDate>Wed, 09 Sep 2009 05:53:20 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
+      <guid>http://tommyblue.it/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
       <description>Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
 Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
     </item>
     
     <item>
       <title>Creare un DNS server con Bind 9</title>
-      <link>https://tommyblue.it/post/creare-un-dns-server-con-bind-9/</link>
+      <link>http://tommyblue.it/2006/05/07/creare-un-dns-server-con-bind-9/</link>
       <pubDate>Sun, 07 May 2006 05:59:40 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/creare-un-dns-server-con-bind-9/</guid>
+      <guid>http://tommyblue.it/2006/05/07/creare-un-dns-server-con-bind-9/</guid>
       <description>Quando digitate un indirizzo sul vostro browser: per esempio &amp;ldquo;www.google.it&amp;rdquo;, la prima cosa che il browser fa è chiedere a qualcuno a che indirizzo IP corrisponde quel &amp;ldquo;google.it&amp;rdquo;&amp;hellip; Questo qualcuno è proprio il server DNS di turno.
 Un comando comodo per fare i vostri esperimenti con la risoluzione dei nomi è nslookup: #nslookup www.google.it
 Server: 127.0.0.1 Address: 127.0.0.1#53
@@ -252,19 +252,19 @@ Non-authoritative answer: www.google.it canonical name = www.google.com. www.goo
     
     <item>
       <title>Bittorrent - uso e gestione remota con screen</title>
-      <link>https://tommyblue.it/post/bittorrent-uso-e-gestione-remota-con-screen/</link>
+      <link>http://tommyblue.it/2006/05/07/bittorrent---uso-e-gestione-remota-con-screen/</link>
       <pubDate>Sun, 07 May 2006 05:45:44 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/bittorrent-uso-e-gestione-remota-con-screen/</guid>
+      <guid>http://tommyblue.it/2006/05/07/bittorrent---uso-e-gestione-remota-con-screen/</guid>
       <description>Il pacchetto da installare è bittorent Una volta installato si entra nella cartella creata per il download dei torrent e si lancia screen che emulerà un terminale. In questo terminale emulato si lancerà macondo:~$ btlaunchmanycurses . Viene usata dal programma una chiara interfaccia ncurses che mostra i download/upload attivi. Con questo programma tutti i file .torrent aggiunti alla cartella di download vengono automaticamente aggiunti ai download in corso. Se adesso volete scollegare screen dalla console è sufficiente usare Ctrl-a + Ctrl-d.</description>
     </item>
     
     <item>
       <title>Apache2 in SSL</title>
-      <link>https://tommyblue.it/post/apache2-in-ssl/</link>
+      <link>http://tommyblue.it/2006/05/07/apache2-in-ssl/</link>
       <pubDate>Sun, 07 May 2006 05:42:27 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/apache2-in-ssl/</guid>
+      <guid>http://tommyblue.it/2006/05/07/apache2-in-ssl/</guid>
       <description>Creazione del certificato macondo:~# rm -rf /root/CertAuth macondo:~# mkdir /root/CertAuth macondo:~# chmod 700 /root/CertAuth macondo:~# cd /root/CertAuth macondo:~/CertAuth# /usr/lib/ssl/misc/CA.pl -newca CA certificate filename (or enter to create) Making CA certificate ... Generating a 1024 bit RSA private key ...............++++++ ..............................................................++++++ writing new private key to &#39;./demoCA/private/cakey.pem&#39; Enter PEM pass phrase: Verifying - Enter PEM pass phrase: ----- You are about to be asked to enter information that will be incorporated into your certificate request.</description>
     </item>
     

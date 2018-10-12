@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Configurare su Linux la tastiera come su MacOSX - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Configurare su Linux la tastiera come su MacOSX</h2>
+      <section class="post-meta">
+        <time class="post-date">November 24, 2010</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>Saltando spesso da Mac a Fedora ho sempre odiato veder cambiare il comportamento della tastiera. Riassumo quindi i pochi passaggi necessari a riprodurre su Linux (quasi) lo stesso comportamento della tastiera in Mac.</p>
+
+<p>Innanzitutto il layout. La mia tastiera è &ldquo;Internazionale Inglese&rdquo;, ovvero, oltre alla disposizione USA, ha il tasto <strong>`~</strong> a sinistra della<strong> z</strong> e il tasto <strong>Â§Â±</strong> a sinistra dell&rsquo;<strong>1</strong>.
+Per ottenere questo layout ho impostato (in Gnome da <em>Sistema &gt; Preferenze &gt; Tastiera</em>) la tastiera USA e creato nella mia home il file <strong>.xmodmaprc</strong> con questo contenuto:
+<pre>keycode 94 = grave asciitilde grave asciitilde dead_grave dead_horn
+keycode 49 = section plusminus section plusminus section plusminus</pre>
+Sempre dal menù di configurazione della tastiera , pannello Disposizioni, tasto Opzioni, ho selezionato:
+<ul>
+    <li>Comportamento tasto Alt/Win =&gt; Control è applicato ai tasti Win</li>
+    <li>Opzioni varie di compatibilità  =&gt; Apple Keyboard alluminio</li>
+    <li>Posizione tasto Compose =&gt; Alt destro</li>
+</ul>
+Quest&rsquo;ultima cosa è l&rsquo;unica che veramente mi scoccia dato che su Mac viene usato l&rsquo;alt sinistro, ma con Linux non sembra essere possibile.</p>
+
+<p>Per terminare ho implementato un piccolo script che modifica la luminosità  della tastiera. àˆ composto da 3 file (devono tutti essere eseguibili):</p>
+
+<p><strong>modify_backlight</strong>
+<pre>#!/bin/bash
+echo $1 &gt; /sys/devices/platform/applesmc.768/leds/smc::kbd_backlight/brightness</pre>
+<strong>brightness_up</strong>
+<div id="_mcePaste">
+<pre>#!/bin/bash
+declare -i VAL
+declare -i NEW_VAL
+declare -i NEW_VAL_PERC
+VAL=<code>cat /sys/devices/platform/applesmc.768/leds/smc\:\:kbd_backlight/brightness</code>
+NEW_VAL=$VAL+50
+if [ $VAL -ge 250 ]; then
+<span style="white-space: pre;">    </span>NEW_VAL=255
+fi
+NEW_VAL_PERC=NEW_VAL*<sup>100</sup>&frasl;<sub>255</sub>
+notify-send -u low -t 500 -i /usr/share/icons/gnome-colors-common/scalable/notifications/notification-keyboard-brightness-high.svg &ldquo;Keyboard brightness&rdquo; &ldquo;Increasing keyboard backlight brightness to $NEW_VAL_PERC%&rdquo;
+/usr/bin/sudo /home/tommyblue/bin/modify_backlight $NEW_VAL</pre>
+</div>
+<strong>brightness_down</strong>
+<pre>#!/bin/bash
+declare -i VAL
+declare -i NEW_VAL
+declare -i NEW_VAL_PERC
+VAL=<code>cat /sys/devices/platform/applesmc.768/leds/smc\:\:kbd_backlight/brightness</code>
+NEW_VAL=$VAL-50
+if [ $VAL -le 8 ]; then
+<span style="white-space: pre;">    </span>NEW_VAL=0
+fi
+NEW_VAL_PERC=NEW_VAL*<sup>100</sup>&frasl;<sub>255</sub>
+notify-send -u low -t 500 -i /usr/share/icons/gnome-colors-common/scalable/notifications/notification-keyboard-brightness-low.svg &ldquo;Keyboard brightness&rdquo; &ldquo;Decreasing keyboard backlight brightness to $NEW_VAL_PERC%&rdquo;
+/usr/bin/sudo /home/tommyblue/bin/modify_backlight $NEW_VAL</pre>
+Quindi per modificare la luminosità  con i tasti F5 e F6 basta aprire <em>Sistema &gt; Preferenze &gt; Scorciatoie da tastiera</em> e aggiungere due scorciatoie personalizzate che vadano a richiamare i due script <strong>brightness_up</strong> e <strong>brightness_down</strong>. Dato che gli script vanno a modificare dei file di root, bisogna anche inserire in /etc/sudoers la seguente riga:
+<pre>tommyblue ALL=NOPASSWD:/home/tommyblue/bin/modify_backlight</pre>
+Ovviamente utente e path devono essere opportunamente modificate.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="http://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="http://tommyblue.it/tags/fedora/">fedora</a>
+          <a href="http://tommyblue.it/tags/memoria-ausiliaria/">memoria ausiliaria</a>
+          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="http://tommyblue.it/tags/mac-osx/">mac osx</a>
+          <a href="http://tommyblue.it/tags/layout/">layout</a>
+          <a href="http://tommyblue.it/tags/tastiera/">tastiera</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

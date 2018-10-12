@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Basic setup for a Node.js-based TDD Code Kata - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Basic setup for a Node.js-based TDD Code Kata</h2>
+      <section class="post-meta">
+        <time class="post-date">June 27, 2014</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>In the <a href="http://www.tommyblue.it/2014/06/27/basic-setup-for-a-ruby-based-tdd-code-kata/">last post</a> I suggested a minimal setup to begin with ruby-based TDD. In this post I want to show a possibile minimal setup for node.js-based TDD (node.js and npm must be installed). The kata will be again <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">The Game of Life</a>.</p>
+
+<p><em>I&rsquo;m not an expert of <a href="http://nodejs.org/">Node.js</a>, so I hope what I&rsquo;m writing is correct :)</em></p>
+
+<p>I&rsquo;ll use the test framework <a href="http://visionmedia.github.io/mocha/">Mocha</a> and <a href="https://github.com/LearnBoost/expect.js/">expect.js</a>, a <em>&ldquo;Minimalistic BDD-style assertions for Node.JS and the browser&rdquo;</em>.</p>
+
+<p>Let&rsquo;s begin with the <code>package.json</code> file which will tell to <a href="https://www.npmjs.org/">npm</a> what to install:</p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;game-of-life&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;dependencies&quot;: {
+    &quot;mocha&quot;: &quot;*&quot;,
+    &quot;expect.js&quot;: &quot;*&quot;
+  }
+}
+</code></pre>
+
+<p>With this file in the project folder you can run <code>npm install</code> to install the libraries. Then create the <code>test/</code> folder with the <code>mocha.opts</code> file, where you can specify various options, like the <a href="http://visionmedia.github.io/mocha/#reporters">reporter</a> to use:</p>
+
+<pre><code>--reporter spec
+</code></pre>
+
+<p>With this file in place, the <code>mocha</code> command will launch the test.
+So write the minimal js file and its corresponding test file:</p>
+
+<p><code>test/game_of_life_test.js</code>:</p>
+
+<pre><code class="language-prettyprint">var expect = require('expect.js'),
+  GameOfLife = require('../lib/game_of_life');
+
+describe('Universe', function(){
+  it('should have an initial size', function() {
+    var u = new GameOfLife(6)
+    expect(u.getSize()).to.equal(36);
+  });
+})
+</code></pre>
+
+<p><code>lib/game_of_life.js</code>:</p>
+
+<pre><code class="language-prettyprint">function GameOfLife(side){
+  this.size = side * side;
+}
+GameOfLife.prototype.getSize = function() { return this.size; }
+
+module.exports = GameOfLife;
+</code></pre>
+
+<p>Now launch <code>mocha</code> and the first test should pass:</p>
+
+<pre><code>~$ mocha
+
+  Universe
+    âœ“ should have an initial size 
+
+  1 passing
+</code></pre>
+
+<p>To know something more about TDD and Node.js, start reading <a href="http://webapplog.com/test-driven-development-in-node-js-with-mocha/">this post</a> from <a href="http://azat.co/">Azat Mardan</a></p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="http://tommyblue.it/tags/node/">node</a>
+          <a href="http://tommyblue.it/tags/tdd/">tdd</a>
+          <a href="http://tommyblue.it/tags/testing/">testing</a>
+          <a href="http://tommyblue.it/tags/kata/">kata</a>
+          <a href="http://tommyblue.it/tags/mocha/">mocha</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

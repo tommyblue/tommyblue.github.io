@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Eliminare le righe di commento con Vim - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Eliminare le righe di commento con Vim</h2>
+      <section class="post-meta">
+        <time class="post-date">January 21, 2010</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>Muovendo i miei primi passi nelle <em>regular expressions</em> ho cercato la regexp per eliminare le righe di commento da un file, ovviamente con <em>Vim</em>. Il risultato è questo:
+<pre>:g/^\s<em>#.</em>/d</pre>
+mi resta da capire perché questa seconda regexp non funziona:
+<pre>:g/<sup class="footnote-ref" id="fnref:-"><a href="#fn:-">1</a></sup>+.*/d</pre>
+<img class="size-full wp-image-790 aligncenter" title="Regexp" src="/uploads/2010/01/regexp.jpg" alt="" width="180" height="240" /></p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:-">#  <a class="footnote-return" href="#fnref:-"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="http://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="http://tommyblue.it/tags/memoria-ausiliaria/">memoria ausiliaria</a>
+          <a href="http://tommyblue.it/tags/vim/">vim</a>
+          <a href="http://tommyblue.it/tags/regexp/">regexp</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

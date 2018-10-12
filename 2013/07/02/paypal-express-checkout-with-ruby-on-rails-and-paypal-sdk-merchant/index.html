@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Paypal Express Checkout with Ruby on Rails and paypal-sdk-merchant - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Paypal Express Checkout with Ruby on Rails and paypal-sdk-merchant</h2>
+      <section class="post-meta">
+        <time class="post-date">July 02, 2013</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<p>In my last work, <a href="http://www.agrime.it">Agrimè.it</a>, an ecommerce built using Ruby on rails, I had to implement the cart payment using Paypal Express Checkout.</p>
+
+<p>Sadly, I found that was the worst time to do it, because Paypal was migrating the <a href="https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/apps101/">classic API</a> to the <a href="https://developer.paypal.com/webapps/developer/docs/api/">new REST API</a> and the documentation was a real mess! Walking through the doc links, I jumped (without a particular logic) from the new to the old API reference and vice versa.</p>
+
+<p>After a long work, me and <a href="http://scia.mp">Alessandro</a> were able to create a working Ruby class to implement Express Checkout using the classi API and the <a href="https://github.com/paypal/merchant-sdk-ruby">paypal-sdk-merchant gem</a>.</p>
+
+<p>If you want to try the new REST API check this link <a href="http://paypal.github.io/">http://paypal.github.io/</a> and use the <a href="https://github.com/paypal/rest-api-sdk-ruby">paypal-sdk-rest gem</a>. If you succeed in using it, please let me know or write something about it.</p>
+
+<p><strong>For non-US developers</strong>: before using the new REST API check if they work in your country. Only after a few days of work we found a little and tiny box which said the new API only work in US at that moment and they will be able worldwide in the late 2013!</p>
+
+<h1 id="configure-paypal-sdk-merchant">Configure paypal-sdk-merchant</h1>
+
+<p>To use the <strong>paypal-sdk-merchant</strong> gem in a Rails app just add:</p>
+
+<p><code>gem 'paypal-sdk-merchant'</code></p>
+
+<p>in the <em>Gemfile</em>, then install with <em>bundle install</em>.
+You can generate the <em>config/paypal.yml</em> config file with</p>
+
+<p><code>rails g paypal:sdk:install</code></p>
+
+<p>You can find an example in <a href="https://github.com/paypal/merchant-sdk-ruby">https://github.com/paypal/merchant-sdk-ruby</a> . To obtain the configuration values you must register the app both in the <a href="https://developer.paypal.com/webapps/developer/applications/myapps">Paypal sandbox</a> (for development use) and in <a href="https://apps.paypal.com/">Paypal Apps</a>.</p>
+
+<p>To integrate the gem with Rails, create a file <em>config/initializers/paypal.rb</em> with the content:</p>
+
+<pre><code class="language-ruby">
+PayPal::SDK.load(&quot;config/paypal.yml&quot;, Rails.env)
+PayPal::SDK.logger = Rails.logger
+
+</code></pre>
+
+<p>Now the Rails app is ready to go. But&hellip; where?? :)</p>
+
+<h1 id="express-checkout-how-it-works">Express checkout, how it works?</h1>
+
+<p>Paypal has a lot of different workflows. Before start hacking, I want to explain how the express checkout works.</p>
+
+<p>It&rsquo;s essentialy constituted by 3 steps:</p>
+
+<ol>
+<li><strong>Set express checkout:</strong> makes a call to the API sending the details of the payment to obtain a token and generate a payment url</li>
+<li><strong>Get express checkout:</strong> redirects the user to the payment url and obtains the authorization</li>
+<li><strong>Do express checkout:</strong> uses the given authorization to make the real payment</li>
+</ol>
+
+<p>Remember the third step. Without it you just ask for a payment authorization without ever getting it!
+To clearify these steps you can play with the sample app at <a href="https://paypal-sdk-samples.herokuapp.com/merchant/set_express_checkout">https://paypal-sdk-samples.herokuapp.com/merchant/set_express_checkout</a></p>
+
+<h1 id="code-implementation">Code implementation</h1>
+
+<h2 id="the-paypal-library-file">The paypal library file</h2>
+
+<p>I put the Paypal logic in the <em>lib/modules/paypal_interface.rb</em> file. Its basic structure is:</p>
+
+<pre><code class="language-ruby">
+require 'paypal-sdk-merchant'
+
+class PaypalInterface
+  attr_reader :api, :express_checkout_response
+
+  PAYPAL_RETURN_URL = Rails.application.routes.url_helpers.paid_orders_url(host: HOST_WO_HTTP)
+  PAYPAL_CANCEL_URL = Rails.application.routes.url_helpers.revoked_orders_url(host: HOST_WO_HTTP)
+  PAYPAL_NOTIFY_URL = Rails.application.routes.url_helpers.ipn_orders_url(host: HOST_WO_HTTP)
+
+  def initialize(order)
+    @api = PayPal::SDK::Merchant::API.new
+    @order = order
+  end
+end
+
+</code></pre>
+
+<p>The <strong>@order</strong> variable is an instance of the Order model, which referers to the order going to be paid. I&rsquo;ll use this model later to save the data needed to manage the payment.</p>
+
+<h2 id="required-routes">Required routes</h2>
+
+<p>As you can see in the code below, the library needs three routes. This is the pertinent code from <em>config/routes.rb</em>:</p>
+
+<pre><code class="language-ruby">
+resources :orders do
+  collection do
+    get :paid
+    get :revoked
+    post :ipn
+  end
+end
+
+</code></pre>
+
+<p>I defined the <em>HOST_WO_HTTP</em> variable in a custom initializer because it differs depending on the environment, here it is:</p>
+
+<pre><code class="language-ruby">
+if Rails.env.production?
+  HOST_WO_HTTP = 'www.agrime.it'
+else
+  HOST_WO_HTTP = 'localhost:3000'
+end
+HOST = &quot;http://#{HOST_WO_HTTP}&quot;
+
+</code></pre>
+
+<p>I&rsquo;m sure a better (and more railsy) way exists, but I didn&rsquo;t find it. Any suggestion is welcome! :)</p>
+
+<h2 id="get-express-checkout">Get express checkout</h2>
+
+<p>Now it&rsquo;s time do make the first step and request the url for the payment. Imagine we have an unpaid order and in its show action, we want to add a <em>&ldquo;Pay with Paypal&rdquo;</em> button.</p>
+
+<p>This is the controller action:</p>
+
+<pre><code class="language-ruby">
+def show
+  @order = Order.find(params[:id])
+  @paypal = PaypalInterface.new(@order)
+  @paypal.express_checkout
+  if @paypal.express_checkout_response.success?
+    @paypal_url = @paypal.api.express_checkout_url(@paypal.express_checkout_response)
+  else
+    # manage error
+  end
+end
+
+</code></pre>
+
+<p>The main method used here is <em>express_checkout</em>, defined in the <em>PaypalInterface</em> class:</p>
+
+<pre><code class="language-ruby">
+class PaypalInterface
+  [..]
+  def express_checkout
+    @set_express_checkout = @api.build_set_express_checkout({
+      SetExpressCheckoutRequestDetails: {
+        ReturnURL: PAYPAL_RETURN_URL,
+        CancelURL: PAYPAL_CANCEL_URL,
+        PaymentDetails: [{
+          NotifyURL: PAYPAL_NOTIFY_URL,
+          OrderTotal: {
+            currencyID: &quot;EUR&quot;,
+            value: @order.total
+          },
+          ItemTotal: {
+            currencyID: &quot;EUR&quot;,
+            value: @order.total
+          },
+          ShippingTotal: {
+            currencyID: &quot;EUR&quot;,
+            value: &quot;0&quot;
+          },
+          TaxTotal: {
+            currencyID: &quot;EUR&quot;,
+            value: &quot;0&quot;
+          },
+          PaymentDetailsItem: [{
+            Name: @order.code,
+            Quantity: 1,
+            Amount: {
+              currencyID: &quot;EUR&quot;,
+              value: @order.total
+            },
+            ItemCategory: &quot;Physical&quot;
+          }],
+          PaymentAction: &quot;Sale&quot;
+        }]
+      }
+    })
+
+    # Make API call &amp; get response
+    @express_checkout_response = @api.set_express_checkout(@set_express_checkout)
+
+    # Access Response
+    if @express_checkout_response.success?
+      @order.set_payment_token(@express_checkout_response.Token)
+    else
+      @express_checkout_response.Errors
+    end
+  end
+end
+
+</code></pre>
+
+<p>The <em>Order.set_payment_token</em> method just saves the token in the order model. It will be used after the payment, to link the payment with the correct order.</p>
+
+<p>At the end of the API call you can use the <em>@paypal_url</em> variable to build the &ldquo;Pay with Paypal&rdquo; button. This is the view:</p>
+
+<pre><code class="language-prettyprint">
+&lt;%= link_to @paypal_url do %&gt;
+  &lt;img src=&quot;https://www.paypalobjects.com/it_IT/IT/Marketing/i/bnr/bnr_horizontal_solutiongraphic_335x80.gif&quot; style=&quot;margin-right:7px;&quot; /&gt;
+&lt;% end %&gt;
+
+</code></pre>
+
+<p>Clicking in the button the user will be redirected to Paypal, where he can pay using it&rsquo;s account or a credit card.</p>
+
+<h2 id="get-express-checkout-1">Get express checkout</h2>
+
+<p>If the user accepts the payment, Paypal redirects to the <em>PAYPAL_RETURN_URL</em> passing two arguments: the <strong>token</strong> and the <strong>PayerID</strong>. The <em>OrdersController.paid</em> method is simple:</p>
+
+<pre><code class="language-ruby">
+class OrdersController &lt; ApplicationController
+  [..]
+  def paid
+    if order = Order.pay(params[:token], params[:PayerID])
+      # success message
+    else
+      # error message
+    end
+    redirect_to orders_path
+  end
+end
+
+</code></pre>
+
+<p>The following is the <em>Order.pay</em> method:</p>
+
+<pre><code class="language-ruby">
+class Order &lt; ActiveRecord::Base
+  [..]
+  def self.pay(token, payerID)
+    begin
+      order = self.find_by_payment_token(token)
+      order.payerID = payerID
+      order.save
+      PaypalWorker.perform_async(order.id)
+      return order
+    rescue
+      false
+    end
+  end
+end
+
+</code></pre>
+
+<p>The code finds the correct order using the token and saves the PayerID. Now the payment is just authorized. To obtain the real payment we must proceed with the third step. I use a <a href="http://sidekiq.org/">Sidekiq</a> worker to perform this action asynchronously while the user is immediatly redirected to the orders page.</p>
+
+<p>Before proceeding to the last step let&rsquo;s check the revoke action. Paypal redirects to the <em>PAYPAL_CANCEL_URL</em> if the user doesn&rsquo;t authorize the payment and clicks in the &ldquo;Cancel&rdquo; button.</p>
+
+<pre><code class="language-ruby">
+class OrdersController &lt; ApplicationController
+  [..]
+  def revoked
+    if order = Order.cancel_payment(params)
+      # set a message for the user
+    end
+    redirect_to orders_path
+  end
+end
+
+</code></pre>
+
+<p>The <em>params[:token]</em> param let you find the canceled order. I do nothing particular with the other params, just save it for logging.</p>
+
+<h2 id="do-express-checkout">Do express checkout</h2>
+
+<p>Now that the payment is authorized we must obtain the real payment. As mentioned before I use an asyncronous job to make it, just to speed up the user experience. The worker code is really simple:</p>
+
+<pre><code class="language-ruby">
+class PaypalWorker
+  include Sidekiq::Worker
+
+  def perform(order_id)
+    @order = Order.find(order_id)
+
+    @paypal = PaypalInterface.new(@order)
+    @paypal.do_express_checkout
+  end
+end
+
+</code></pre>
+
+<p>Let&rsquo;s jump to the <em>PaypalInterface.do_express_checkout</em> method:</p>
+
+<pre><code class="language-ruby">
+class PaypalInterface
+  [..]
+  def do_express_checkout
+    @do_express_checkout_payment = @api.build_do_express_checkout_payment({
+      DoExpressCheckoutPaymentRequestDetails: {
+        PaymentAction: &quot;Sale&quot;,
+        Token: @order.payment_token,
+        PayerID: @order.payerID,
+        PaymentDetails: [{
+          OrderTotal: {
+            currencyID: &quot;EUR&quot;,
+            value: @order.total
+          },
+          NotifyURL: PAYPAL_NOTIFY_URL
+        }]
+      }
+    })
+
+    # Make API call &amp; get response
+    @do_express_checkout_payment_response = @api.do_express_checkout_payment(@do_express_checkout_payment)
+
+    # Access Response
+    if @do_express_checkout_payment_response.success?
+      details = @do_express_checkout_payment_response.DoExpressCheckoutPaymentResponseDetails
+      @order.set_payment_details(prepare_express_checkout_response(details))
+    else
+      errors = @do_express_checkout_payment_response.Errors # =&gt; Array
+      @order.save_payment_errors errors
+    end
+  end
+end
+
+</code></pre>
+
+<p>Essentially the method sends to paypal the token, the PayerID and the order details. If the values are correct, Paypal will make the real payment and will return a successful response. In addition it will make a POST call to the IPN url (we&rsquo;ll see this below).</p>
+
+<p>If something goes wrong we&rsquo;ll get an error array like this:</p>
+
+<pre><code class="language-ruby">
+[{
+  :ShortMessage =&gt; &quot;This Express Checkout session has expired.&quot;,
+  :LongMessage =&gt; &quot;This Express Checkout session has expired.  Token value is no longer valid.&quot;,
+  :ErrorCode =&gt; &quot;10411&quot;,
+  :SeverityCode =&gt; &quot;Error&quot;
+}]
+
+</code></pre>
+
+<p>Error codes and details are documented here: <a href="https://developer.paypal.com/webapps/developer/docs/classic/api/errorcodes/">https://developer.paypal.com/webapps/developer/docs/classic/api/errorcodes/</a></p>
+
+<p>If the payments is correct, the method calls <em>Order.save_payment_details</em>, saving the payment details (I use a <em>Payment</em> model with an <em>has_one</em> association with <em>Order</em>).</p>
+
+<h2 id="ipn">IPN</h2>
+
+<p>After the express checkout, Paypal send a POST call to the IPN url:</p>
+
+<pre><code class="language-ruby">
+class OrdersController &lt; ApplicationController
+  [..]
+  def ipn
+    if payment = Payment.find_by_transaction_id(params[:txn_id])
+      payment.receive_ipn(params)
+    else
+      Payment.create_by_ipn(params)
+    end
+  end
+end
+
+</code></pre>
+
+<p>The action tries to find the payment using the transaction ID and sends to it the params. If it doesn&rsquo;t find it (and this is strange!) it creates a Payment saving the params (about payments, I prefer to log everything!).
+The IPN params are really a lot (check them <a href="https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/">here</a>), I saves only a few of them in dedicated columns, then I put a raw copy of the params (using <em>params.to_s</em> ) in a text field for debugging porpouses.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>I showed the basic code to implement <strong>Paypal Express Checkout</strong> using the  <em>paypal-sdk-merchant</em> gem. The Paypal API is complex but the gem is quite simple to use, I hope the code is easy to understand.
+If you want to use it in a real app, I suggest to add some methods to manage the order status (new, paid, etc.) and to notify the user of what&rsquo;s happening in the background.</p>
+
+<p>Take a look at the webography below. When I started this project a few months ago, due to the migration to the new Paypal Developers Platform, all the documentation was quite unreadable. I reread some docs now while writing this post and I must admit the Paypal guys made a big step forward, probably your experience will be easier than mine :)</p>
+
+<p>Thanks to <a href="http://scia.mp">Alessandro</a> for his great help and good code for this project! :)</p>
+
+<h1 id="webography">Webography</h1>
+
+<p>Some of the links used to write the code and this post:</p>
+
+<p><strong>CLASSIC API</strong></p>
+
+<ul>
+<li><a href="https://github.com/paypal/merchant-sdk-ruby">https://github.com/paypal/merchant-sdk-ruby</a></li>
+<li><a href="https://developer.paypal.com/webapps/developer/docs/api/">https://developer.paypal.com/webapps/developer/docs/api/</a></li>
+<li><a href="https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/apps101/">https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/apps101/</a></li>
+<li><a href="https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/">https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/</a></li>
+<li><a href="http://www.paypalobjects.com/en_US/ebook/PP_ExpressCheckout_IntegrationGuide/HowExpressCheckoutWorks.html">http://www.paypalobjects.com/en_US/ebook/PP_ExpressCheckout_IntegrationGuide/HowExpressCheckoutWorks.html</a></li>
+<li><a href="https://developer.paypal.com/webapps/developer/docs/classic/api/errorcodes/">https://developer.paypal.com/webapps/developer/docs/classic/api/errorcodes/</a></li>
+</ul>
+
+<p><strong>REST API</strong></p>
+
+<ul>
+<li><a href="http://paypal.github.io/">http://paypal.github.io/</a></li>
+<li><a href="https://github.com/paypal/rest-api-sdk-ruby">https://github.com/paypal/rest-api-sdk-ruby</a></li>
+<li><a href="https://developer.paypal.com/webapps/developer/docs/api/#payments">https://developer.paypal.com/webapps/developer/docs/api/#payments</a></li>
+</ul>
+
+<p><strong>CODE SAMPLES</strong></p>
+
+<ul>
+<li><a href="https://paypal-sdk-samples.herokuapp.com/merchant/set_express_checkout">https://paypal-sdk-samples.herokuapp.com/merchant/set_express_checkout</a></li>
+<li><a href="https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/code-samples/">https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/code-samples/</a></li>
+<li><a href="https://github.com/paypal/codesamples-ruby">https://github.com/paypal/codesamples-ruby</a></li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="http://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="http://tommyblue.it/tags/ruby/">ruby</a>
+          <a href="http://tommyblue.it/tags/paypal/">paypal</a>
+          <a href="http://tommyblue.it/tags/rails/">rails</a>
+          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

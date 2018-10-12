@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rbenv on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/rbenv/</link>
+    <link>http://tommyblue.it/categories/rbenv/</link>
     <description>Recent content in Rbenv on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 01 Apr 2014 12:59:14 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/rbenv/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/rbenv/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Deploy ghost blog with capistrano, rbenv and nvm</title>
-      <link>https://tommyblue.it/post/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</link>
+      <link>http://tommyblue.it/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</link>
       <pubDate>Tue, 01 Apr 2014 12:59:14 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</guid>
+      <guid>http://tommyblue.it/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</guid>
       <description>I just moved this blog from Jekyll to Ghost (v.0.4.2 while writing this post) and I had to find a fast way to deploy new changes to the server. I&amp;rsquo;m pretty confident with Capistrano so, although Ghost doesn&amp;rsquo;t use Ruby, I decided to use it to manage deployments. A cool gem allow node apps to be deployed with Capistrano: capistrano-node-deploy
 This is the Gemfile:
 source &#39;https://rubygems.org&#39; gem &#39;capistrano&#39;, &#39;~&amp;gt; 2.15.5&#39; gem &#39;capistrano-node-deploy&#39;, &#39;~&amp;gt; 1.</description>
@@ -24,10 +24,10 @@ source &#39;https://rubygems.org&#39; gem &#39;capistrano&#39;, &#39;~&amp;gt; 2
     
     <item>
       <title>How I deploy Rails apps</title>
-      <link>https://tommyblue.it/post/how-i-deploy-rails-apps/</link>
+      <link>http://tommyblue.it/2013/07/17/how-i-deploy-rails-apps/</link>
       <pubDate>Wed, 17 Jul 2013 13:18:07 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/how-i-deploy-rails-apps/</guid>
+      <guid>http://tommyblue.it/2013/07/17/how-i-deploy-rails-apps/</guid>
       <description>In various mailing lists I read a lot of threads about deploying a Rails app. I want to contribute to the topic with this post, where I&amp;rsquo;ll describe how I&amp;rsquo;m now deploying my rails apps in a VPS (actually it&amp;rsquo;s not a virtual but a physical server, but it&amp;rsquo;s the same..).
 In the past I used Pushion Passenger but it was a very young project and when Unicorn showed up, I felt in love :) I wrote a similar post some years ago, the idea is the same, but the structure is now more solid.</description>
     </item>

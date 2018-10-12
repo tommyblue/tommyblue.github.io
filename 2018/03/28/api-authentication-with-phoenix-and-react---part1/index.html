@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      API Authentication with Phoenix and React - part 1 - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+        <img src="/images/2018/03/1_-MTuYZ4k46A8JJdWlq_x5A.png"></img>
+      
+      <h2 class="post-title">API Authentication with Phoenix and React - part 1</h2>
+      <section class="post-meta">
+        <time class="post-date">March 28, 2018</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<p><strong>Scenario:</strong> you just wrote a cool web app using React for the frontend part and Phoenix as the API server.
+Then you realize everybody can poke around your stuff and you decide <strong>it’s time to restrict the access to known users</strong>, how to do it?</p>
+
+<p>I’ll configure a <a href="http://phoenixframework.org/">Phoenix</a> server to manage <a href="https://tools.ietf.org/html/rfc6750">access tokens</a>, used by a <a href="https://reactjs.org/">React</a> app to make authenticated calls.</p>
+
+<p>This blog post only deals with the backend part and consists of these steps:</p>
+
+<ul>
+<li>add users and give them the ability to sign in</li>
+<li>manage authentication tokens for the users</li>
+<li>define a pipeline to grant access to restricted routes only to authenticated requests</li>
+</ul>
+
+<p><strong>I’m not going to cover the SSL configuration here, but it’s fundamental to only serve the endpoints over HTTPS. You can check out <a href="https://spin.atomicobject.com/2018/03/07/force-ssl-phoenix-framework/">this article</a> which explains how to force SSL in Phoenix.</strong></p>
+
+<h2 id="create-the-users">Create the Users</h2>
+
+<p>Let’s create the schemas for the User:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mix phx.gen.schema User users email:string:unique password_hash:string</code></pre></div>
+
+<p>The <code>mix</code> command doesn’t accept any option to avoid null values, so the migration files must be edited.
+This is the final version of the migration file (only the relevant parts):</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">create table(<span style="color:#e6db74">:users</span>) do
+  add <span style="color:#e6db74">:email</span>, <span style="color:#e6db74">:string</span>, <span style="color:#e6db74">null</span>: false
+  add <span style="color:#e6db74">:password_hash</span>, <span style="color:#e6db74">:string</span>, <span style="color:#e6db74">null</span>: false
+  timestamps()
+end
+create unique_index(<span style="color:#e6db74">:users</span>, [<span style="color:#e6db74">:email</span>])</code></pre></div>
+
+<p>We&rsquo;re going to save hashed password, not clear-text passwords, so our schema will have a virtual <code>password</code> field which, behind the scenes, will be hashed and saved.</p>
+
+<p>To crypt passwords we’re going to use the <a href="https://github.com/riverrun/comeonin/">Comeonin</a> lib, that must be added to the dependencies, together with BCrypt (don’t forget to run <code>mix deps.get</code> after you made the changes):</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#75715e"># mix.exs</span>
+defp deps do
+  [...]
+  {<span style="color:#e6db74">:comeonin</span>, <span style="color:#e6db74">&#34;~&gt; 4.0&#34;</span>},
+  {<span style="color:#e6db74">:bcrypt_elixir</span>, <span style="color:#e6db74">&#34;~&gt; 1.0&#34;</span>}
+end</code></pre></div>
+
+<p>Let’s now see the <code>User</code> module:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyApp.User</span> do
+  use <span style="color:#a6e22e">Ecto.Schema</span>
+  import <span style="color:#a6e22e">Ecto.Changeset</span>
+  alias <span style="color:#a6e22e">MyApp.User</span>
+
+  schema <span style="color:#e6db74">&#34;users&#34;</span> do
+    field <span style="color:#e6db74">:email</span>, <span style="color:#e6db74">:string</span>
+    field <span style="color:#e6db74">:password_hash</span>, <span style="color:#e6db74">:string</span>
+    field <span style="color:#e6db74">:password</span>, <span style="color:#e6db74">:string</span>, <span style="color:#e6db74">virtual</span>: true
+    timestamps()
+  end
+
+  def changeset(%<span style="color:#a6e22e">User</span>{} <span style="color:#f92672">=</span> user, attrs) do
+    user
+    <span style="color:#f92672">|&gt;</span> cast(attrs, [<span style="color:#e6db74">:email</span>, <span style="color:#e6db74">:password</span>])
+    <span style="color:#f92672">|&gt;</span> validate_required([<span style="color:#e6db74">:email</span>, <span style="color:#e6db74">:password</span>])
+    <span style="color:#f92672">|&gt;</span> unique_constraint(<span style="color:#e6db74">:email</span>, <span style="color:#e6db74">downcase</span>: true)
+    <span style="color:#f92672">|&gt;</span> put_password_hash()
+  end
+
+  defp put_password_hash(changeset) do
+    case changeset do
+      %<span style="color:#a6e22e">Ecto.Changeset</span>{<span style="color:#e6db74">valid?</span>: true, <span style="color:#e6db74">changes</span>: %{<span style="color:#e6db74">password</span>: pass}} <span style="color:#f92672">-&gt;</span>
+        put_change(
+            changeset,
+            <span style="color:#e6db74">:password_hash</span>,
+            <span style="color:#a6e22e">Comeonin.Bcrypt</span><span style="color:#f92672">.</span>hashpwsalt(pass)
+        )
+      _ <span style="color:#f92672">-&gt;</span>
+        changeset
+    end
+  end
+end</code></pre></div>
+
+<p>At this point we can create new users:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#960050;background-color:#1e0010">$</span> iex <span style="color:#f92672">-</span><span style="color:#a6e22e">S</span> mix
+iex(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">MyApp</span><span style="color:#f92672">.</span>repo<span style="color:#f92672">.</span>insert!(<span style="color:#a6e22e">MyApp.User</span><span style="color:#f92672">.</span>changeset(
+  %<span style="color:#a6e22e">MyApp.User</span>{}, %{
+    <span style="color:#e6db74">email</span>: <span style="color:#960050;background-color:#1e0010">“</span>my_email<span style="color:#a6e22e">@provider</span><span style="color:#f92672">.</span>com<span style="color:#960050;background-color:#1e0010">”</span>,
+    <span style="color:#e6db74">password</span>: <span style="color:#960050;background-color:#1e0010">“</span>s3cr3t<span style="color:#960050;background-color:#1e0010">”</span>
+  }
+))
+[<span style="color:#f92672">..</span>]
+%<span style="color:#a6e22e">MyApp.User</span>{
+  <span style="color:#e6db74">__meta__</span>: <span style="color:#75715e">#Ecto.Schema.Metadata&lt;:loaded, &#34;users&#34;&gt;,</span>
+  <span style="color:#e6db74">email</span>: <span style="color:#e6db74">&#34;my_email@provider.com&#34;</span>,
+  <span style="color:#e6db74">id</span>: <span style="color:#ae81ff">1</span>,
+  <span style="color:#e6db74">inserted_at</span>: <span style="color:#e6db74">~N[2018-03-24 22:47:37.981969]</span>,
+  <span style="color:#e6db74">password</span>: <span style="color:#e6db74">&#34;s3cr3t&#34;</span>,
+  <span style="color:#e6db74">password_hash</span>: <span style="color:#e6db74">&#34;&lt;cut&gt;&#34;</span>,
+  <span style="color:#e6db74">updated_at</span>: <span style="color:#e6db74">~N[2018-03-24 22:47:37.984213]</span>
+}</code></pre></div>
+
+<h2 id="user-tokens">User tokens</h2>
+
+<p>Ok, now that we have users, we must generate tokens for them, so that they can access restricted routes.</p>
+
+<p>The first step is to create the schema:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mix phx.gen.schema AuthToken auth_tokens user_id:references:users token:text:unique revoked:boolean revoked_at:utc_datetime</code></pre></div>
+
+<p>As before, we must edit the migration to add missing <code>null: false</code>:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">create table(<span style="color:#e6db74">:auth_tokens</span>) do
+  add <span style="color:#e6db74">:user_id</span>, references(<span style="color:#e6db74">:users</span>, <span style="color:#e6db74">on_delete</span>: <span style="color:#e6db74">:nothing</span>), <span style="color:#e6db74">null</span>: false
+  add <span style="color:#e6db74">:token</span>, <span style="color:#e6db74">:text</span>, <span style="color:#e6db74">null</span>: false
+  add <span style="color:#e6db74">:revoked</span>, <span style="color:#e6db74">:boolean</span>, <span style="color:#e6db74">default</span>: false, <span style="color:#e6db74">null</span>: false
+  add <span style="color:#e6db74">:revoked_at</span>, <span style="color:#e6db74">:utc_datetime</span>
+  timestamps()
+end
+create unique_index(<span style="color:#e6db74">:auth_tokens</span>, [<span style="color:#e6db74">:token</span>])
+create index(<span style="color:#e6db74">:auth_tokens</span>, [<span style="color:#e6db74">:user_id</span>])</code></pre></div>
+
+<p>The schema is the following:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyApp.AuthToken</span> do
+  use <span style="color:#a6e22e">Ecto.Schema</span>
+  import <span style="color:#a6e22e">Ecto.Changeset</span>
+  alias <span style="color:#a6e22e">MyApp.AuthToken</span>
+  alias <span style="color:#a6e22e">MyApp.User</span>
+
+  schema <span style="color:#e6db74">&#34;auth_tokens&#34;</span> do
+    belongs_to <span style="color:#e6db74">:user</span>, <span style="color:#a6e22e">User</span>
+    field <span style="color:#e6db74">:revoked</span>, <span style="color:#e6db74">:boolean</span>, <span style="color:#e6db74">default</span>: false
+    field <span style="color:#e6db74">:revoked_at</span>, <span style="color:#e6db74">:utc_datetime</span>
+    field <span style="color:#e6db74">:token</span>, <span style="color:#e6db74">:string</span>
+    timestamps()
+  end
+
+  def changeset(%<span style="color:#a6e22e">AuthToken</span>{} <span style="color:#f92672">=</span> auth_token, attrs) do
+    auth_token
+    <span style="color:#f92672">|&gt;</span> cast(attrs, [<span style="color:#e6db74">:token</span>])
+    <span style="color:#f92672">|&gt;</span> validate_required([<span style="color:#e6db74">:token</span>])
+    <span style="color:#f92672">|&gt;</span> unique_constraint(<span style="color:#e6db74">:token</span>)
+  end
+end</code></pre></div>
+
+<p>We’ve added the <code>belongs_to</code> relationship there, we must also edit the <code>User</code> schema adding:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">schema <span style="color:#e6db74">&#34;users&#34;</span> do
+  has_many <span style="color:#e6db74">:auth_tokens</span>, <span style="color:#a6e22e">MyApp.AuthToken</span>
+  [...]
+end</code></pre></div>
+
+<p>We’re going to need a bunch of methods to deal with authorization headers and tokens, so a service could be useful.
+Let’s create an <code>Authenticator</code> service with the first methods we’ll use to generate and verify tokens with <a href="https://hexdocs.pm/phoenix/Phoenix.Token.html">Phoenix.Token</a>:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyApp.Services.Authenticator</span> do
+  <span style="color:#75715e"># These values must be moved in a configuration file</span>
+  <span style="color:#a6e22e">@seed</span> <span style="color:#e6db74">&#34;user token&#34;</span>
+  <span style="color:#75715e"># good way to generate:</span>
+  <span style="color:#75715e"># :crypto.strong_rand_bytes(30)</span>
+  <span style="color:#75715e"># |&gt; Base.url_encode64</span>
+  <span style="color:#75715e"># |&gt; binary_part(0, 30)</span>
+  <span style="color:#a6e22e">@secret</span> <span style="color:#e6db74">&#34;CHANGE_ME_k7kTxvFAgeBvAVA0OR1vkPbTi8mZ5m&#34;</span>
+
+  def generate_token(id) do
+    <span style="color:#a6e22e">Phoenix.Token</span><span style="color:#f92672">.</span>sign(<span style="color:#a6e22e">@secret</span>, <span style="color:#a6e22e">@seed</span>, id, <span style="color:#e6db74">max_age</span>: <span style="color:#ae81ff">86400</span>)
+  end
+
+  def verify_token(token) do
+    case <span style="color:#a6e22e">Phoenix.Token</span><span style="color:#f92672">.</span>verify(<span style="color:#a6e22e">@secret</span>, <span style="color:#a6e22e">@seed</span>, token, <span style="color:#e6db74">max_age</span>: <span style="color:#ae81ff">86400</span>) do
+      {<span style="color:#e6db74">:ok</span>, id} <span style="color:#f92672">-&gt;</span> {<span style="color:#e6db74">:ok</span>, token}
+      error <span style="color:#f92672">-&gt;</span> error
+    end
+  end
+end</code></pre></div>
+
+<h2 id="sign-in-and-out-the-users">Sign in and out the users</h2>
+
+<p>We now need to let the users sign in (create a token for the user) and sign out (delete the token).</p>
+
+<p>We’ll manage the logic inside the User module:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyApp.User</span> do
+  [...]
+  alias <span style="color:#a6e22e">MyApp.Services.Authenticator</span>
+
+  def sign_in(email, password) do
+    case <span style="color:#a6e22e">Comeonin.Bcrypt</span><span style="color:#f92672">.</span>check_pass(<span style="color:#a6e22e">Repo</span><span style="color:#f92672">.</span>get_by(<span style="color:#a6e22e">User</span>, <span style="color:#e6db74">email</span>: email), password) do
+      {<span style="color:#e6db74">:ok</span>, user} <span style="color:#f92672">-&gt;</span>
+        token <span style="color:#f92672">=</span> <span style="color:#a6e22e">Authenticator</span><span style="color:#f92672">.</span>generate_token(user)
+        <span style="color:#a6e22e">Repo</span><span style="color:#f92672">.</span>insert(<span style="color:#a6e22e">Ecto</span><span style="color:#f92672">.</span>build_assoc(user, <span style="color:#e6db74">:auth_tokens</span>, %{<span style="color:#e6db74">token</span>: token}))
+      err <span style="color:#f92672">-&gt;</span> err
+    end
+  end
+
+  def sign_out(conn) do
+    case <span style="color:#a6e22e">Authenticator</span><span style="color:#f92672">.</span>get_auth_token(conn) do
+      {<span style="color:#e6db74">:ok</span>, token} <span style="color:#f92672">-&gt;</span>
+        case <span style="color:#a6e22e">Repo</span><span style="color:#f92672">.</span>get_by(<span style="color:#a6e22e">AuthToken</span>, %{<span style="color:#e6db74">token</span>: token}) do
+          nil <span style="color:#f92672">-&gt;</span> {<span style="color:#e6db74">:error</span>, <span style="color:#e6db74">:not_found</span>}
+          auth_token <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Repo</span><span style="color:#f92672">.</span>delete(auth_token)
+        end
+      error <span style="color:#f92672">-&gt;</span> error
+    end
+  end
+end</code></pre></div>
+
+<p>The first line of the <code>sign_in</code> function looks for the user in the <code>Repo</code> then passes it to <code>Bcrypt.check_pass</code> together with the provided password, to verify it.</p>
+
+<p>In the case the user can’t be found, <code>check_pass</code> receives a wrong user and returns <code>{:error, &quot;invalid user-identifier&quot;}</code> while in the case the password verification fails it returns <code>{:error, &quot;invalid password&quot;}</code>.
+So, in both cases, we return a <code>{:error, reason}</code> tuple (we’ll later use this in the controller).</p>
+
+<p>If the user is found and the password is valid, we create a token for the user and return it.</p>
+
+<p>The <code>sign_out</code> function looks for the token in the header and deletes it if found.</p>
+
+<p>The function that extracts the token is based on a simple regexp:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyApp.Services.Authenticator</span> do
+  [...]
+  def get_auth_token(conn) do
+    case extract_token(conn) do
+      {<span style="color:#e6db74">:ok</span>, token} <span style="color:#f92672">-&gt;</span> verify_token(token)
+      error <span style="color:#f92672">-&gt;</span> error
+    end
+  end
+
+  defp extract_token(conn) do
+    case <span style="color:#a6e22e">Plug.Conn</span><span style="color:#f92672">.</span>get_req_header(conn, <span style="color:#e6db74">&#34;authorization&#34;</span>) do
+      [auth_header] <span style="color:#f92672">-&gt;</span> get_token_from_header(auth_header)
+       _ <span style="color:#f92672">-&gt;</span> {<span style="color:#e6db74">:error</span>, <span style="color:#e6db74">:missing_auth_header</span>}
+    end
+  end
+
+  defp get_token_from_header(auth_header) do
+    {<span style="color:#e6db74">:ok</span>, reg} <span style="color:#f92672">=</span> <span style="color:#a6e22e">Regex</span><span style="color:#f92672">.</span>compile(<span style="color:#e6db74">&#34;Bearer\:?</span><span style="color:#ae81ff">\s</span><span style="color:#e6db74">+(.*)$&#34;</span>, <span style="color:#e6db74">&#34;i&#34;</span>)
+    case <span style="color:#a6e22e">Regex</span><span style="color:#f92672">.</span>run(reg, auth_header) do
+      [_, match] <span style="color:#f92672">-&gt;</span> {<span style="color:#e6db74">:ok</span>, <span style="color:#a6e22e">String</span><span style="color:#f92672">.</span>trim(match)}
+      _ <span style="color:#f92672">-&gt;</span> {<span style="color:#e6db74">:error</span>, <span style="color:#e6db74">&#34;token not found&#34;</span>}
+    end
+  end
+end</code></pre></div>
+
+<p>At this point all the underground pieces are in place, but we need to create the endpoints to let the user make the actions.</p>
+
+<p>First, add the required routes:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">scope <span style="color:#e6db74">&#34;/sessions&#34;</span> do
+  post <span style="color:#e6db74">&#34;/sign_in&#34;</span>, <span style="color:#a6e22e">SessionsController</span>, <span style="color:#e6db74">:create</span>
+  delete <span style="color:#e6db74">&#34;/sign_out&#34;</span>, <span style="color:#a6e22e">SessionsController</span>, <span style="color:#e6db74">:delete</span>
+end</code></pre></div>
+
+<p>We can check the result with <code>mix phx.routes</code>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">sessions_path  POST    /sessions/sign_in    MyApp.SessionsController :create</span>
+<span style="color:#a6e22e">sessions_path  DELETE  /sessions/sign_out    MyApp.SessionsController :delete</span></code></pre></div></p>
+
+<p>We must then create the <code>SessionsController</code>:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyAppWeb.SessionsController</span> do
+  use <span style="color:#a6e22e">MyAppWeb</span>, <span style="color:#e6db74">:controller</span>
+  alias <span style="color:#a6e22e">MyApp.User</span>
+
+  def create(conn, %{<span style="color:#e6db74">&#34;email&#34;</span> <span style="color:#f92672">=&gt;</span> email, <span style="color:#e6db74">&#34;password&#34;</span> <span style="color:#f92672">=&gt;</span> password}) do
+    case <span style="color:#a6e22e">User</span><span style="color:#f92672">.</span>sign_in(email, password) do
+      {<span style="color:#e6db74">:ok</span>, auth_token} <span style="color:#f92672">-&gt;</span>
+        conn
+        <span style="color:#f92672">|&gt;</span> put_status(<span style="color:#e6db74">:ok</span>)
+        <span style="color:#f92672">|&gt;</span> render(<span style="color:#e6db74">&#34;show.json&#34;</span>, auth_token)
+      {<span style="color:#e6db74">:error</span>, reason} <span style="color:#f92672">-&gt;</span>
+        conn
+        <span style="color:#f92672">|&gt;</span> send_resp(<span style="color:#ae81ff">401</span>, reason)
+    end
+  end
+
+  def delete(conn, _) do
+    case <span style="color:#a6e22e">User</span><span style="color:#f92672">.</span>sign_out(conn) do
+      {<span style="color:#e6db74">:error</span>, reason} <span style="color:#f92672">-&gt;</span> conn <span style="color:#f92672">|&gt;</span> send_resp(<span style="color:#ae81ff">400</span>, reason)
+      {<span style="color:#e6db74">:ok</span>, _} <span style="color:#f92672">-&gt;</span> conn <span style="color:#f92672">|&gt;</span> send_resp(<span style="color:#ae81ff">204</span>, <span style="color:#e6db74">&#34;&#34;</span>)
+    end
+  end
+end</code></pre></div>
+
+<p>and its view:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyAppWeb.SessionsView</span> do
+  use <span style="color:#a6e22e">MyAppWeb</span>, <span style="color:#e6db74">:view</span>
+  def render(<span style="color:#e6db74">&#34;show.json&#34;</span>, auth_token) do
+    %{<span style="color:#e6db74">data</span>: %{<span style="color:#e6db74">token</span>: auth_token<span style="color:#f92672">.</span>token}}
+  end
+end</code></pre></div>
+
+<p>Done, it’s now time to make some tests calling these endpoints. I personally use <a href="https://install.advancedrestclient.com/#/install">Advanced Rest Client</a> (aka ARC), a Chrome extension to make HTTP calls.</p>
+
+<p>To test sign in, we must make a <code>POST</code> call to <code>http://localhost:4000/sessions/sign_in</code> with the following JSON body:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;my_email@provider.com&#34;</span>,
+  <span style="color:#f92672">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;s3cr3t&#34;</span>
+}</code></pre></div>
+
+<p>If we didn’t make any error we’ll get back the token in a json structure as we defined in <code>show.json</code>:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;data&#34;</span>: {
+    <span style="color:#f92672">&#34;token&#34;</span>: <span style="color:#e6db74">&#34;SFMyNTY.g3QAAAAC[...cut...]&#34;</span>
+  }
+}</code></pre></div>
+
+<p>Now make a <code>DELETE</code> call against <code>http://localhost:4000/sessions/sign_out</code>, adding an authorization header in the form: <code>Authorization: Bearer SFMyNTY.g3QAAAAC[…cut…]</code>. You should receive a 204 response.</p>
+
+<p>Take a look at the database for further feedback. A new token for the user must be created at sign in and it must be deleted at sign out.</p>
+
+<h2 id="require-the-token-to-access-restricted-routes">Require the token to access restricted routes</h2>
+
+<p>We’re almost there: users are able to sign in and receive an authentication token, we should now restrict the access to private routes requiring an authorization token.</p>
+
+<p>The key is a basic component of Phoenix: the <a href="https://hexdocs.pm/phoenix/plug.html">Plug</a>.</p>
+
+<p>To apply one or more plugs to routes, we need to create a pipeline and pipe the routes through it:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyAppWeb.Router</span> do
+  pipeline <span style="color:#e6db74">:authenticate</span> do
+    plug <span style="color:#a6e22e">MyAppWeb.Plugs.Authenticate</span>
+  end
+  scope <span style="color:#e6db74">&#34;/restricted&#34;</span>, <span style="color:#a6e22e">Restricted</span> do
+    pipe_through <span style="color:#e6db74">:authenticate</span>
+    resources <span style="color:#e6db74">&#34;/private&#34;</span>
+    <span style="color:#75715e"># more routes</span>
+  end
+  [...]
+end</code></pre></div>
+
+<p>The Authenticate plug will look for the authorization token in the request headers and will validate it. Only requests with valid tokens will go through. Invalid requests will get a 401 response.</p>
+
+<p>This is the plug file:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir">defmodule <span style="color:#a6e22e">MyAppWeb.Plugs.Authenticate</span> do
+  import <span style="color:#a6e22e">Plug.Conn</span>
+  def init(default), <span style="color:#e6db74">do</span>: default
+
+  def call(conn, _default) do
+    case <span style="color:#a6e22e">MyApp.Services.Authenticator</span><span style="color:#f92672">.</span>get_auth_token(conn) do
+      {<span style="color:#e6db74">:ok</span>, token} <span style="color:#f92672">-&gt;</span>
+        case <span style="color:#a6e22e">MyApp.Repo</span><span style="color:#f92672">.</span>get_by(<span style="color:#a6e22e">MyApp.AuthToken</span>, %{<span style="color:#e6db74">token</span>: token, <span style="color:#e6db74">revoked</span>: false})
+        <span style="color:#f92672">|&gt;</span> <span style="color:#a6e22e">Repo</span><span style="color:#f92672">.</span>preload(<span style="color:#e6db74">:user</span>) do
+          nil <span style="color:#f92672">-&gt;</span> unauthorized(conn)
+          auth_token <span style="color:#f92672">-&gt;</span> authorized(conn, auth_token<span style="color:#f92672">.</span>user)
+        end
+      _ <span style="color:#f92672">-&gt;</span> unauthorized(conn)
+    end
+  end
+
+  defp authorized(conn, user) do
+    <span style="color:#75715e"># If you want, add new values to `conn`</span>
+    assign(conn, <span style="color:#e6db74">:signed_in</span>, true)
+    assign(conn, <span style="color:#e6db74">:signed_user</span>, user)
+    conn
+  end
+
+  defp unauthorized(conn) do
+    conn <span style="color:#f92672">|&gt;</span> send_resp(<span style="color:#ae81ff">401</span>, <span style="color:#e6db74">&#34;Unauthorized&#34;</span>) <span style="color:#f92672">|&gt;</span> halt()
+  end
+end</code></pre></div>
+
+<h2 id="revoke-a-compromised-token">Revoke a compromised token</h2>
+
+<p>In the case a token is somehow “compromised”, the user can revoke it.</p>
+
+<p>We need a new restricted route which updates the compromised token setting the <code>revoked=true</code> and <code>revoked_at=&lt;current timestamp&gt;</code>.</p>
+
+<p>I’m going to leave this as an exercise for the readers.</p>
+
+<h2 id="consume-the-apis-with-react">Consume the APIs with React</h2>
+
+<p>In the <a href="https://www.tommyblue.it/2018/03/31/api-authentication-with-phoenix-and-react-part-2/">next part of this guide</a>, I’ll show how to use what done here in a frontend app built using React. <a href="https://www.tommyblue.it/2018/03/31/api-authentication-with-phoenix-and-react-part-2/">Read it here</a>.</p>
+
+<h2 id="note-jwt-and-why-i-didn-t-use-it">Note: JWT and why I didn’t use it</h2>
+
+<p>In the first iteration of the code I decided to use <a href="https://github.com/ueberauth/guardian">Guardian</a> and <a href="https://jwt.io/">JWT</a> (JSON Web Tokens) but then I realized I couldn’t revoke tokens without store them in the db and actually make a query at each API call (and avoiding a query was the main reason that lead me to use JWT), so I decided it was a over-engineered solution and moved to the integrated <a href="https://hexdocs.pm/phoenix/Phoenix.Token.html">Phoenix.Token</a>.</p>
+
+<p>If you’re interested in the JWT revoke topic, check the <a href="https://github.com/ueberauth/guardian_db/blob/master/README.md#disadvantages">GuardianDB README</a> which has a good explanation:</p>
+
+<blockquote>
+<p>In other words, once you have reached a point where you think you need Guardian.DB, it may be time to take a step back and reconsider your whole approach to authentication!</p>
+</blockquote>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="http://learningwithjb.com/posts/authenticating-users-using-a-token-with-phoenix">http://learningwithjb.com/posts/authenticating-users-using-a-token-with-phoenix</a></li>
+<li><a href="https://dennisreimann.de/articles/phoenix-passwordless-authentication-magic-link.html">https://dennisreimann.de/articles/phoenix-passwordless-authentication-magic-link.html</a></li>
+<li><a href="http://whatdidilearn.info/2018/02/18/authentication-in-phoenix.html">http://whatdidilearn.info/2018/02/18/authentication-in-phoenix.html</a></li>
+<li><a href="https://itnext.io/authenticating-absinthe-graphql-apis-in-phoenix-with-guardian-d647ea45a69a">https://itnext.io/authenticating-absinthe-graphql-apis-in-phoenix-with-guardian-d647ea45a69a</a></li>
+<li><a href="https://medium.freecodecamp.org/authentication-using-elixir-phoenix-f9c162b2c398">https://medium.freecodecamp.org/authentication-using-elixir-phoenix-f9c162b2c398</a></li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="http://tommyblue.it/tags/elixir/">elixir</a>
+          <a href="http://tommyblue.it/tags/phoenix/">phoenix</a>
+          <a href="http://tommyblue.it/tags/react/">react</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

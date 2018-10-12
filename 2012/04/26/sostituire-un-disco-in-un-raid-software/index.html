@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Sostituire un disco in un raid software - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Sostituire un disco in un raid software</h2>
+      <section class="post-meta">
+        <time class="post-date">April 26, 2012</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>Ho recentemente scoperto un&rsquo;interessante opzione di <em>sfdisk</em> che risolve molti problemi quando si deve sostituire un disco di un raid software. Integro quindi <a href="/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/">l&rsquo;articolo originale</a> segnlando questa opzione, da usare nel caso in cui al comando:</p>
+
+<pre><code>sfdisk -d /dev/sda | sfdisk /dev/sdb
+</code></pre>
+
+<p>sfdisk si rifiuti di partizionare correttamente <em>/dev/sdb</em> a causa di problemi con i cilindri.
+Dato che Linux è molto meno schizzinoso del DOS, esiste un&rsquo;opzione per ignorare problemi che con Linux, appunto, non sono tali:</p>
+
+<pre><code>sfdisk -d /dev/sda | sfdisk --Linux /dev/sdb
+</code></pre>
+
+<p>et voilà ! :)</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="http://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="http://tommyblue.it/tags/mdadm/">mdadm</a>
+          <a href="http://tommyblue.it/tags/raid/">raid</a>
+          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tips on TommyBlue.it</title>
-    <link>https://tommyblue.it/tags/tips/</link>
+    <link>http://tommyblue.it/tags/tips/</link>
     <description>Recent content in Tips on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 02 Feb 2009 19:59:51 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Usare i Tab in Vim</title>
-      <link>https://tommyblue.it/post/usare-i-tab-in-vim/</link>
+      <link>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</link>
       <pubDate>Mon, 02 Feb 2009 19:59:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/usare-i-tab-in-vim/</guid>
+      <guid>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</guid>
       <description>Splittare lo schermo e passare da un file all&amp;rsquo;altro con Vim non è certo la cosa più comoda del mondo&amp;hellip; e se ne devono essere accorti anche gli sviluppatori che, dalla versione 7, hanno implementato i Tab in Vim.
  Usarli è piuttosto semplice: :tabe nomefile per aprire un file in un tab e :tabp e :tabn per passare da uno all&amp;rsquo;altro  :D</description>
     </item>

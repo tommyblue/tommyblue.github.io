@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Openssl on TommyBlue.it</title>
-    <link>https://tommyblue.it/tags/openssl/</link>
+    <link>http://tommyblue.it/tags/openssl/</link>
     <description>Recent content in Openssl on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 16 May 2008 13:39:48 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Chiudersi fuori casa</title>
-      <link>https://tommyblue.it/post/chiudersi-fuori-casa/</link>
+      <link>http://tommyblue.it/2008/05/16/chiudersi-fuori-casa/</link>
       <pubDate>Fri, 16 May 2008 13:39:48 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/chiudersi-fuori-casa/</guid>
+      <guid>http://tommyblue.it/2008/05/16/chiudersi-fuori-casa/</guid>
       <description>&lt;p&gt;o quasi \&amp;ldquo;al volo\&amp;ldquo;&amp;rdquo;&lt;/p&gt;
 
 &lt;p&gt;+++&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#39;https://tommyblue.it/uploads/2008/04/lvm.png&#39;&gt;&lt;img src=&#34;https://tommyblue.it/uploads/2008/04/lvm-300x259.png&#34; alt=&#34;Schema LVM&#34; title=&#34;Schema LVM&#34; width=&#34;300&#34; height=&#34;259&#34; class=&#34;alignleft size-medium wp-image-140&#34; /&gt;&lt;/a&gt;Nel mio MacMini, oltre a MacOSX, erano installate due distribuzioni Linux: Gentoo 2007.0 e Fedora 8.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#39;http://tommyblue.it/uploads/2008/04/lvm.png&#39;&gt;&lt;img src=&#34;http://tommyblue.it/uploads/2008/04/lvm-300x259.png&#34; alt=&#34;Schema LVM&#34; title=&#34;Schema LVM&#34; width=&#34;300&#34; height=&#34;259&#34; class=&#34;alignleft size-medium wp-image-140&#34; /&gt;&lt;/a&gt;Nel mio MacMini, oltre a MacOSX, erano installate due distribuzioni Linux: Gentoo 2007.0 e Fedora 8.&lt;/p&gt;
 
 &lt;p&gt;Dato che Gentoo non ne ha voluto sapere di far partire X ho iniziato ad usare in maniera assidua Fedora e ben presto è finito lo spazio sulla radice &lt;em&gt;/&lt;/em&gt;, quindi ho deciso di cancellare il volume logico di Gentoo ed espandere quello di Fedora, insomma il vero pane di &lt;strong&gt;LVM&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>

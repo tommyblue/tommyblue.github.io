@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Domainkeys on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/domainkeys/</link>
+    <link>http://tommyblue.it/categories/domainkeys/</link>
     <description>Recent content in Domainkeys on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 18 Jan 2010 00:02:50 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/domainkeys/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/domainkeys/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>DNS e Postfix: come non generare &#34;spam&#34;</title>
-      <link>https://tommyblue.it/post/dns-e-postfix-come-non-generare-spam/</link>
+      <link>http://tommyblue.it/2010/01/18/dns-e-postfix-come-non-generare-spam/</link>
       <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/dns-e-postfix-come-non-generare-spam/</guid>
+      <guid>http://tommyblue.it/2010/01/18/dns-e-postfix-come-non-generare-spam/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Ho recentemente configurato alcuni server per l&amp;rsquo;invio di email. Parte del lavoro ha riguardato la corretta configurazione di Postfix e del server DNS per evitare che le email inviate venissero rilevate come spam.

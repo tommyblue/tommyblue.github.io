@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ssl on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/ssl/</link>
+    <link>http://tommyblue.it/categories/ssl/</link>
     <description>Recent content in Ssl on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 07 May 2006 05:42:27 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/ssl/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/ssl/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Apache2 in SSL</title>
-      <link>https://tommyblue.it/post/apache2-in-ssl/</link>
+      <link>http://tommyblue.it/2006/05/07/apache2-in-ssl/</link>
       <pubDate>Sun, 07 May 2006 05:42:27 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/apache2-in-ssl/</guid>
+      <guid>http://tommyblue.it/2006/05/07/apache2-in-ssl/</guid>
       <description>Creazione del certificato macondo:~# rm -rf /root/CertAuth macondo:~# mkdir /root/CertAuth macondo:~# chmod 700 /root/CertAuth macondo:~# cd /root/CertAuth macondo:~/CertAuth# /usr/lib/ssl/misc/CA.pl -newca CA certificate filename (or enter to create) Making CA certificate ... Generating a 1024 bit RSA private key ...............++++++ ..............................................................++++++ writing new private key to &#39;./demoCA/private/cakey.pem&#39; Enter PEM pass phrase: Verifying - Enter PEM pass phrase: ----- You are about to be asked to enter information that will be incorporated into your certificate request.</description>
     </item>
     

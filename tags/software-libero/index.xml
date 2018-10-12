@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Software Libero on TommyBlue.it</title>
-    <link>https://tommyblue.it/tags/software-libero/</link>
+    <link>http://tommyblue.it/tags/software-libero/</link>
     <description>Recent content in Software Libero on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 23 Aug 2012 08:29:40 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/tags/software-libero/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/tags/software-libero/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Rubyfatt 1.0 - software di fatturazione per partite IVA</title>
-      <link>https://tommyblue.it/post/rubyfatt-1-0/</link>
+      <link>http://tommyblue.it/2012/08/23/rubyfatt-1.0---software-di-fatturazione-per-partite-iva/</link>
       <pubDate>Thu, 23 Aug 2012 08:29:40 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/rubyfatt-1-0/</guid>
+      <guid>http://tommyblue.it/2012/08/23/rubyfatt-1.0---software-di-fatturazione-per-partite-iva/</guid>
       <description>Approfittando della pausa estiva sono riuscito a lavorare un po&#39; su Rubyfatt, il software che mi sono scritto per la gestione della mia partita IVA.
 Senza dilungarmi troppo, dalla versione 1.0 il software è ormai maturo e può essere usato senza problemi (spero). Vi rimando alla pagina ufficiale all&#39;indirizzo: http://rubyfatt.kreations.it in cu si trova la lista di tutte le caratteristiche e le istruzioni per installarlo.
 Ovviamente ogni aiuto è ben accetto, trovate tutto sulla pagina di Github del progetto</description>
@@ -24,29 +24,29 @@ Ovviamente ogni aiuto è ben accetto, trovate tutto sulla pagina di Github del p
     
     <item>
       <title>Monitoraggio distribuito con Nagios/Icinga e NSCA</title>
-      <link>https://tommyblue.it/post/monitoraggio-distribuito-con-nagiosicinga-e-nsca/</link>
+      <link>http://tommyblue.it/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/</link>
       <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/monitoraggio-distribuito-con-nagiosicinga-e-nsca/</guid>
+      <guid>http://tommyblue.it/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/</guid>
       <description>Sebbene Icinga/Nagios e NRPE siano un&amp;rsquo;ottima coppia per monitorare le macchine (sia via socket che internamente), a volte possono non bastare. Potrebbe infatti essere utile distribuire i check su più macchine, sia per un fattore di carico sia per aggirare eventuali firewall.
 Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto qui, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale.</description>
     </item>
     
     <item>
       <title>Rubyfatt - software di fatturazione per partite IVA</title>
-      <link>https://tommyblue.it/post/rubyfatt-software-di-fatturazione-per-partite-iva/</link>
+      <link>http://tommyblue.it/2012/05/06/rubyfatt---software-di-fatturazione-per-partite-iva/</link>
       <pubDate>Sun, 06 May 2012 21:53:00 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/rubyfatt-software-di-fatturazione-per-partite-iva/</guid>
+      <guid>http://tommyblue.it/2012/05/06/rubyfatt---software-di-fatturazione-per-partite-iva/</guid>
       <description>UPDATE: Ho scritto un articolo aggiornato su Rubyfatt 1.0, vai a leggerlo &amp;raquo; A Gennaio ho cambiato regime di partita IVA e con esso anche il calcolo delle tasse sulle notule. Dopo vani sforzi ho deciso che il mio caro Billings non sarebbe mai stato in grado di capire le particolarissime tasse nostrane e ho deciso di scrivermi un software per gestire le mie notule. Ovviamente l&#39;ho scritto usando Ruby on Rails ed è open-source (lo trovate su Github).</description>
     </item>
     
     <item>
       <title>Bind Log Analyzer: Simple analysis and SQL storage for Bind logs</title>
-      <link>https://tommyblue.it/post/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-dns-server-logs/</link>
+      <link>http://tommyblue.it/2012/04/03/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-logs/</link>
       <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-dns-server-logs/</guid>
+      <guid>http://tommyblue.it/2012/04/03/bind-log-analyzer-simple-analysis-and-sql-storage-for-bind-logs/</guid>
       <description>Bind Log Analyzer is my first gem :)
 It analyzes a Bind query log file and stores the logs into a database (using ActiveRecord). See the details and the source code on GitHub and get the gem on RubyGems. Or simply install it with:
 gem install bind_log_analyzer  Starting from version 0.2.1 it includes a simple Sinatra webserver to show some reports and (soon) some cool graphs.</description>
@@ -54,30 +54,30 @@ gem install bind_log_analyzer  Starting from version 0.2.1 it includes a simple 
     
     <item>
       <title>IPv6 in pochi passi con ALIX e SixXS</title>
-      <link>https://tommyblue.it/post/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
+      <link>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
       <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
+      <guid>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
       <description>Come ormai saprete (1 - 2) ho un debole per gli embedded ALIX di PcEngines. In questo caso userò una scheda 2d13 con RTC, indispensabileÂ perchéÂ se il vostro orologio non è sincronizzato con quello del broker IPv4-IPv6 (Â±30 secondi) non avrete la connessione IPv6!
 Come da tradizione il sistema operativo è Debian Voyage, ma tutta la procedura può comunque essere applicata ad una qualsiasi macchina con installato un os Debian-based (a meno di qualche piccola modifica).</description>
     </item>
     
     <item>
       <title>Realizzare un sistema di monitoraggio con Icinga</title>
-      <link>https://tommyblue.it/post/realizzare-un-sistema-di-monitoraggio-con-icinga/</link>
+      <link>http://tommyblue.it/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/</link>
       <pubDate>Tue, 08 Mar 2011 15:45:38 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/realizzare-un-sistema-di-monitoraggio-con-icinga/</guid>
+      <guid>http://tommyblue.it/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/</guid>
       <description>In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
 Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&amp;rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &amp;ndash;system icinga adduser &amp;ndash;system &amp;ndash;no-create-home &amp;ndash;home /usr/local/icinga &amp;ndash;ingroup icinga &amp;ndash;disabled-password icinga addgroup &amp;ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&amp;gt; mysql -u root -p mysql&amp;gt; CREATE DATABASE icinga; GRANT USAGE ON .</description>
     </item>
     
     <item>
       <title>Convertire il filesystem della partizione root</title>
-      <link>https://tommyblue.it/post/convertire-il-filesystem-della-partizione-root/</link>
+      <link>http://tommyblue.it/2009/03/19/convertire-il-filesystem-della-partizione-root/</link>
       <pubDate>Thu, 19 Mar 2009 09:05:06 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/convertire-il-filesystem-della-partizione-root/</guid>
+      <guid>http://tommyblue.it/2009/03/19/convertire-il-filesystem-della-partizione-root/</guid>
       <description>Ovvero come installare Fedora 10 da cd utilizzando XFS come filesystem per la root (/) :)
 Nota: avrete bisogno di due partizioni di almeno 4&amp;frasl;5 GB
 L&amp;rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (in particolare per espandere le partizioni &amp;ldquo;al volo&amp;rdquo;), cosa che spiegherò di seguito. I passi sono molto semplici:  Avviate dal cd di Fedora 10 Installate normalmente Fedora utilizzando una partizione LVM di almenoÂ 5.</description>
@@ -85,44 +85,44 @@ L&amp;rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con L
     
     <item>
       <title>Usare i Tab in Vim</title>
-      <link>https://tommyblue.it/post/usare-i-tab-in-vim/</link>
+      <link>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</link>
       <pubDate>Mon, 02 Feb 2009 19:59:51 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/usare-i-tab-in-vim/</guid>
+      <guid>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</guid>
       <description>Splittare lo schermo e passare da un file all&amp;rsquo;altro con Vim non è certo la cosa più comoda del mondo&amp;hellip; e se ne devono essere accorti anche gli sviluppatori che, dalla versione 7, hanno implementato i Tab in Vim.
  Usarli è piuttosto semplice: :tabe nomefile per aprire un file in un tab e :tabp e :tabn per passare da uno all&amp;rsquo;altro  :D</description>
     </item>
     
     <item>
       <title>Chiudersi fuori casa</title>
-      <link>https://tommyblue.it/post/chiudersi-fuori-casa/</link>
+      <link>http://tommyblue.it/2008/05/16/chiudersi-fuori-casa/</link>
       <pubDate>Fri, 16 May 2008 13:39:48 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/chiudersi-fuori-casa/</guid>
+      <guid>http://tommyblue.it/2008/05/16/chiudersi-fuori-casa/</guid>
       <description>&lt;p&gt;o quasi \&amp;ldquo;al volo\&amp;ldquo;&amp;rdquo;&lt;/p&gt;
 
 &lt;p&gt;+++&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#39;https://tommyblue.it/uploads/2008/04/lvm.png&#39;&gt;&lt;img src=&#34;https://tommyblue.it/uploads/2008/04/lvm-300x259.png&#34; alt=&#34;Schema LVM&#34; title=&#34;Schema LVM&#34; width=&#34;300&#34; height=&#34;259&#34; class=&#34;alignleft size-medium wp-image-140&#34; /&gt;&lt;/a&gt;Nel mio MacMini, oltre a MacOSX, erano installate due distribuzioni Linux: Gentoo 2007.0 e Fedora 8.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#39;http://tommyblue.it/uploads/2008/04/lvm.png&#39;&gt;&lt;img src=&#34;http://tommyblue.it/uploads/2008/04/lvm-300x259.png&#34; alt=&#34;Schema LVM&#34; title=&#34;Schema LVM&#34; width=&#34;300&#34; height=&#34;259&#34; class=&#34;alignleft size-medium wp-image-140&#34; /&gt;&lt;/a&gt;Nel mio MacMini, oltre a MacOSX, erano installate due distribuzioni Linux: Gentoo 2007.0 e Fedora 8.&lt;/p&gt;
 
 &lt;p&gt;Dato che Gentoo non ne ha voluto sapere di far partire X ho iniziato ad usare in maniera assidua Fedora e ben presto è finito lo spazio sulla radice &lt;em&gt;/&lt;/em&gt;, quindi ho deciso di cancellare il volume logico di Gentoo ed espandere quello di Fedora, insomma il vero pane di &lt;strong&gt;LVM&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Backup di MySQL</title>
-      <link>https://tommyblue.it/post/backup-di-mysql/</link>
+      <link>http://tommyblue.it/2007/09/28/backup-di-mysql/</link>
       <pubDate>Fri, 28 Sep 2007 07:03:37 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/backup-di-mysql/</guid>
+      <guid>http://tommyblue.it/2007/09/28/backup-di-mysql/</guid>
       <description>In attesa di riuscire a capire qualcosa di Bacula ho trovato un ottimo script di backup per MySQL che si avvale solo dell&amp;rsquo;uso di mysqldump: automysqlbackup. Da sourceforge si scarica direttamente lo script, che io ho spostato in /etc/cron.daily, ma che puo&amp;rsquo; essere anche lanciato manualmente. All&amp;rsquo;inizio del file di script ci sono solo un paio di settaggi da fare, in particolare va impostato un utente mysql a cui vanno dati i permessi di SELECT, LOCK TABLES e SHOW VIEW</description>
     </item>
     
     <item>
       <title>Apache2 in SSL</title>
-      <link>https://tommyblue.it/post/apache2-in-ssl/</link>
+      <link>http://tommyblue.it/2006/05/07/apache2-in-ssl/</link>
       <pubDate>Sun, 07 May 2006 05:42:27 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/apache2-in-ssl/</guid>
+      <guid>http://tommyblue.it/2006/05/07/apache2-in-ssl/</guid>
       <description>Creazione del certificato macondo:~# rm -rf /root/CertAuth macondo:~# mkdir /root/CertAuth macondo:~# chmod 700 /root/CertAuth macondo:~# cd /root/CertAuth macondo:~/CertAuth# /usr/lib/ssl/misc/CA.pl -newca CA certificate filename (or enter to create) Making CA certificate ... Generating a 1024 bit RSA private key ...............++++++ ..............................................................++++++ writing new private key to &#39;./demoCA/private/cakey.pem&#39; Enter PEM pass phrase: Verifying - Enter PEM pass phrase: ----- You are about to be asked to enter information that will be incorporated into your certificate request.</description>
     </item>
     

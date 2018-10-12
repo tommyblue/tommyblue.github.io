@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Node on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/node/</link>
+    <link>http://tommyblue.it/categories/node/</link>
     <description>Recent content in Node on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 27 Jun 2014 13:36:57 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/node/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/node/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Basic setup for a Node.js-based TDD Code Kata</title>
-      <link>https://tommyblue.it/post/basic-setup-for-a-node-js-based-tdd-code-kata/</link>
+      <link>http://tommyblue.it/2014/06/27/basic-setup-for-a-node.js-based-tdd-code-kata/</link>
       <pubDate>Fri, 27 Jun 2014 13:36:57 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/basic-setup-for-a-node-js-based-tdd-code-kata/</guid>
+      <guid>http://tommyblue.it/2014/06/27/basic-setup-for-a-node.js-based-tdd-code-kata/</guid>
       <description>In the last post I suggested a minimal setup to begin with ruby-based TDD. In this post I want to show a possibile minimal setup for node.js-based TDD (node.js and npm must be installed). The kata will be again The Game of Life.
 I&amp;rsquo;m not an expert of Node.js, so I hope what I&amp;rsquo;m writing is correct :)
 I&amp;rsquo;ll use the test framework Mocha and expect.js, a &amp;ldquo;Minimalistic BDD-style assertions for Node.</description>
@@ -24,10 +24,10 @@ I&amp;rsquo;ll use the test framework Mocha and expect.js, a &amp;ldquo;Minimali
     
     <item>
       <title>Deploy ghost blog with capistrano, rbenv and nvm</title>
-      <link>https://tommyblue.it/post/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</link>
+      <link>http://tommyblue.it/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</link>
       <pubDate>Tue, 01 Apr 2014 12:59:14 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</guid>
+      <guid>http://tommyblue.it/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</guid>
       <description>I just moved this blog from Jekyll to Ghost (v.0.4.2 while writing this post) and I had to find a fast way to deploy new changes to the server. I&amp;rsquo;m pretty confident with Capistrano so, although Ghost doesn&amp;rsquo;t use Ruby, I decided to use it to manage deployments. A cool gem allow node apps to be deployed with Capistrano: capistrano-node-deploy
 This is the Gemfile:
 source &#39;https://rubygems.org&#39; gem &#39;capistrano&#39;, &#39;~&amp;gt; 2.15.5&#39; gem &#39;capistrano-node-deploy&#39;, &#39;~&amp;gt; 1.</description>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Supervise on TommyBlue.it</title>
-    <link>https://tommyblue.it/categories/supervise/</link>
+    <link>http://tommyblue.it/categories/supervise/</link>
     <description>Recent content in Supervise on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Jul 2013 13:18:07 +0000</lastBuildDate>
     
-	<atom:link href="https://tommyblue.it/categories/supervise/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://tommyblue.it/categories/supervise/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>How I deploy Rails apps</title>
-      <link>https://tommyblue.it/post/how-i-deploy-rails-apps/</link>
+      <link>http://tommyblue.it/2013/07/17/how-i-deploy-rails-apps/</link>
       <pubDate>Wed, 17 Jul 2013 13:18:07 +0000</pubDate>
       
-      <guid>https://tommyblue.it/post/how-i-deploy-rails-apps/</guid>
+      <guid>http://tommyblue.it/2013/07/17/how-i-deploy-rails-apps/</guid>
       <description>In various mailing lists I read a lot of threads about deploying a Rails app. I want to contribute to the topic with this post, where I&amp;rsquo;ll describe how I&amp;rsquo;m now deploying my rails apps in a VPS (actually it&amp;rsquo;s not a virtual but a physical server, but it&amp;rsquo;s the same..).
 In the past I used Pushion Passenger but it was a very young project and when Unicorn showed up, I felt in love :) I wrote a similar post some years ago, the idea is the same, but the structure is now more solid.</description>
     </item>
