@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -123,69 +125,64 @@ capify .
 </code></pre>
 
 <p>edit the <em>Capfile</em> file if you need, then edit <em>config/deploy.rb</em>. This is a working example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">require &#34;bundler/capistrano&#34;
+require &#34;capistrano-rbenv&#34;
+set :rbenv_ruby_version, &#34;2.0.0-p247&#34;
 
-<pre><code class="language-prettyprint">
-require &quot;bundler/capistrano&quot;
-require &quot;capistrano-rbenv&quot;
-set :rbenv_ruby_version, &quot;2.0.0-p247&quot;
-
-set :user, &quot;server_username&quot;
-set :application, &quot;my_app&quot;
-set :deploy_to, &quot;/home/#{user}/apps/#{application}&quot;
+set :user, &#34;server_username&#34;
+set :application, &#34;my_app&#34;
+set :deploy_to, &#34;/home/#{user}/apps/#{application}&#34;
 set :deploy_via, :remote_cache
 
 set :use_sudo, false
 set :scm, :git
-set :repository,  &quot;your_app_git_repo&quot;
+set :repository,  &#34;your_app_git_repo&#34;
 
 default_run_options[:pty] = true
 set :ssh_options, { forward_agent: true }
 
-server &quot;my_server.my_domain&quot;, :web, :app, :db, primary: true
+server &#34;my_server.my_domain&#34;, :web, :app, :db, primary: true
 
-set :branch, &quot;master&quot;
-set :rails_env, &quot;production&quot;
+set :branch, &#34;master&#34;
+set :rails_env, &#34;production&#34;
 
-after &quot;deploy&quot;, &quot;deploy:cleanup&quot; # keep only the last 5 releases
+after &#34;deploy&#34;, &#34;deploy:cleanup&#34; # keep only the last 5 releases
 
 # Daemontools start/stop
 namespace :deploy do
   %w[start stop restart].each do |command|
-    desc &quot;#{command} unicorn server&quot;
+    desc &#34;#{command} unicorn server&#34;
     task command, roles: :app, except: {no_release: true} do
-      if command == &quot;start&quot;
-        sudo &quot;/usr/bin/svc -u /etc/service/my_app&quot;
-      elsif command == &quot;stop&quot;
-        sudo &quot;/usr/bin/svc -d /etc/service/my_app&quot;
+      if command == &#34;start&#34;
+        sudo &#34;/usr/bin/svc -u /etc/service/my_app&#34;
+      elsif command == &#34;stop&#34;
+        sudo &#34;/usr/bin/svc -d /etc/service/my_app&#34;
       else
-        sudo &quot;/usr/bin/svc -t /etc/service/my_app&quot;
+        sudo &#34;/usr/bin/svc -t /etc/service/my_app&#34;
       end
     end
   end
 
   task :setup_config, roles: :app do
-    run &quot;mkdir -p #{shared_path}/config&quot;
+    run &#34;mkdir -p #{shared_path}/config&#34;
   end
-  after &quot;deploy:setup&quot;, &quot;deploy:setup_config&quot;
+  after &#34;deploy:setup&#34;, &#34;deploy:setup_config&#34;
 
   task :symlink_config, roles: :app do
-    run &quot;ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml&quot;
+    run &#34;ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml&#34;
   end
-  after &quot;deploy:finalize_update&quot;, &quot;deploy:symlink_config&quot;
+  after &#34;deploy:finalize_update&#34;, &#34;deploy:symlink_config&#34;
 
-  desc &quot;Make sure local git is in sync with remote.&quot;
+  desc &#34;Make sure local git is in sync with remote.&#34;
   task :check_revision, roles: :web do
     unless `git rev-parse HEAD` == `git rev-parse origin/#{branch}`
-      puts &quot;WARNING: HEAD is not the same as origin/#{branch}&quot;
-      puts &quot;Run `git push` to sync changes.&quot;
+      puts &#34;WARNING: HEAD is not the same as origin/#{branch}&#34;
+      puts &#34;Run `git push` to sync changes.&#34;
       exit
     end
   end
-  before &quot;deploy&quot;, &quot;deploy:check_revision&quot;
-end
-
-</code></pre>
-
+  before &#34;deploy&#34;, &#34;deploy:check_revision&#34;
+end</code></pre></div>
 <p>You can create the required folders with:</p>
 
 <pre><code>cap deploy:setup
@@ -209,15 +206,13 @@ bundle install
 </code></pre>
 
 <p>Add the unicorn configuration in the <em>shared/config/unicorn.rb</em> file (in the server):</p>
-
-<pre><code class="language-prettyprint">
-worker_processes 2
-working_directory &quot;/home/my_user/apps/my_app/current&quot; # available in 0.94.0+
-listen &quot;/home/my_user/apps/my_app/shared/sockets/my_app.sock&quot;, :backlog =&gt; 64
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">worker_processes 2
+working_directory &#34;/home/my_user/apps/my_app/current&#34; # available in 0.94.0+
+listen &#34;/home/my_user/apps/my_app/shared/sockets/my_app.sock&#34;, :backlog =&gt; 64
 timeout 30
-pid &quot;/home/my_user/apps/my_app/shared/pids/unicorn.pid&quot;
-stderr_path &quot;/home/my_user/apps/my_app/shared/log/unicorn.stderr.log&quot;
-stdout_path &quot;/home/my_user/apps/my_app/shared/log/unicorn.stdout.log&quot;
+pid &#34;/home/my_user/apps/my_app/shared/pids/unicorn.pid&#34;
+stderr_path &#34;/home/my_user/apps/my_app/shared/log/unicorn.stderr.log&#34;
+stdout_path &#34;/home/my_user/apps/my_app/shared/log/unicorn.stdout.log&#34;
 
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
@@ -231,10 +226,7 @@ end
 after_fork do |server, worker|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
-end
-
-</code></pre>
-
+end</code></pre></div>
 <p>To launch unicorn I create the <em>~/service</em> folder. There I create a folder for each project. So:</p>
 
 <pre><code>mkdir -p ~/service/my_app
@@ -243,29 +235,19 @@ end
 <p>Then the required files.</p>
 
 <p><strong>~/service/my_app/run (must be executable)</strong></p>
-
-<pre><code class="language-prettyprint">
-#!/bin/bash
-
-exec su - my_user -c '/home/my_user/service/load_my_app.sh bundle exec unicorn_rails -E production -c /home/my_user/apps/my_app/shared/config/unicorn.rb'
-# If you want to launch unicorn manually use te line below instead of the line above (use sudo!). Useful for debugging
-# exec su - my_user -c '/home/my_user/service/load_my_app.sh bundle exec unicorn_rails -E production -l /home/my_user/apps/my_app/shared/sockets/my_app.sock'
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash"><span style="color:#ff79c6">#!/bin/bash
+</span><span style="color:#ff79c6"></span>
+<span style="color:#8be9fd;font-style:italic">exec</span> su - my_user -c <span style="color:#f1fa8c">&#39;/home/my_user/service/load_my_app.sh bundle exec unicorn_rails -E production -c /home/my_user/apps/my_app/shared/config/unicorn.rb&#39;</span>
+<span style="color:#6272a4"># If you want to launch unicorn manually use te line below instead of the line above (use sudo!). Useful for debugging
+</span><span style="color:#6272a4"></span># <span style="color:#8be9fd;font-style:italic">exec</span> su - my_user -c <span style="color:#f1fa8c">&#39;/home/my_user/service/load_my_app.sh bundle exec unicorn_rails -E production -l /home/my_user/apps/my_app/shared/sockets/my_app.sock&#39;</span></code></pre></div>
 <p><strong>~/service/load_my_app.sh</strong></p>
-
-<pre><code class="language-prettyprint">
-#!/bin/bash
-
-export RAILS_ENV=&quot;production&quot;
-export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;
-eval &quot;$(rbenv init -)&quot;
-cd /home/my_user/apps/my_app/current/
-exec $@
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash"><span style="color:#ff79c6">#!/bin/bash
+</span><span style="color:#ff79c6"></span>
+<span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">RAILS_ENV</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;production&#34;</span>
+<span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">PATH</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$HOME</span><span style="color:#f1fa8c">/.rbenv/bin:</span><span style="color:#8be9fd;font-style:italic">$PATH</span><span style="color:#f1fa8c">&#34;</span>
+<span style="color:#8be9fd;font-style:italic">eval</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>rbenv init -<span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span>
+<span style="color:#8be9fd;font-style:italic">cd</span> /home/my_user/apps/my_app/current/
+<span style="color:#8be9fd;font-style:italic">exec</span> <span style="color:#8be9fd;font-style:italic">$@</span></code></pre></div>
 <p>As pointed in the comment, you can use the <em>run</em> file to test the app, just modify the file then launch it as root:</p>
 
 <pre><code>cd ~/service/my_app
@@ -303,9 +285,7 @@ sudo ln -s /home/my_user/service/my_app
 <p>If everything went as expected, the rails app is running and listening for connections in the unix socket at <em>/home/my_user/apps/my_app/shared/sockets/my_app.sock</em>. Now configure Nginx to use that socket.</p>
 
 <p><strong>/etc/nginx/sites-available/www.my_app.my_domain</strong></p>
-
-<pre><code class="language-prettyprint">
-upstream backend_my_app {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-nginx" data-lang="prettyprint lang-nginx">upstream backend_my_app {
   server unix:/home/my_user/apps/my_app/shared/sockets/my_app.sock fail_timeout=0;
 }
 
@@ -347,10 +327,7 @@ server {
 
   access_log  /var/log/nginx/access.log;
   error_log  /var/log/nginx/error.log;
-}
-
-</code></pre>
-
+}</code></pre></div>
 <p>Symlink this file in <em>/etc/nginx/sites-enabled/</em> and restart nginx, your app should be online.</p>
 
 <p>When you&rsquo;ll deploy a new version of the app, Capistrano will require the sudo password to send a TERM signal to supervise, which will restart the rails app.</p>

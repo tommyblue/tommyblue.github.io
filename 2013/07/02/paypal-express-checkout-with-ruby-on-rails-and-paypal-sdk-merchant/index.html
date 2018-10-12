@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -88,13 +90,8 @@ You can generate the <em>config/paypal.yml</em> config file with</p>
 <p>You can find an example in <a href="https://github.com/paypal/merchant-sdk-ruby">https://github.com/paypal/merchant-sdk-ruby</a> . To obtain the configuration values you must register the app both in the <a href="https://developer.paypal.com/webapps/developer/applications/myapps">Paypal sandbox</a> (for development use) and in <a href="https://apps.paypal.com/">Paypal Apps</a>.</p>
 
 <p>To integrate the gem with Rails, create a file <em>config/initializers/paypal.rb</em> with the content:</p>
-
-<pre><code class="language-ruby">
-PayPal::SDK.load(&quot;config/paypal.yml&quot;, Rails.env)
-PayPal::SDK.logger = Rails.logger
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">PayPal<span style="color:#ff79c6">::</span>SDK<span style="color:#ff79c6">.</span>load(<span style="color:#f1fa8c">&#34;config/paypal.yml&#34;</span>, Rails<span style="color:#ff79c6">.</span>env)
+PayPal<span style="color:#ff79c6">::</span>SDK<span style="color:#ff79c6">.</span>logger <span style="color:#ff79c6">=</span> Rails<span style="color:#ff79c6">.</span>logger</code></pre></div>
 <p>Now the Rails app is ready to go. But&hellip; where?? :)</p>
 
 <h1 id="express-checkout-how-it-works">Express checkout, how it works?</h1>
@@ -117,54 +114,39 @@ To clearify these steps you can play with the sample app at <a href="https://pay
 <h2 id="the-paypal-library-file">The paypal library file</h2>
 
 <p>I put the Paypal logic in the <em>lib/modules/paypal_interface.rb</em> file. Its basic structure is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;paypal-sdk-merchant&#39;</span>
 
-<pre><code class="language-ruby">
-require 'paypal-sdk-merchant'
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaypalInterface</span>
+  <span style="color:#ff79c6">attr_reader</span> <span style="color:#f1fa8c">:api</span>, <span style="color:#f1fa8c">:express_checkout_response</span>
 
-class PaypalInterface
-  attr_reader :api, :express_checkout_response
+  PAYPAL_RETURN_URL <span style="color:#ff79c6">=</span> Rails<span style="color:#ff79c6">.</span>application<span style="color:#ff79c6">.</span>routes<span style="color:#ff79c6">.</span>url_helpers<span style="color:#ff79c6">.</span>paid_orders_url(<span style="color:#f1fa8c">host</span>: HOST_WO_HTTP)
+  PAYPAL_CANCEL_URL <span style="color:#ff79c6">=</span> Rails<span style="color:#ff79c6">.</span>application<span style="color:#ff79c6">.</span>routes<span style="color:#ff79c6">.</span>url_helpers<span style="color:#ff79c6">.</span>revoked_orders_url(<span style="color:#f1fa8c">host</span>: HOST_WO_HTTP)
+  PAYPAL_NOTIFY_URL <span style="color:#ff79c6">=</span> Rails<span style="color:#ff79c6">.</span>application<span style="color:#ff79c6">.</span>routes<span style="color:#ff79c6">.</span>url_helpers<span style="color:#ff79c6">.</span>ipn_orders_url(<span style="color:#f1fa8c">host</span>: HOST_WO_HTTP)
 
-  PAYPAL_RETURN_URL = Rails.application.routes.url_helpers.paid_orders_url(host: HOST_WO_HTTP)
-  PAYPAL_CANCEL_URL = Rails.application.routes.url_helpers.revoked_orders_url(host: HOST_WO_HTTP)
-  PAYPAL_NOTIFY_URL = Rails.application.routes.url_helpers.ipn_orders_url(host: HOST_WO_HTTP)
-
-  def initialize(order)
-    @api = PayPal::SDK::Merchant::API.new
-    @order = order
-  end
-end
-
-</code></pre>
-
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">initialize</span>(order)
+    <span style="color:#8be9fd;font-style:italic">@api</span> <span style="color:#ff79c6">=</span> PayPal<span style="color:#ff79c6">::</span>SDK<span style="color:#ff79c6">::</span>Merchant<span style="color:#ff79c6">::</span>API<span style="color:#ff79c6">.</span>new
+    <span style="color:#8be9fd;font-style:italic">@order</span> <span style="color:#ff79c6">=</span> order
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>The <strong>@order</strong> variable is an instance of the Order model, which referers to the order going to be paid. I&rsquo;ll use this model later to save the data needed to manage the payment.</p>
 
 <h2 id="required-routes">Required routes</h2>
 
 <p>As you can see in the code below, the library needs three routes. This is the pertinent code from <em>config/routes.rb</em>:</p>
-
-<pre><code class="language-ruby">
-resources :orders do
-  collection do
-    get :paid
-    get :revoked
-    post :ipn
-  end
-end
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">resources <span style="color:#f1fa8c">:orders</span> <span style="color:#ff79c6">do</span>
+  collection <span style="color:#ff79c6">do</span>
+    get <span style="color:#f1fa8c">:paid</span>
+    get <span style="color:#f1fa8c">:revoked</span>
+    post <span style="color:#f1fa8c">:ipn</span>
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>I defined the <em>HOST_WO_HTTP</em> variable in a custom initializer because it differs depending on the environment, here it is:</p>
-
-<pre><code class="language-ruby">
-if Rails.env.production?
-  HOST_WO_HTTP = 'www.agrime.it'
-else
-  HOST_WO_HTTP = 'localhost:3000'
-end
-HOST = &quot;http://#{HOST_WO_HTTP}&quot;
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">if</span> Rails<span style="color:#ff79c6">.</span>env<span style="color:#ff79c6">.</span>production?
+  HOST_WO_HTTP <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;www.agrime.it&#39;</span>
+<span style="color:#ff79c6">else</span>
+  HOST_WO_HTTP <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;localhost:3000&#39;</span>
+<span style="color:#ff79c6">end</span>
+HOST <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;http://</span><span style="color:#f1fa8c">#{</span>HOST_WO_HTTP<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span></code></pre></div>
 <p>I&rsquo;m sure a better (and more railsy) way exists, but I didn&rsquo;t find it. Any suggestion is welcome! :)</p>
 
 <h2 id="get-express-checkout">Get express checkout</h2>
@@ -172,217 +154,172 @@ HOST = &quot;http://#{HOST_WO_HTTP}&quot;
 <p>Now it&rsquo;s time do make the first step and request the url for the payment. Imagine we have an unpaid order and in its show action, we want to add a <em>&ldquo;Pay with Paypal&rdquo;</em> button.</p>
 
 <p>This is the controller action:</p>
-
-<pre><code class="language-ruby">
-def show
-  @order = Order.find(params[:id])
-  @paypal = PaypalInterface.new(@order)
-  @paypal.express_checkout
-  if @paypal.express_checkout_response.success?
-    @paypal_url = @paypal.api.express_checkout_url(@paypal.express_checkout_response)
-  else
-    # manage error
-  end
-end
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">show</span>
+  <span style="color:#8be9fd;font-style:italic">@order</span> <span style="color:#ff79c6">=</span> Order<span style="color:#ff79c6">.</span>find(params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:id</span><span style="color:#ff79c6">]</span>)
+  <span style="color:#8be9fd;font-style:italic">@paypal</span> <span style="color:#ff79c6">=</span> PaypalInterface<span style="color:#ff79c6">.</span>new(<span style="color:#8be9fd;font-style:italic">@order</span>)
+  <span style="color:#8be9fd;font-style:italic">@paypal</span><span style="color:#ff79c6">.</span>express_checkout
+  <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">@paypal</span><span style="color:#ff79c6">.</span>express_checkout_response<span style="color:#ff79c6">.</span>success?
+    <span style="color:#8be9fd;font-style:italic">@paypal_url</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">@paypal</span><span style="color:#ff79c6">.</span>api<span style="color:#ff79c6">.</span>express_checkout_url(<span style="color:#8be9fd;font-style:italic">@paypal</span><span style="color:#ff79c6">.</span>express_checkout_response)
+  <span style="color:#ff79c6">else</span>
+    <span style="color:#6272a4"># manage error</span>
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>The main method used here is <em>express_checkout</em>, defined in the <em>PaypalInterface</em> class:</p>
-
-<pre><code class="language-ruby">
-class PaypalInterface
-  [..]
-  def express_checkout
-    @set_express_checkout = @api.build_set_express_checkout({
-      SetExpressCheckoutRequestDetails: {
-        ReturnURL: PAYPAL_RETURN_URL,
-        CancelURL: PAYPAL_CANCEL_URL,
-        PaymentDetails: [{
-          NotifyURL: PAYPAL_NOTIFY_URL,
-          OrderTotal: {
-            currencyID: &quot;EUR&quot;,
-            value: @order.total
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaypalInterface</span>
+  <span style="color:#ff79c6">[..]</span>
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">express_checkout</span>
+    <span style="color:#8be9fd;font-style:italic">@set_express_checkout</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">@api</span><span style="color:#ff79c6">.</span>build_set_express_checkout({
+      <span style="color:#f1fa8c">SetExpressCheckoutRequestDetails</span>: {
+        <span style="color:#f1fa8c">ReturnURL</span>: PAYPAL_RETURN_URL,
+        <span style="color:#f1fa8c">CancelURL</span>: PAYPAL_CANCEL_URL,
+        <span style="color:#f1fa8c">PaymentDetails</span>: <span style="color:#ff79c6">[</span>{
+          <span style="color:#f1fa8c">NotifyURL</span>: PAYPAL_NOTIFY_URL,
+          <span style="color:#f1fa8c">OrderTotal</span>: {
+            <span style="color:#f1fa8c">currencyID</span>: <span style="color:#f1fa8c">&#34;EUR&#34;</span>,
+            <span style="color:#f1fa8c">value</span>: <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>total
           },
-          ItemTotal: {
-            currencyID: &quot;EUR&quot;,
-            value: @order.total
+          <span style="color:#f1fa8c">ItemTotal</span>: {
+            <span style="color:#f1fa8c">currencyID</span>: <span style="color:#f1fa8c">&#34;EUR&#34;</span>,
+            <span style="color:#f1fa8c">value</span>: <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>total
           },
-          ShippingTotal: {
-            currencyID: &quot;EUR&quot;,
-            value: &quot;0&quot;
+          <span style="color:#f1fa8c">ShippingTotal</span>: {
+            <span style="color:#f1fa8c">currencyID</span>: <span style="color:#f1fa8c">&#34;EUR&#34;</span>,
+            <span style="color:#f1fa8c">value</span>: <span style="color:#f1fa8c">&#34;0&#34;</span>
           },
-          TaxTotal: {
-            currencyID: &quot;EUR&quot;,
-            value: &quot;0&quot;
+          <span style="color:#f1fa8c">TaxTotal</span>: {
+            <span style="color:#f1fa8c">currencyID</span>: <span style="color:#f1fa8c">&#34;EUR&#34;</span>,
+            <span style="color:#f1fa8c">value</span>: <span style="color:#f1fa8c">&#34;0&#34;</span>
           },
-          PaymentDetailsItem: [{
-            Name: @order.code,
-            Quantity: 1,
-            Amount: {
-              currencyID: &quot;EUR&quot;,
-              value: @order.total
+          <span style="color:#f1fa8c">PaymentDetailsItem</span>: <span style="color:#ff79c6">[</span>{
+            <span style="color:#f1fa8c">Name</span>: <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>code,
+            <span style="color:#f1fa8c">Quantity</span>: <span style="color:#bd93f9">1</span>,
+            <span style="color:#f1fa8c">Amount</span>: {
+              <span style="color:#f1fa8c">currencyID</span>: <span style="color:#f1fa8c">&#34;EUR&#34;</span>,
+              <span style="color:#f1fa8c">value</span>: <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>total
             },
-            ItemCategory: &quot;Physical&quot;
-          }],
-          PaymentAction: &quot;Sale&quot;
-        }]
+            <span style="color:#f1fa8c">ItemCategory</span>: <span style="color:#f1fa8c">&#34;Physical&#34;</span>
+          }<span style="color:#ff79c6">]</span>,
+          <span style="color:#f1fa8c">PaymentAction</span>: <span style="color:#f1fa8c">&#34;Sale&#34;</span>
+        }<span style="color:#ff79c6">]</span>
       }
     })
 
-    # Make API call &amp; get response
-    @express_checkout_response = @api.set_express_checkout(@set_express_checkout)
+    <span style="color:#6272a4"># Make API call &amp; get response</span>
+    <span style="color:#8be9fd;font-style:italic">@express_checkout_response</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">@api</span><span style="color:#ff79c6">.</span>set_express_checkout(<span style="color:#8be9fd;font-style:italic">@set_express_checkout</span>)
 
-    # Access Response
-    if @express_checkout_response.success?
-      @order.set_payment_token(@express_checkout_response.Token)
-    else
-      @express_checkout_response.Errors
-    end
-  end
-end
-
-</code></pre>
-
+    <span style="color:#6272a4"># Access Response</span>
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">@express_checkout_response</span><span style="color:#ff79c6">.</span>success?
+      <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>set_payment_token(<span style="color:#8be9fd;font-style:italic">@express_checkout_response</span><span style="color:#ff79c6">.</span>Token)
+    <span style="color:#ff79c6">else</span>
+      <span style="color:#8be9fd;font-style:italic">@express_checkout_response</span><span style="color:#ff79c6">.</span>Errors
+    <span style="color:#ff79c6">end</span>
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>The <em>Order.set_payment_token</em> method just saves the token in the order model. It will be used after the payment, to link the payment with the correct order.</p>
 
 <p>At the end of the API call you can use the <em>@paypal_url</em> variable to build the &ldquo;Pay with Paypal&rdquo; button. This is the view:</p>
-
-<pre><code class="language-prettyprint">
-&lt;%= link_to @paypal_url do %&gt;
-  &lt;img src=&quot;https://www.paypalobjects.com/it_IT/IT/Marketing/i/bnr/bnr_horizontal_solutiongraphic_335x80.gif&quot; style=&quot;margin-right:7px;&quot; /&gt;
-&lt;% end %&gt;
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-erb" data-lang="prettyprint lang-erb">&lt;%= link_to @paypal_url do %&gt;
+  &lt;img src=&#34;https://www.paypalobjects.com/it_IT/IT/Marketing/i/bnr/bnr_horizontal_solutiongraphic_335x80.gif&#34; style=&#34;margin-right:7px;&#34; /&gt;
+&lt;% end %&gt;</code></pre></div>
 <p>Clicking in the button the user will be redirected to Paypal, where he can pay using it&rsquo;s account or a credit card.</p>
 
 <h2 id="get-express-checkout-1">Get express checkout</h2>
 
 <p>If the user accepts the payment, Paypal redirects to the <em>PAYPAL_RETURN_URL</em> passing two arguments: the <strong>token</strong> and the <strong>PayerID</strong>. The <em>OrdersController.paid</em> method is simple:</p>
-
-<pre><code class="language-ruby">
-class OrdersController &lt; ApplicationController
-  [..]
-  def paid
-    if order = Order.pay(params[:token], params[:PayerID])
-      # success message
-    else
-      # error message
-    end
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">OrdersController</span> <span style="color:#ff79c6">&lt;</span> ApplicationController
+  <span style="color:#ff79c6">[..]</span>
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">paid</span>
+    <span style="color:#ff79c6">if</span> order <span style="color:#ff79c6">=</span> Order<span style="color:#ff79c6">.</span>pay(params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:token</span><span style="color:#ff79c6">]</span>, params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:PayerID</span><span style="color:#ff79c6">]</span>)
+      <span style="color:#6272a4"># success message</span>
+    <span style="color:#ff79c6">else</span>
+      <span style="color:#6272a4"># error message</span>
+    <span style="color:#ff79c6">end</span>
     redirect_to orders_path
-  end
-end
-
-</code></pre>
-
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>The following is the <em>Order.pay</em> method:</p>
-
-<pre><code class="language-ruby">
-class Order &lt; ActiveRecord::Base
-  [..]
-  def self.pay(token, payerID)
-    begin
-      order = self.find_by_payment_token(token)
-      order.payerID = payerID
-      order.save
-      PaypalWorker.perform_async(order.id)
-      return order
-    rescue
-      false
-    end
-  end
-end
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Order</span> <span style="color:#ff79c6">&lt;</span> ActiveRecord<span style="color:#ff79c6">::</span>Base
+  <span style="color:#ff79c6">[..]</span>
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">self</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">pay</span>(token, payerID)
+    <span style="color:#ff79c6">begin</span>
+      order <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">self</span><span style="color:#ff79c6">.</span>find_by_payment_token(token)
+      order<span style="color:#ff79c6">.</span>payerID <span style="color:#ff79c6">=</span> payerID
+      order<span style="color:#ff79c6">.</span>save
+      PaypalWorker<span style="color:#ff79c6">.</span>perform_async(order<span style="color:#ff79c6">.</span>id)
+      <span style="color:#ff79c6">return</span> order
+    <span style="color:#ff79c6">rescue</span>
+      <span style="color:#ff79c6">false</span>
+    <span style="color:#ff79c6">end</span>
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>The code finds the correct order using the token and saves the PayerID. Now the payment is just authorized. To obtain the real payment we must proceed with the third step. I use a <a href="http://sidekiq.org/">Sidekiq</a> worker to perform this action asynchronously while the user is immediatly redirected to the orders page.</p>
 
 <p>Before proceeding to the last step let&rsquo;s check the revoke action. Paypal redirects to the <em>PAYPAL_CANCEL_URL</em> if the user doesn&rsquo;t authorize the payment and clicks in the &ldquo;Cancel&rdquo; button.</p>
-
-<pre><code class="language-ruby">
-class OrdersController &lt; ApplicationController
-  [..]
-  def revoked
-    if order = Order.cancel_payment(params)
-      # set a message for the user
-    end
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">OrdersController</span> <span style="color:#ff79c6">&lt;</span> ApplicationController
+  <span style="color:#ff79c6">[..]</span>
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">revoked</span>
+    <span style="color:#ff79c6">if</span> order <span style="color:#ff79c6">=</span> Order<span style="color:#ff79c6">.</span>cancel_payment(params)
+      <span style="color:#6272a4"># set a message for the user</span>
+    <span style="color:#ff79c6">end</span>
     redirect_to orders_path
-  end
-end
-
-</code></pre>
-
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>The <em>params[:token]</em> param let you find the canceled order. I do nothing particular with the other params, just save it for logging.</p>
 
 <h2 id="do-express-checkout">Do express checkout</h2>
 
 <p>Now that the payment is authorized we must obtain the real payment. As mentioned before I use an asyncronous job to make it, just to speed up the user experience. The worker code is really simple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaypalWorker</span>
+  <span style="color:#ff79c6">include</span> Sidekiq<span style="color:#ff79c6">::</span>Worker
 
-<pre><code class="language-ruby">
-class PaypalWorker
-  include Sidekiq::Worker
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">perform</span>(order_id)
+    <span style="color:#8be9fd;font-style:italic">@order</span> <span style="color:#ff79c6">=</span> Order<span style="color:#ff79c6">.</span>find(order_id)
 
-  def perform(order_id)
-    @order = Order.find(order_id)
-
-    @paypal = PaypalInterface.new(@order)
-    @paypal.do_express_checkout
-  end
-end
-
-</code></pre>
-
+    <span style="color:#8be9fd;font-style:italic">@paypal</span> <span style="color:#ff79c6">=</span> PaypalInterface<span style="color:#ff79c6">.</span>new(<span style="color:#8be9fd;font-style:italic">@order</span>)
+    <span style="color:#8be9fd;font-style:italic">@paypal</span><span style="color:#ff79c6">.</span>do_express_checkout
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>Let&rsquo;s jump to the <em>PaypalInterface.do_express_checkout</em> method:</p>
-
-<pre><code class="language-ruby">
-class PaypalInterface
-  [..]
-  def do_express_checkout
-    @do_express_checkout_payment = @api.build_do_express_checkout_payment({
-      DoExpressCheckoutPaymentRequestDetails: {
-        PaymentAction: &quot;Sale&quot;,
-        Token: @order.payment_token,
-        PayerID: @order.payerID,
-        PaymentDetails: [{
-          OrderTotal: {
-            currencyID: &quot;EUR&quot;,
-            value: @order.total
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">PaypalInterface</span>
+  <span style="color:#ff79c6">[..]</span>
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">do_express_checkout</span>
+    <span style="color:#8be9fd;font-style:italic">@do_express_checkout_payment</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">@api</span><span style="color:#ff79c6">.</span>build_do_express_checkout_payment({
+      <span style="color:#f1fa8c">DoExpressCheckoutPaymentRequestDetails</span>: {
+        <span style="color:#f1fa8c">PaymentAction</span>: <span style="color:#f1fa8c">&#34;Sale&#34;</span>,
+        <span style="color:#f1fa8c">Token</span>: <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>payment_token,
+        <span style="color:#f1fa8c">PayerID</span>: <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>payerID,
+        <span style="color:#f1fa8c">PaymentDetails</span>: <span style="color:#ff79c6">[</span>{
+          <span style="color:#f1fa8c">OrderTotal</span>: {
+            <span style="color:#f1fa8c">currencyID</span>: <span style="color:#f1fa8c">&#34;EUR&#34;</span>,
+            <span style="color:#f1fa8c">value</span>: <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>total
           },
-          NotifyURL: PAYPAL_NOTIFY_URL
-        }]
+          <span style="color:#f1fa8c">NotifyURL</span>: PAYPAL_NOTIFY_URL
+        }<span style="color:#ff79c6">]</span>
       }
     })
 
-    # Make API call &amp; get response
-    @do_express_checkout_payment_response = @api.do_express_checkout_payment(@do_express_checkout_payment)
+    <span style="color:#6272a4"># Make API call &amp; get response</span>
+    <span style="color:#8be9fd;font-style:italic">@do_express_checkout_payment_response</span> <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">@api</span><span style="color:#ff79c6">.</span>do_express_checkout_payment(<span style="color:#8be9fd;font-style:italic">@do_express_checkout_payment</span>)
 
-    # Access Response
-    if @do_express_checkout_payment_response.success?
-      details = @do_express_checkout_payment_response.DoExpressCheckoutPaymentResponseDetails
-      @order.set_payment_details(prepare_express_checkout_response(details))
-    else
-      errors = @do_express_checkout_payment_response.Errors # =&gt; Array
-      @order.save_payment_errors errors
-    end
-  end
-end
-
-</code></pre>
-
+    <span style="color:#6272a4"># Access Response</span>
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">@do_express_checkout_payment_response</span><span style="color:#ff79c6">.</span>success?
+      details <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">@do_express_checkout_payment_response</span><span style="color:#ff79c6">.</span>DoExpressCheckoutPaymentResponseDetails
+      <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>set_payment_details(prepare_express_checkout_response(details))
+    <span style="color:#ff79c6">else</span>
+      errors <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">@do_express_checkout_payment_response</span><span style="color:#ff79c6">.</span>Errors <span style="color:#6272a4"># =&gt; Array</span>
+      <span style="color:#8be9fd;font-style:italic">@order</span><span style="color:#ff79c6">.</span>save_payment_errors errors
+    <span style="color:#ff79c6">end</span>
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>Essentially the method sends to paypal the token, the PayerID and the order details. If the values are correct, Paypal will make the real payment and will return a successful response. In addition it will make a POST call to the IPN url (we&rsquo;ll see this below).</p>
 
 <p>If something goes wrong we&rsquo;ll get an error array like this:</p>
-
-<pre><code class="language-ruby">
-[{
-  :ShortMessage =&gt; &quot;This Express Checkout session has expired.&quot;,
-  :LongMessage =&gt; &quot;This Express Checkout session has expired.  Token value is no longer valid.&quot;,
-  :ErrorCode =&gt; &quot;10411&quot;,
-  :SeverityCode =&gt; &quot;Error&quot;
-}]
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">[</span>{
+  <span style="color:#f1fa8c">:ShortMessage</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;This Express Checkout session has expired.&#34;</span>,
+  <span style="color:#f1fa8c">:LongMessage</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;This Express Checkout session has expired.  Token value is no longer valid.&#34;</span>,
+  <span style="color:#f1fa8c">:ErrorCode</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;10411&#34;</span>,
+  <span style="color:#f1fa8c">:SeverityCode</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;Error&#34;</span>
+}<span style="color:#ff79c6">]</span></code></pre></div>
 <p>Error codes and details are documented here: <a href="https://developer.paypal.com/webapps/developer/docs/classic/api/errorcodes/">https://developer.paypal.com/webapps/developer/docs/classic/api/errorcodes/</a></p>
 
 <p>If the payments is correct, the method calls <em>Order.save_payment_details</em>, saving the payment details (I use a <em>Payment</em> model with an <em>has_one</em> association with <em>Order</em>).</p>
@@ -390,21 +327,16 @@ end
 <h2 id="ipn">IPN</h2>
 
 <p>After the express checkout, Paypal send a POST call to the IPN url:</p>
-
-<pre><code class="language-ruby">
-class OrdersController &lt; ApplicationController
-  [..]
-  def ipn
-    if payment = Payment.find_by_transaction_id(params[:txn_id])
-      payment.receive_ipn(params)
-    else
-      Payment.create_by_ipn(params)
-    end
-  end
-end
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">OrdersController</span> <span style="color:#ff79c6">&lt;</span> ApplicationController
+  <span style="color:#ff79c6">[..]</span>
+  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">ipn</span>
+    <span style="color:#ff79c6">if</span> payment <span style="color:#ff79c6">=</span> Payment<span style="color:#ff79c6">.</span>find_by_transaction_id(params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:txn_id</span><span style="color:#ff79c6">]</span>)
+      payment<span style="color:#ff79c6">.</span>receive_ipn(params)
+    <span style="color:#ff79c6">else</span>
+      Payment<span style="color:#ff79c6">.</span>create_by_ipn(params)
+    <span style="color:#ff79c6">end</span>
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>The action tries to find the payment using the transaction ID and sends to it the params. If it doesn&rsquo;t find it (and this is strange!) it creates a Payment saving the params (about payments, I prefer to log everything!).
 The IPN params are really a lot (check them <a href="https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/">here</a>), I saves only a few of them in dedicated columns, then I put a raw copy of the params (using <em>params.to_s</em> ) in a text field for debugging porpouses.</p>
 

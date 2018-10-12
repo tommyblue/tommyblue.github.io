@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -95,61 +97,58 @@ No such file or directory
 <p>I also changed the <code>app_command</code> variable to launch <code>node ~/apps/tommyblue.it/current/index</code> instead of <code>node ~/apps/tommyblue.it/current/core/index</code> in the upstart script. The second command doesn&rsquo;t actually works although is the gem&rsquo;s default.</p>
 
 <p>This is the full content of the <code>Capfile</code> (remember to change <UPPERCASE VALUES> to your own):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">require &#34;capistrano/node-deploy&#34;
+require &#34;capistrano/shared_file&#34;
+require &#34;capistrano-rbenv&#34;
+set :rbenv_ruby_version, &#34;2.1.1&#34;
 
-<pre><code class="language-prettyprint">require &quot;capistrano/node-deploy&quot;
-require &quot;capistrano/shared_file&quot;
-require &quot;capistrano-rbenv&quot;
-set :rbenv_ruby_version, &quot;2.1.1&quot;
+set :application, &#34;tommyblue.it&#34;
+set :user, &#34;&lt;USERNAME&gt;&#34;
+set :deploy_to, &#34;/home/#{user}/apps/#{application}&#34;
 
-set :application, &quot;tommyblue.it&quot;
-set :user, &quot;&lt;USERNAME&gt;&quot;
-set :deploy_to, &quot;/home/#{user}/apps/#{application}&quot;
+set :app_command, &#34;index&#34;
 
-set :app_command, &quot;index&quot;
-
-set :node_user, &quot;&lt;USERNAME&gt;&quot;
-set :node_env, &quot;production&quot;
-set :nvm_path, &quot;/home/&lt;USERNAME&gt;/.nvm/v0.10.26/bin&quot;
-set :node_binary, &quot;#{nvm_path}/node&quot;
-set :npm_binary, &quot;#{nvm_path}/npm&quot;
+set :node_user, &#34;&lt;USERNAME&gt;&#34;
+set :node_env, &#34;production&#34;
+set :nvm_path, &#34;/home/&lt;USERNAME&gt;/.nvm/v0.10.26/bin&#34;
+set :node_binary, &#34;#{nvm_path}/node&#34;
+set :npm_binary, &#34;#{nvm_path}/npm&#34;
 
 set :use_sudo, false
 set :scm, :git
-set :repository,  &quot;&lt;GIT REPO URL&gt;&quot;
+set :repository,  &#34;&lt;GIT REPO URL&gt;&#34;
 
 default_run_options[:pty] = true
 set :ssh_options, { forward_agent: true }
 
-server &quot;&lt;SERVER HOSTNAME OR IP&gt;&quot;, :web, :app, :db, primary: true
+server &#34;&lt;SERVER HOSTNAME OR IP&gt;&#34;, :web, :app, :db, primary: true
 
-set :shared_files,    [&quot;config.js&quot;]
-set :shared_children, [&quot;content/data&quot;, &quot;content/images&quot;]
+set :shared_files,    [&#34;config.js&#34;]
+set :shared_children, [&#34;content/data&#34;, &#34;content/images&#34;]
 
 set :keep_releases, 3
 
 namespace :deploy do
   task :mkdir_shared do
-    run &quot;cd #{shared_path} &amp;&amp; mkdir -p data images files&quot;
+    run &#34;cd #{shared_path} &amp;&amp; mkdir -p data images files&#34;
   end
 
   task :generate_sitemap do
-    run &quot;cd #{latest_release} &amp;&amp; ./ghost_sitemap.sh #{latest_release}&quot;
+    run &#34;cd #{latest_release} &amp;&amp; ./ghost_sitemap.sh #{latest_release}&#34;
   end
 end
 
 namespace :node do
-  desc &quot;Check required packages and install if packages are not installed&quot;
+  desc &#34;Check required packages and install if packages are not installed&#34;
   task :install_packages do
-    run &quot;mkdir -p #{previous_release}/node_modules ; cp -r #{previous_release}/node_modules #{release_path}&quot; if previous_release
-    run &quot;cd #{release_path} &amp;&amp; PATH=#{nvm_path}:$PATH #{npm_binary} install --loglevel warn&quot;
+    run &#34;mkdir -p #{previous_release}/node_modules ; cp -r #{previous_release}/node_modules #{release_path}&#34; if previous_release
+    run &#34;cd #{release_path} &amp;&amp; PATH=#{nvm_path}:$PATH #{npm_binary} install --loglevel warn&#34;
   end
 end
 
-after &quot;deploy:create_symlink&quot;, &quot;deploy:mkdir_shared&quot;
-after &quot;node:restart&quot;, &quot;deploy:generate_sitemap&quot;
-after &quot;deploy:generate_sitemap&quot;, &quot;deploy:cleanup&quot;
-</code></pre>
-
+after &#34;deploy:create_symlink&#34;, &#34;deploy:mkdir_shared&#34;
+after &#34;node:restart&#34;, &#34;deploy:generate_sitemap&#34;
+after &#34;deploy:generate_sitemap&#34;, &#34;deploy:cleanup&#34;</code></pre></div>
     </section>
     <footer class="post-footer">
       <section class="tags post-meta">

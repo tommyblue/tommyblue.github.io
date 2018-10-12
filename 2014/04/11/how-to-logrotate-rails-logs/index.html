@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -79,15 +81,9 @@
 <p>This is a really easy solution. Rails will use standard syslog as logger, which means the logs will rotate automatically.</p>
 
 <p>Open <code>config/environments/production.rb</code> and add this line:</p>
-
-<pre><code class="language-prettyprint">config.logger = SyslogLogger.new
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">config.logger = SyslogLogger.new</code></pre></div>
 <p>If you want to avoid your logs to be mixed with system logs you need to add some parameters:</p>
-
-<pre><code class="language-prettyprint">config.logger = SyslogLogger.new('/var/log/&lt;APP_NAME&gt;.log')
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">config.logger = SyslogLogger.new(&#39;/var/log/&lt;APP_NAME&gt;.log&#39;)</code></pre></div>
 <h2 id="use-logrotate">Use logrotate</h2>
 
 <p>This is the cleaner way, but requires to create a file in the server, inside the <code>/etc/logrotate.d/</code> folder. This is a possible content of the <code>/etc/logrotate.d/rails_apps</code> file:</p>
@@ -118,15 +114,9 @@ Below the <code>copytruncate</code> details from <a href="http://linuxcommand.or
 </code></pre>
 
 <p>To check the logrotate script you can use the <code>logrotate</code> command with the debug (<code>-d</code>) option, which executes a dry-run:</p>
-
-<pre><code class="language-prettyprint">sudo logrotate -d /etc/logrotate.d/rails_apps
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">sudo logrotate -d /etc/logrotate.d/rails_apps</code></pre></div>
 <p>If everything seems ok you can wait until the next day or manually launch the rotation with:</p>
-
-<pre><code class="language-prettyprint">sudo logrotate -v /etc/logrotate.d/rails_apps
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">sudo logrotate -v /etc/logrotate.d/rails_apps</code></pre></div>
     </section>
     <footer class="post-footer">
       <section class="tags post-meta">

@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -67,49 +69,37 @@
 <p>We used Ruby and RSpec with a simple setup that I want to report here if you&rsquo;d like to play with some katas.</p>
 
 <p>Although probably a Kata exercise won&rsquo;t need many gems, in ruby projects I like to always use a <code>Gemfile</code> with the required gems:</p>
-
-<pre><code class="language-prettyprint">ruby '2.1.2'
-source 'https://rubygems.org'
-gem 'rspec'
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint" data-lang="prettyprint">ruby &#39;2.1.2&#39;
+source &#39;https://rubygems.org&#39;
+gem &#39;rspec&#39;</code></pre></div>
 <p>After a <code>bundle install</code> you&rsquo;re ready to start writing some code (if you don&rsquo;t have the <code>bundle</code> command, install the bundler gem with <code>gem install bundler</code>).</p>
 
 <p>A basic example to begin TDD with <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">the Game of Life</a> could be this:</p>
 
 <p><code>game_of_life_spec.rb</code>:</p>
-
-<pre><code class="language-prettyprint">require './game_of_life'
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">require &#39;./game_of_life&#39;
 
 describe GameOfLife::Universe do
-  it &quot;should have an initial size&quot; do
+  it &#34;should have an initial size&#34; do
     u = GameOfLife::Universe.new(6)
     expect(u.size).to eq(36)
   end
-end
-</code></pre>
-
+end</code></pre></div>
 <p><code>game_of_life.rb</code>:</p>
-
-<pre><code class="language-prettyprint">module GameOfLife
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">module GameOfLife
   class Universe
     attr_reader :size
     def initialize(side)
       @size = side**2
     end
   end
-end
-</code></pre>
-
+end</code></pre></div>
 <p>With this minimalistic setup, the test passes:</p>
-
-<pre><code class="language-prettyprint">~$ bundle exec rspec --color game_of_life_spec.rb
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint" data-lang="prettyprint">~$ bundle exec rspec --color game_of_life_spec.rb
 .
 
 Finished in 0.00095 seconds (files took 0.0966 seconds to load)
-1 example, 0 failures
-</code></pre>
-
+1 example, 0 failures</code></pre></div>
 <p>You&rsquo;re now ready to start playing with TDD in Ruby :)</p>
 
     </section>

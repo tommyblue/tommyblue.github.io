@@ -85,7 +85,7 @@ Use syslog This is a really easy solution.</description>
       <guid>http://tommyblue.it/2014/04/02/generate-the-sitemap-of-a-ghost-blog-during-deploy/</guid>
       <description>Waiting for a sitemap generator inside the core of Ghost (planned as &amp;ldquo;future implementation&amp;rdquo;) I decided to implement a way to generate an up-to-date sitemap.xml during deployment. As you can read in the previous post I&amp;rsquo;m deploying this blog with Capistrano and capistrano-node-deploy. So I added a deploy:generate_sitemap task which is executed at the end of the deployment process.
 This is the Capfile extract:
-namespace :deploy do task :generate_sitemap do run &amp;quot;cd #{latest_release} &amp;amp;&amp;amp; .</description>
+namespace :deploy do task :generate_sitemap do run &amp;#34;cd #{latest_release} &amp;amp;&amp;amp; .</description>
     </item>
     
     <item>

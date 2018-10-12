@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -89,28 +91,22 @@
 So write the minimal js file and its corresponding test file:</p>
 
 <p><code>test/game_of_life_test.js</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-js" data-lang="prettyprint lang-js">var expect = require(&#39;expect.js&#39;),
+  GameOfLife = require(&#39;../lib/game_of_life&#39;);
 
-<pre><code class="language-prettyprint">var expect = require('expect.js'),
-  GameOfLife = require('../lib/game_of_life');
-
-describe('Universe', function(){
-  it('should have an initial size', function() {
+describe(&#39;Universe&#39;, function(){
+  it(&#39;should have an initial size&#39;, function() {
     var u = new GameOfLife(6)
     expect(u.getSize()).to.equal(36);
   });
-})
-</code></pre>
-
+})</code></pre></div>
 <p><code>lib/game_of_life.js</code>:</p>
-
-<pre><code class="language-prettyprint">function GameOfLife(side){
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-js" data-lang="prettyprint lang-js">function GameOfLife(side){
   this.size = side * side;
 }
 GameOfLife.prototype.getSize = function() { return this.size; }
 
-module.exports = GameOfLife;
-</code></pre>
-
+module.exports = GameOfLife;</code></pre></div>
 <p>Now launch <code>mocha</code> and the first test should pass:</p>
 
 <pre><code>~$ mocha

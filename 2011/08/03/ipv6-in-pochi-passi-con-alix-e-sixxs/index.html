@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -71,23 +73,16 @@ Il primo passo è, per l&rsquo;appunto, quello di <a href="http://www.sixxs.net/
 <p>Una volta ottenuti i dati di accesso bisogna richiedere un tunnel. In questa guida coprirò la configurazione di un tunnel heartbeat con Aiccu. Anche la richiesta del tunnel richiede approvazione, quindi in attesa possiamo configurare il sistema (una volta approvato il tunnel basta inserirne il nome in <em>/etc/aiccu.conf</em> e gli ip in <em>/etc/network/interfaces</em>).
 <h2>AICCU</h2>
 Come premesso il sistema deve avere l&rsquo;ora corretta con uno scarto massimo di 30 secondi, altrimenti AICCU non stabilisce la connessione. Nel più semplice dei casi per farlo basta installare il pacchetto <strong>ntp</strong>. AICCU logga in <em>/var/log/syslog</em>, ecco il tipico errore per problemi di sincronizzazione:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">~# cat /var/log/syslog | grep aiccu
 
-<pre><code class="language-prettyprint">
-~# cat /var/log/syslog | grep aiccu
-
-Apr 28 08:50:19 voyage aiccu[1731]: sock_getline() : &quot;200 Client Identity accepted&quot;
-Apr 28 08:50:19 voyage aiccu[1731]: sock_printf() Â : &quot;get unixtime&quot;
-Apr 28 08:50:19 voyage aiccu[1731]: sock_getline() : &quot;200 1312374039&quot;
+Apr 28 08:50:19 voyage aiccu[1731]: sock_getline() : &#34;200 Client Identity accepted&#34;
+Apr 28 08:50:19 voyage aiccu[1731]: sock_printf() Â : &#34;get unixtime&#34;
+Apr 28 08:50:19 voyage aiccu[1731]: sock_getline() : &#34;200 1312374039&#34;
 Apr 28 08:50:19 voyage aiccu[1731]: The clock is off by 355469420 seconds, use NTP to sync it!
-Apr 28 08:50:19 voyage aiccu[1731]: sock_printf() Â : &quot;QUIT Aborting: Clock is off by 355469420 seconds &quot;
-Apr 28 08:50:19 voyage aiccu[1731]: Couldn't retrieve first tunnel for the above reason, aborting
-
-</code></pre>
-
+Apr 28 08:50:19 voyage aiccu[1731]: sock_printf() Â : &#34;QUIT Aborting: Clock is off by 355469420 seconds &#34;
+Apr 28 08:50:19 voyage aiccu[1731]: Couldn&#39;t retrieve first tunnel for the above reason, aborting</code></pre></div>
 <p>Una volta sincronizzato l&rsquo;orario si può procedere installando il pacchetto <strong>aiccu</strong><em> </em>. All&rsquo;installazione vi verranno chiesti i dati di accesso a SixXS. Oltre a questo ho scommentato soltanto due righe in <em>/etc/aiccu.conf</em>, riporto tutto il file:</p>
-
-<pre><code class="language-prettyprint">
-username MY_USERNAME
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">username MY_USERNAME
 password MY_PASSWORD
 protocol tic
 server tic.sixxs.net
@@ -97,27 +92,19 @@ verbose false
 daemonize true
 automatic true
 requiretls false
-makebeats true
-
-</code></pre>
-
+makebeats true</code></pre></div>
 <p>Basta adattare le variabili <em>username</em>, <em>password</em> e <em>tunnel_id</em> (tutti dati che vi devono essere dati da SixXS) e il gioco è fatto.
 Molte informazioni le potete trovare anche nella wiki di SixXS: <a href="http://www.sixxs.net/wiki/Aiccu" target="_blank"><a href="http://www.sixxs.net/wiki/Aiccu">http://www.sixxs.net/wiki/Aiccu</a></a>
 <h2>Interfaccia di rete</h2>
 Quando il tunnel ci verrà  attivato potremo configurare l&rsquo;interfaccia, nello specifico inserendo questa configurazione in <em>/etc/network/interfaces</em> (utilizzando i dati che abbiamo ottenuto):</p>
-
-<pre><code class="language-prettyprint">
-auto sixxs
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">auto sixxs
 iface sixxs inet6 v4tunnel
 address MY_IPV6_IP
 netmask 64
 endpoint 213.254.12.34
 ttl 64
 up ip link set mtu 1280 dev sixxs
-up ip route add default via MY_IPV6_GATEWAY dev sixxs
-
-</code></pre>
-
+up ip route add default via MY_IPV6_GATEWAY dev sixxs</code></pre></div>
 <p>L&rsquo;IPv4 dell&rsquo;endpoint è quello italiano, ad ogni modo nella mail di conferma attivazione del tunnel c&rsquo;è scritto tutto. Il vostro indirizzo IP e quello del gateway differiscono soltanto per l&rsquo;ultima cifra: <strong>:1</strong> per il gateway e <strong>:2</strong> per il vostro IP.
 <h2>Test IPv6</h2>
 Terminati questi passaggi il nostro IPv6 dovrebbe essere pronto. Riavviamo AICCU e la rete (<em>/etc/init.d/networking restart</em>) e testiamo il tutto pingando (occhio, ci vuoleÂ <em>ping6</em>) il gateway IPv6.
@@ -128,19 +115,12 @@ Ora che abbiamo un IPv6 e lo usiamo per navigare da un pc, è giunto il momento 
 
 <p>Come al solito il primo passo è richiedere a SixXS una subnet. Una volta ottenuta la rete /48, seguendo la <a href="https://www.sixxs.net/wiki/Installing_a_Subnet" target="_blank">guida nella wiki di Sixxs</a>, andiamo a configurare una /64 per la nostra rete.
 Assegniamo staticamente uno di questi indirizzi in <em>/etc/network/interfaces</em>:</p>
-
-<pre><code class="language-prettyprint">
-iface eth0 inet6 static
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">iface eth0 inet6 static
 address MY_IP_FROM_SUBNET
-netmask 64
-
-</code></pre>
-
+netmask 64</code></pre></div>
 <p>Riavviata la rete, il nostro ALIX avrà  un secondo IPv6 (oltre a quello del tunnel). Per permettere il routing e l&rsquo;advertising degli indirizzi ip usiamoÂ <strong>radvd</strong>: non si tratta di un DHCPv6 (al momento non esiste un DHCPv6 veramente funzionante) ma di un router IPv6 che periodicamente invia pacchetti multicast di Router Advertisement per permettere l&rsquo;autoconfigurazione degli apparati di rete utilizzando gli ip della nostra subnet.
 Dopo aver installato il pacchetto <strong>radvd</strong> bisogna creare il file <em>/etc/radvd.conf</em> con il seguente contenuto:</p>
-
-<pre><code class="language-prettyprint">
-interface eth0{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">interface eth0{
   AdvSendAdvert on;
   prefix MY_IP_FROM_SUBNET/64
   {
@@ -148,19 +128,11 @@ interface eth0{
     AdvAutonomous on;
     AdvRouterAddr on;
   };
-};
-
-</code></pre>
-
+};</code></pre></div>
 <p>Avviamo radvd e abilitiamo il forwarding:</p>
-
-<pre><code class="language-prettyprint">
-echo &quot;net.ipv6.conf.all.forwarding=1&quot; &gt;&gt; /etc/sysctl.conf
-echo &quot;net.ipv6.conf.default.forwarding=1&quot; &gt;&gt; /etc/sysctl.conf
-sysctl -p
-
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">echo &#34;net.ipv6.conf.all.forwarding=1&#34; &gt;&gt; /etc/sysctl.conf
+echo &#34;net.ipv6.conf.default.forwarding=1&#34; &gt;&gt; /etc/sysctl.conf
+sysctl -p</code></pre></div>
 <p>Se tutto è andato come doveva le macchine nella vostra rete dovrebbero ottenere un indirizzo IPv6 (parlo di Mac e Linux, per Windows arrangiatevi.. :) e navigare IPv6.
 Provate ad aprire il sito SixXS per averne conferma:</p>
 
@@ -169,119 +141,114 @@ Provate ad aprire il sito SixXS per averne conferma:</p>
 Una cosa che ben presto si capisce di IPv6 è che le tanto odiate NAT in certi casi facevano comodo. Uno di questi è che un IP privato era <strong>privato</strong>. Con IPv6 quasi tutto è pubblico e quindi un firewall è indispensabile.</p>
 
 <p>Ho scritto un breve script per <strong>ip6tables</strong> prendendo spunto dalla wiki si SixXS, dopo averlo personalizzato (dovete settare qualche IP) basta metterlo in <em>/etc/init.d</em> e aggiungerlo al runlevel di default (<em>update-rc.d firewall-ipv6 defaults</em>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash"><span style="color:#ff79c6">#! /bin/bash
+</span><span style="color:#ff79c6"></span>
+<span style="color:#6272a4">### BEGIN INIT INFO
+</span><span style="color:#6272a4"># Provides:             firewall-ipv6
+</span><span style="color:#6272a4"># Required-Start:       $remote_fs $syslog
+</span><span style="color:#6272a4"># Required-Stop:        $remote_fs $syslog
+</span><span style="color:#6272a4"># Default-Start:        2 3 4 5
+</span><span style="color:#6272a4"># Default-Stop:         0 1 6
+</span><span style="color:#6272a4"># Short-Description:    IPTables-based IPv6 firewall
+</span><span style="color:#6272a4">### END INIT INFO
+</span><span style="color:#6272a4"></span>
+<span style="color:#8be9fd;font-style:italic">set</span> -e
 
-<pre><code class="language-prettyprint">
-#! /bin/bash
+<span style="color:#6272a4"># /etc/init.d/firewall-ipv6: start and stop the ip6tables firewall
+</span><span style="color:#6272a4"></span>
+<span style="color:#8be9fd;font-style:italic">IP6</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/sbin/ip6tables&#34;</span>
 
-### BEGIN INIT INFO
-# Provides:             firewall-ipv6
-# Required-Start:       $remote_fs $syslog
-# Required-Stop:        $remote_fs $syslog
-# Default-Start:        2 3 4 5
-# Default-Stop:         0 1 6
-# Short-Description:    IPTables-based IPv6 firewall
-### END INIT INFO
+<span style="color:#6272a4"># L&#39;indirizzo IP di questa macchina
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">THIS_HOST</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;2001:1418:AAAA:AAAA::2&#34;</span>
 
-set -e
+<span style="color:#6272a4"># La subnet assegnata da SixXS
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">SUBNET_PREFIX</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;2001:1418:BBBB::/48&#34;</span>
 
-# /etc/init.d/firewall-ipv6: start and stop the ip6tables firewall
+stop_firewall<span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
+<span style="color:#6272a4"># First, delete all:
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -F
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -X
 
-IP6=&quot;/sbin/ip6tables&quot;
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -P INPUT   ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -P FORWARD ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -P OUTPUT  ACCEPT
+<span style="color:#ff79c6">}</span>
 
-# L'indirizzo IP di questa macchina
-THIS_HOST=&quot;2001:1418:AAAA:AAAA::2&quot;
-
-# La subnet assegnata da SixXS
-SUBNET_PREFIX=&quot;2001:1418:BBBB::/48&quot;
-
-stop_firewall() {
-# First, delete all:
-$IP6 -F
-$IP6 -X
-
-$IP6 -P INPUT   ACCEPT
-$IP6 -P FORWARD ACCEPT
-$IP6 -P OUTPUT  ACCEPT
-}
-
-start_firewall() {
+start_firewall<span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
 stop_firewall
 
-# Allow anything on the local link
-$IP6 -A INPUT  -i lo -j ACCEPT
-$IP6 -A OUTPUT -o lo -j ACCEPT
+<span style="color:#6272a4"># Allow anything on the local link
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT  -i lo -j ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -o lo -j ACCEPT
 
-# Allow anything out on the internet
-$IP6 -A OUTPUT -o sixxs -j ACCEPT
+<span style="color:#6272a4"># Allow anything out on the internet
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -o sixxs -j ACCEPT
 
-# Allow the localnet access us:
-$IP6 -A INPUT    -i eth0   -j ACCEPT
-$IP6 -A OUTPUT   -o eth0   -j ACCEPT
+<span style="color:#6272a4"># Allow the localnet access us:
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT    -i eth0   -j ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT   -o eth0   -j ACCEPT
 
-# Filter all packets that have RH0 headers:
-$IP6 -A INPUT -m rt --rt-type 0 -j DROP
-$IP6 -A FORWARD -m rt --rt-type 0 -j DROP
-$IP6 -A OUTPUT -m rt --rt-type 0 -j DROP
+<span style="color:#6272a4"># Filter all packets that have RH0 headers:
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -m rt --rt-type <span style="color:#bd93f9">0</span> -j DROP
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A FORWARD -m rt --rt-type <span style="color:#bd93f9">0</span> -j DROP
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -m rt --rt-type <span style="color:#bd93f9">0</span> -j DROP
 
-# Allow Link-Local addresses
-$IP6 -A INPUT -s fe80::/10 -j ACCEPT
-$IP6 -A OUTPUT -s fe80::/10 -j ACCEPT
+<span style="color:#6272a4"># Allow Link-Local addresses
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -s fe80::/10 -j ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -s fe80::/10 -j ACCEPT
 
-# Allow multicast
-$IP6 -A INPUT -s ff00::/8 -j ACCEPT
-$IP6 -A OUTPUT -s ff00::/8 -j ACCEPT
+<span style="color:#6272a4"># Allow multicast
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -s ff00::/8 -j ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -s ff00::/8 -j ACCEPT
 
-# Allow ICMPv6 everywhere
-$IP6 -I INPUT  -p icmpv6 -j ACCEPT
-$IP6 -I OUTPUT -p icmpv6 -j ACCEPT
-$IP6 -I FORWARD -p icmpv6 -j ACCEPT
+<span style="color:#6272a4"># Allow ICMPv6 everywhere
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -I INPUT  -p icmpv6 -j ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -I OUTPUT -p icmpv6 -j ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -I FORWARD -p icmpv6 -j ACCEPT
 
-# Allow forwarding
-$IP6 -A FORWARD -m state --state NEW -i eth0 -o sixxs -s $SUBNET_PREFIX -j ACCEPT
-$IP6 -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+<span style="color:#6272a4"># Allow forwarding
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A FORWARD -m state --state NEW -i eth0 -o sixxs -s <span style="color:#8be9fd;font-style:italic">$SUBNET_PREFIX</span> -j ACCEPT
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-# SSH verso questa macchina
-$IP6 -A INPUT -i sixxs -p tcp -d $THIS_HOST --dport 22 -j ACCEPT
+<span style="color:#6272a4"># SSH verso questa macchina
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -i sixxs -p tcp -d <span style="color:#8be9fd;font-style:italic">$THIS_HOST</span> --dport <span style="color:#bd93f9">22</span> -j ACCEPT
 
-# Accesso a macchine della rete
-#$IP6 -A FORWARD -i sixxs -p tcp -d $IP_DA_RAGGIUNGERE --dport $PORTA_DA_RAGGIUNGERE -j ACCEPT
+<span style="color:#6272a4"># Accesso a macchine della rete
+</span><span style="color:#6272a4">#$IP6 -A FORWARD -i sixxs -p tcp -d $IP_DA_RAGGIUNGERE --dport $PORTA_DA_RAGGIUNGERE -j ACCEPT
+</span><span style="color:#6272a4"></span>
+<span style="color:#6272a4"># Set the default policy
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -P INPUT   DROP
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -P FORWARD DROP
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -P OUTPUT  ACCEPT
+<span style="color:#ff79c6">}</span>
 
-# Set the default policy
-$IP6 -P INPUT   DROP
-$IP6 -P FORWARD DROP
-$IP6 -P OUTPUT  ACCEPT
-}
+<span style="color:#8be9fd;font-style:italic">test</span> -x <span style="color:#8be9fd;font-style:italic">$IP6</span> <span style="color:#ff79c6">||</span> <span style="color:#8be9fd;font-style:italic">exit</span> <span style="color:#bd93f9">0</span>
 
-test -x $IP6 || exit 0
+<span style="color:#8be9fd;font-style:italic">set</span> -e
 
-set -e
-
-case &quot;$1&quot; in
-start)
-echo -e &quot;Starting Firewall&quot;
+<span style="color:#ff79c6">case</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#8be9fd;font-style:italic">$1</span><span style="color:#f1fa8c">&#34;</span> in
+start<span style="color:#ff79c6">)</span>
+<span style="color:#8be9fd;font-style:italic">echo</span> -e <span style="color:#f1fa8c">&#34;Starting Firewall&#34;</span>
 stop_firewall
 start_firewall
 ;;
-stop)
-echo -e &quot;Stopping Firewall&quot;
+stop<span style="color:#ff79c6">)</span>
+<span style="color:#8be9fd;font-style:italic">echo</span> -e <span style="color:#f1fa8c">&#34;Stopping Firewall&#34;</span>
 stop_firewall
 ;;
-restart)
-echo -e &quot;Restarting Firewall&quot;
+restart<span style="color:#ff79c6">)</span>
+<span style="color:#8be9fd;font-style:italic">echo</span> -e <span style="color:#f1fa8c">&#34;Restarting Firewall&#34;</span>
 stop_firewall
 start_firewall
 ;;
-*)
-N=/etc/init.d/$NAME
-echo &quot;Usage: $N {start|stop|restart}&quot; &gt;&amp;2
-exit 1
+*<span style="color:#ff79c6">)</span>
+<span style="color:#8be9fd;font-style:italic">N</span><span style="color:#ff79c6">=</span>/etc/init.d/<span style="color:#8be9fd;font-style:italic">$NAME</span>
+<span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;Usage: </span><span style="color:#8be9fd;font-style:italic">$N</span><span style="color:#f1fa8c"> {start|stop|restart}&#34;</span> &gt;&amp;<span style="color:#bd93f9">2</span>
+<span style="color:#8be9fd;font-style:italic">exit</span> <span style="color:#bd93f9">1</span>
 ;;
-esac
+<span style="color:#ff79c6">esac</span>
 
-exit 0
-
-</code></pre>
-
+<span style="color:#8be9fd;font-style:italic">exit</span> <span style="color:#bd93f9">0</span></code></pre></div>
 <p>Per essere sicuri che il firewall funzioni si può usare questa applicazione web:Â <a title="Tim's Free IPv6 TCP Port Scanner (Firewall Tester)" href="http://ipv6.chappell-family.com/ipv6tcptest/" target="_blank"><a href="http://ipv6.chappell-family.com/ipv6tcptest/">http://ipv6.chappell-family.com/ipv6tcptest/</a></a>. Se tutto va bene il risultato dovrebbe essere questo:</p>
 
 <p><a href="/uploads/2011/08/Firewall-check.png" rel="prettyPhoto"><img class="aligncenter size-medium wp-image-1224" title="IPv6 firewall check" src="/uploads/2011/08/Firewall-check-300x144.png" alt="" width="300" height="144" /></a></p>

@@ -30,6 +30,8 @@
     </script>
     
     
+    <link rel="stylesheet" href="/css/custom.css">
+    
 </head>
 
     <body class="post-template">
@@ -67,15 +69,12 @@ As you can read in the <a href="/2014/04/01/deploy-ghost-blog-with-capistrano-rb
 So I added a <code>deploy:generate_sitemap</code> task which is executed at the end of the deployment process.</p>
 
 <p>This is the <code>Capfile</code> extract:</p>
-
-<pre><code class="language-prettyprint">namespace :deploy do  
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">namespace :deploy do  
   task :generate_sitemap do
-    run &quot;cd #{latest_release} &amp;&amp; ./ghost_sitemap.sh #{latest_release}&quot;
+    run &#34;cd #{latest_release} &amp;&amp; ./ghost_sitemap.sh #{latest_release}&#34;
   end
 end
-after &quot;node:restart&quot;, &quot;deploy:generate_sitemap&quot;  
-</code></pre>
-
+after &#34;node:restart&#34;, &#34;deploy:generate_sitemap&#34;  </code></pre></div>
 <p>So at the end of the deployment the <code>ghost_sitemap.sh</code> script is executed. The script is placed in the blog root and is a personalized version of the code you can find here: <a href="http://ghost.centminmod.com/ghost-sitemap-generator/">http://ghost.centminmod.com/ghost-sitemap-generator/</a></p>
 
 <p>It essentially does 3 things:</p>
