@@ -60,7 +60,7 @@
       
       <h2 class="post-title">IPv6 in pochi passi con ALIX e SixXS</h2>
       <section class="post-meta">
-        <time class="post-date">August 03, 2011</time>
+        <time class="post-date">2011-08-03</time>
       </section>
     </header>
     <section class="post-content">
@@ -73,37 +73,37 @@ Il primo passo è, per l&rsquo;appunto, quello di <a href="http://www.sixxs.net/
 <p>Una volta ottenuti i dati di accesso bisogna richiedere un tunnel. In questa guida coprirò la configurazione di un tunnel heartbeat con Aiccu. Anche la richiesta del tunnel richiede approvazione, quindi in attesa possiamo configurare il sistema (una volta approvato il tunnel basta inserirne il nome in <em>/etc/aiccu.conf</em> e gli ip in <em>/etc/network/interfaces</em>).
 <h2>AICCU</h2>
 Come premesso il sistema deve avere l&rsquo;ora corretta con uno scarto massimo di 30 secondi, altrimenti AICCU non stabilisce la connessione. Nel più semplice dei casi per farlo basta installare il pacchetto <strong>ntp</strong>. AICCU logga in <em>/var/log/syslog</em>, ecco il tipico errore per problemi di sincronizzazione:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">~# cat /var/log/syslog | grep aiccu
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~# cat /var/log/syslog | grep aiccu
 
-Apr 28 08:50:19 voyage aiccu[1731]: sock_getline() : &#34;200 Client Identity accepted&#34;
-Apr 28 08:50:19 voyage aiccu[1731]: sock_printf() Â : &#34;get unixtime&#34;
-Apr 28 08:50:19 voyage aiccu[1731]: sock_getline() : &#34;200 1312374039&#34;
-Apr 28 08:50:19 voyage aiccu[1731]: The clock is off by 355469420 seconds, use NTP to sync it!
-Apr 28 08:50:19 voyage aiccu[1731]: sock_printf() Â : &#34;QUIT Aborting: Clock is off by 355469420 seconds &#34;
-Apr 28 08:50:19 voyage aiccu[1731]: Couldn&#39;t retrieve first tunnel for the above reason, aborting</code></pre></div>
+Apr <span style="color:#bd93f9">28</span> <span style="color:#bd93f9">08</span>:50:19 voyage aiccu<span style="color:#ff79c6">[</span><span style="color:#bd93f9">1731</span><span style="color:#ff79c6">]</span>: sock_getline<span style="color:#ff79c6">()</span> : <span style="color:#f1fa8c">&#34;200 Client Identity accepted&#34;</span>
+Apr <span style="color:#bd93f9">28</span> <span style="color:#bd93f9">08</span>:50:19 voyage aiccu<span style="color:#ff79c6">[</span><span style="color:#bd93f9">1731</span><span style="color:#ff79c6">]</span>: sock_printf<span style="color:#ff79c6">()</span> Â : <span style="color:#f1fa8c">&#34;get unixtime&#34;</span>
+Apr <span style="color:#bd93f9">28</span> <span style="color:#bd93f9">08</span>:50:19 voyage aiccu<span style="color:#ff79c6">[</span><span style="color:#bd93f9">1731</span><span style="color:#ff79c6">]</span>: sock_getline<span style="color:#ff79c6">()</span> : <span style="color:#f1fa8c">&#34;200 1312374039&#34;</span>
+Apr <span style="color:#bd93f9">28</span> <span style="color:#bd93f9">08</span>:50:19 voyage aiccu<span style="color:#ff79c6">[</span><span style="color:#bd93f9">1731</span><span style="color:#ff79c6">]</span>: The clock is off by <span style="color:#bd93f9">355469420</span> seconds, use NTP to sync it!
+Apr <span style="color:#bd93f9">28</span> <span style="color:#bd93f9">08</span>:50:19 voyage aiccu<span style="color:#ff79c6">[</span><span style="color:#bd93f9">1731</span><span style="color:#ff79c6">]</span>: sock_printf<span style="color:#ff79c6">()</span> Â : <span style="color:#f1fa8c">&#34;QUIT Aborting: Clock is off by 355469420 seconds &#34;</span>
+Apr <span style="color:#bd93f9">28</span> <span style="color:#bd93f9">08</span>:50:19 voyage aiccu<span style="color:#ff79c6">[</span><span style="color:#bd93f9">1731</span><span style="color:#ff79c6">]</span>: Couldn&#39;t retrieve first tunnel <span style="color:#ff79c6">for</span> the above reason, aborting</code></pre></div>
 <p>Una volta sincronizzato l&rsquo;orario si può procedere installando il pacchetto <strong>aiccu</strong><em> </em>. All&rsquo;installazione vi verranno chiesti i dati di accesso a SixXS. Oltre a questo ho scommentato soltanto due righe in <em>/etc/aiccu.conf</em>, riporto tutto il file:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">username MY_USERNAME
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">username MY_USERNAME
 password MY_PASSWORD
 protocol tic
 server tic.sixxs.net
 ipv6_interface sixxs
 tunnel_id MY_TUNNEL
-verbose false
-daemonize true
-automatic true
-requiretls false
+verbose <span style="color:#8be9fd;font-style:italic">false</span>
+daemonize <span style="color:#8be9fd;font-style:italic">true</span>
+automatic <span style="color:#8be9fd;font-style:italic">true</span>
+requiretls <span style="color:#8be9fd;font-style:italic">false</span>
 makebeats true</code></pre></div>
 <p>Basta adattare le variabili <em>username</em>, <em>password</em> e <em>tunnel_id</em> (tutti dati che vi devono essere dati da SixXS) e il gioco è fatto.
 Molte informazioni le potete trovare anche nella wiki di SixXS: <a href="http://www.sixxs.net/wiki/Aiccu" target="_blank"><a href="http://www.sixxs.net/wiki/Aiccu">http://www.sixxs.net/wiki/Aiccu</a></a>
 <h2>Interfaccia di rete</h2>
 Quando il tunnel ci verrà  attivato potremo configurare l&rsquo;interfaccia, nello specifico inserendo questa configurazione in <em>/etc/network/interfaces</em> (utilizzando i dati che abbiamo ottenuto):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">auto sixxs
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">auto sixxs
 iface sixxs inet6 v4tunnel
 address MY_IPV6_IP
-netmask 64
-endpoint 213.254.12.34
-ttl 64
-up ip link set mtu 1280 dev sixxs
+netmask <span style="color:#bd93f9">64</span>
+endpoint <span style="color:#bd93f9">213</span>.254.12.34
+ttl <span style="color:#bd93f9">64</span>
+up ip link <span style="color:#8be9fd;font-style:italic">set</span> mtu <span style="color:#bd93f9">1280</span> dev sixxs
 up ip route add default via MY_IPV6_GATEWAY dev sixxs</code></pre></div>
 <p>L&rsquo;IPv4 dell&rsquo;endpoint è quello italiano, ad ogni modo nella mail di conferma attivazione del tunnel c&rsquo;è scritto tutto. Il vostro indirizzo IP e quello del gateway differiscono soltanto per l&rsquo;ultima cifra: <strong>:1</strong> per il gateway e <strong>:2</strong> per il vostro IP.
 <h2>Test IPv6</h2>
@@ -115,23 +115,23 @@ Ora che abbiamo un IPv6 e lo usiamo per navigare da un pc, è giunto il momento 
 
 <p>Come al solito il primo passo è richiedere a SixXS una subnet. Una volta ottenuta la rete /48, seguendo la <a href="https://www.sixxs.net/wiki/Installing_a_Subnet" target="_blank">guida nella wiki di Sixxs</a>, andiamo a configurare una /64 per la nostra rete.
 Assegniamo staticamente uno di questi indirizzi in <em>/etc/network/interfaces</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">iface eth0 inet6 static
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">iface eth0 inet6 static
 address MY_IP_FROM_SUBNET
-netmask 64</code></pre></div>
+netmask <span style="color:#bd93f9">64</span></code></pre></div>
 <p>Riavviata la rete, il nostro ALIX avrà  un secondo IPv6 (oltre a quello del tunnel). Per permettere il routing e l&rsquo;advertising degli indirizzi ip usiamoÂ <strong>radvd</strong>: non si tratta di un DHCPv6 (al momento non esiste un DHCPv6 veramente funzionante) ma di un router IPv6 che periodicamente invia pacchetti multicast di Router Advertisement per permettere l&rsquo;autoconfigurazione degli apparati di rete utilizzando gli ip della nostra subnet.
 Dopo aver installato il pacchetto <strong>radvd</strong> bisogna creare il file <em>/etc/radvd.conf</em> con il seguente contenuto:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">interface eth0{
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">interface eth0<span style="color:#ff79c6">{</span>
   AdvSendAdvert on;
   prefix MY_IP_FROM_SUBNET/64
-  {
+  <span style="color:#ff79c6">{</span>
     AdvOnLink on;
     AdvAutonomous on;
     AdvRouterAddr on;
-  };
-};</code></pre></div>
+  <span style="color:#ff79c6">}</span>;
+<span style="color:#ff79c6">}</span>;</code></pre></div>
 <p>Avviamo radvd e abilitiamo il forwarding:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">echo &#34;net.ipv6.conf.all.forwarding=1&#34; &gt;&gt; /etc/sysctl.conf
-echo &#34;net.ipv6.conf.default.forwarding=1&#34; &gt;&gt; /etc/sysctl.conf
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;net.ipv6.conf.all.forwarding=1&#34;</span> &gt;&gt; /etc/sysctl.conf
+<span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;net.ipv6.conf.default.forwarding=1&#34;</span> &gt;&gt; /etc/sysctl.conf
 sysctl -p</code></pre></div>
 <p>Se tutto è andato come doveva le macchine nella vostra rete dovrebbero ottenere un indirizzo IPv6 (parlo di Mac e Linux, per Windows arrangiatevi.. :) e navigare IPv6.
 Provate ad aprire il sito SixXS per averne conferma:</p>
@@ -141,7 +141,7 @@ Provate ad aprire il sito SixXS per averne conferma:</p>
 Una cosa che ben presto si capisce di IPv6 è che le tanto odiate NAT in certi casi facevano comodo. Uno di questi è che un IP privato era <strong>privato</strong>. Con IPv6 quasi tutto è pubblico e quindi un firewall è indispensabile.</p>
 
 <p>Ho scritto un breve script per <strong>ip6tables</strong> prendendo spunto dalla wiki si SixXS, dopo averlo personalizzato (dovete settare qualche IP) basta metterlo in <em>/etc/init.d</em> e aggiungerlo al runlevel di default (<em>update-rc.d firewall-ipv6 defaults</em>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash"><span style="color:#ff79c6">#! /bin/bash
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff79c6">#! /bin/bash
 </span><span style="color:#ff79c6"></span>
 <span style="color:#6272a4">### BEGIN INIT INFO
 </span><span style="color:#6272a4"># Provides:             firewall-ipv6
@@ -257,12 +257,12 @@ start_firewall
     <footer class="post-footer">
       <section class="tags post-meta">
         Tagged
-        <a href="http://tommyblue.it/tags/informatica/">informatica</a>
-          <a href="http://tommyblue.it/tags/software-libero/">software libero</a>
-          <a href="http://tommyblue.it/tags/ipv6/">ipv6</a>
-          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
-          <a href="http://tommyblue.it/tags/alix/">alix</a>
-          <a href="http://tommyblue.it/tags/sixxs/">sixxs</a>
+        <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/software-libero/">software libero</a>
+          <a href="https://tommyblue.it/tags/ipv6/">ipv6</a>
+          <a href="https://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="https://tommyblue.it/tags/alix/">alix</a>
+          <a href="https://tommyblue.it/tags/sixxs/">sixxs</a>
           
       </section>
     </footer>

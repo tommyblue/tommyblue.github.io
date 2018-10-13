@@ -2,46 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on TommyBlue.it</title>
-    <link>http://tommyblue.it/tags/linux/</link>
+    <link>https://tommyblue.it/tags/linux/</link>
     <description>Recent content in Linux on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jul 2013 11:44:28 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Sep 2010 12:16:31 +0000</lastBuildDate>
     
-	<atom:link href="http://tommyblue.it/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://tommyblue.it/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Bip: un proxy IRC per rimanere sempre connessi</title>
-      <link>http://tommyblue.it/2013/07/04/bip-un-proxy-irc-per-rimanere-sempre-connessi/</link>
-      <pubDate>Thu, 04 Jul 2013 11:44:28 +0000</pubDate>
-      
-      <guid>http://tommyblue.it/2013/07/04/bip-un-proxy-irc-per-rimanere-sempre-connessi/</guid>
-      <description>Bip è un proxy IRC, ovvero un demone che rimane collegato ai server IRC anche quando tu non lo sei. Quando poi ti ricolleghi a Bip ritrovi lo storico dei messaggi dalla tua ultima connessione.
-Configurare il demone Il demone può essere lanciato su un sever con un semplice:
-~$ bip
-Immediatamente il processo entra in background e rimane attivo finchè non lo si uccide. La configurazione è nel file ~/.</description>
-    </item>
     
     <item>
       <title>Sostituire un disco in un Raid 1 con mdadm</title>
-      <link>http://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</link>
+      <link>https://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</link>
       <pubDate>Tue, 28 Sep 2010 12:16:31 +0000</pubDate>
       
-      <guid>http://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
+      <guid>https://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
       <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
 La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
-    </item>
-    
-    <item>
-      <title>Usare i Tab in Vim</title>
-      <link>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</link>
-      <pubDate>Mon, 02 Feb 2009 19:59:51 +0000</pubDate>
-      
-      <guid>http://tommyblue.it/2009/02/02/usare-i-tab-in-vim/</guid>
-      <description>Splittare lo schermo e passare da un file all&amp;rsquo;altro con Vim non è certo la cosa più comoda del mondo&amp;hellip; e se ne devono essere accorti anche gli sviluppatori che, dalla versione 7, hanno implementato i Tab in Vim.
- Usarli è piuttosto semplice: :tabe nomefile per aprire un file in un tab e :tabp e :tabn per passare da uno all&amp;rsquo;altro  :D</description>
     </item>
     
   </channel>

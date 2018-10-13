@@ -2,35 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ghost on TommyBlue.it</title>
-    <link>http://tommyblue.it/tags/ghost/</link>
+    <link>https://tommyblue.it/tags/ghost/</link>
     <description>Recent content in Ghost on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 02 Apr 2014 07:53:27 +0000</lastBuildDate>
     
-	<atom:link href="http://tommyblue.it/tags/ghost/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://tommyblue.it/tags/ghost/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Generate the sitemap of a Ghost blog during deploy</title>
-      <link>http://tommyblue.it/2014/04/02/generate-the-sitemap-of-a-ghost-blog-during-deploy/</link>
+      <link>https://tommyblue.it/2014/04/02/generate-the-sitemap-of-a-ghost-blog-during-deploy/</link>
       <pubDate>Wed, 02 Apr 2014 07:53:27 +0000</pubDate>
       
-      <guid>http://tommyblue.it/2014/04/02/generate-the-sitemap-of-a-ghost-blog-during-deploy/</guid>
+      <guid>https://tommyblue.it/2014/04/02/generate-the-sitemap-of-a-ghost-blog-during-deploy/</guid>
       <description>Waiting for a sitemap generator inside the core of Ghost (planned as &amp;ldquo;future implementation&amp;rdquo;) I decided to implement a way to generate an up-to-date sitemap.xml during deployment. As you can read in the previous post I&amp;rsquo;m deploying this blog with Capistrano and capistrano-node-deploy. So I added a deploy:generate_sitemap task which is executed at the end of the deployment process.
 This is the Capfile extract:
-namespace :deploy do task :generate_sitemap do run &amp;#34;cd #{latest_release} &amp;amp;&amp;amp; .</description>
-    </item>
-    
-    <item>
-      <title>Deploy ghost blog with capistrano, rbenv and nvm</title>
-      <link>http://tommyblue.it/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</link>
-      <pubDate>Tue, 01 Apr 2014 12:59:14 +0000</pubDate>
-      
-      <guid>http://tommyblue.it/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/</guid>
-      <description>I just moved this blog from Jekyll to Ghost (v.0.4.2 while writing this post) and I had to find a fast way to deploy new changes to the server. I&amp;rsquo;m pretty confident with Capistrano so, although Ghost doesn&amp;rsquo;t use Ruby, I decided to use it to manage deployments. A cool gem allow node apps to be deployed with Capistrano: capistrano-node-deploy
-This is the Gemfile:
-source &#39;https://rubygems.org&#39; gem &#39;capistrano&#39;, &#39;~&amp;gt; 2.15.5&#39; gem &#39;capistrano-node-deploy&#39;, &#39;~&amp;gt; 1.</description>
+namespace :deploy do task :generate_sitemap do run &amp;#34;cd #{latest_release}&amp;amp;&amp;amp; .</description>
     </item>
     
   </channel>

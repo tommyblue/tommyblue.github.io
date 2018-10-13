@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lvm on TommyBlue.it</title>
-    <link>http://tommyblue.it/categories/lvm/</link>
+    <link>https://tommyblue.it/categories/lvm/</link>
     <description>Recent content in Lvm on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 19 Mar 2009 09:05:06 +0000</lastBuildDate>
     
-	<atom:link href="http://tommyblue.it/categories/lvm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://tommyblue.it/categories/lvm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Convertire il filesystem della partizione root</title>
-      <link>http://tommyblue.it/2009/03/19/convertire-il-filesystem-della-partizione-root/</link>
+      <link>https://tommyblue.it/2009/03/19/convertire-il-filesystem-della-partizione-root/</link>
       <pubDate>Thu, 19 Mar 2009 09:05:06 +0000</pubDate>
       
-      <guid>http://tommyblue.it/2009/03/19/convertire-il-filesystem-della-partizione-root/</guid>
+      <guid>https://tommyblue.it/2009/03/19/convertire-il-filesystem-della-partizione-root/</guid>
       <description>Ovvero come installare Fedora 10 da cd utilizzando XFS come filesystem per la root (/) :)
 Nota: avrete bisogno di due partizioni di almeno 4&amp;frasl;5 GB
 L&amp;rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (in particolare per espandere le partizioni &amp;ldquo;al volo&amp;rdquo;), cosa che spiegherò di seguito. I passi sono molto semplici:  Avviate dal cd di Fedora 10 Installate normalmente Fedora utilizzando una partizione LVM di almenoÂ 5.</description>

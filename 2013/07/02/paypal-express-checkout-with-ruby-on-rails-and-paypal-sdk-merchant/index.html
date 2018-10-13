@@ -60,7 +60,7 @@
       
       <h2 class="post-title">Paypal Express Checkout with Ruby on Rails and paypal-sdk-merchant</h2>
       <section class="post-meta">
-        <time class="post-date">July 02, 2013</time>
+        <time class="post-date">2013-07-02</time>
       </section>
     </header>
     <section class="post-content">
@@ -218,7 +218,7 @@ HOST <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;http:
 <p>The <em>Order.set_payment_token</em> method just saves the token in the order model. It will be used after the payment, to link the payment with the correct order.</p>
 
 <p>At the end of the API call you can use the <em>@paypal_url</em> variable to build the &ldquo;Pay with Paypal&rdquo; button. This is the view:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-erb" data-lang="prettyprint lang-erb">&lt;%= link_to @paypal_url do %&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erb" data-lang="erb">&lt;%= link_to @paypal_url do %&gt;
   &lt;img src=&#34;https://www.paypalobjects.com/it_IT/IT/Marketing/i/bnr/bnr_horizontal_solutiongraphic_335x80.gif&#34; style=&#34;margin-right:7px;&#34; /&gt;
 &lt;% end %&gt;</code></pre></div>
 <p>Clicking in the button the user will be redirected to Paypal, where he can pay using it&rsquo;s account or a credit card.</p>
@@ -384,11 +384,11 @@ If you want to use it in a real app, I suggest to add some methods to manage the
     <footer class="post-footer">
       <section class="tags post-meta">
         Tagged
-        <a href="http://tommyblue.it/tags/informatica/">informatica</a>
-          <a href="http://tommyblue.it/tags/ruby/">ruby</a>
-          <a href="http://tommyblue.it/tags/paypal/">paypal</a>
-          <a href="http://tommyblue.it/tags/rails/">rails</a>
-          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
+        <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/ruby/">ruby</a>
+          <a href="https://tommyblue.it/tags/paypal/">paypal</a>
+          <a href="https://tommyblue.it/tags/rails/">rails</a>
+          <a href="https://tommyblue.it/tags/how-to/">how-to</a>
           
       </section>
     </footer>

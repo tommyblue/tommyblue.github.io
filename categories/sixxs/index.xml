@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sixxs on TommyBlue.it</title>
-    <link>http://tommyblue.it/categories/sixxs/</link>
+    <link>https://tommyblue.it/categories/sixxs/</link>
     <description>Recent content in Sixxs on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 03 Aug 2011 12:41:51 +0000</lastBuildDate>
     
-	<atom:link href="http://tommyblue.it/categories/sixxs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://tommyblue.it/categories/sixxs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>IPv6 in pochi passi con ALIX e SixXS</title>
-      <link>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
+      <link>https://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</link>
       <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
       
-      <guid>http://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
+      <guid>https://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</guid>
       <description>Come ormai saprete (1 - 2) ho un debole per gli embedded ALIX di PcEngines. In questo caso userò una scheda 2d13 con RTC, indispensabileÂ perchéÂ se il vostro orologio non è sincronizzato con quello del broker IPv4-IPv6 (Â±30 secondi) non avrete la connessione IPv6!
 Come da tradizione il sistema operativo è Debian Voyage, ma tutta la procedura può comunque essere applicata ad una qualsiasi macchina con installato un os Debian-based (a meno di qualche piccola modifica).</description>
     </item>

@@ -13,7 +13,7 @@
 
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="http://tommyblue.it/categories/nagios/index.xml" rel="alternate" type="application/rss+xml" title="TommyBlue.it" />
+    <link href="https://tommyblue.it/categories/nagios/index.xml" rel="alternate" type="application/rss+xml" title="TommyBlue.it" />
     
     <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
@@ -80,11 +80,13 @@
 	<section class="post-excerpt">
     <p>
       Sebbene Icinga/Nagios e NRPE siano un&rsquo;ottima coppia per monitorare le macchine (sia via socket che internamente), a volte possono non bastare. Potrebbe infatti essere utile distribuire i check su più macchine, sia per un fattore di carico sia per aggirare eventuali firewall.
-Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto qui, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale. &hellip; <a class="read-more" href="/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/">&raquo;</a>
+Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto qui, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale.
+
+      <p><a class="read-more" href="/2012/06/13/monitoraggio-distribuito-con-nagios/icinga-e-nsca/">Read More  &raquo;</a></p>
     </p>
 	</section>
 	<footer class="post-meta">
-    <time class="post-date">June 13, 2012</time>
+    <time class="post-date">2012-06-13</time>
 	</footer>
 </article>
 
@@ -97,95 +99,13 @@ Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come 
 	<section class="post-excerpt">
     <p>
       In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON . &hellip; <a class="read-more" href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">&raquo;</a>
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON .
+
+      <p><a class="read-more" href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">Read More  &raquo;</a></p>
     </p>
 	</section>
 	<footer class="post-meta">
-    <time class="post-date">March 08, 2011</time>
-	</footer>
-</article>
-
-  
-  <article class="post">
-	<header class="post-header">
-    
-		<h2 class="post-title"><a href="/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/">Configurare i check passivi in Nagios per l&#39;integrazione con Munin</a></h2>
-	</header>
-	<section class="post-excerpt">
-    <p>
-      <p>Continuo la serie di guide sulla configurazione di Nagios spiegando come attivare i check passivi con <a href="http://www.nagios.org/download/addons" target="_blank">NSCA</a> e come usare Munin per avvertire Nagios di ciò che non va&rsquo;.</p>
-
-<p>Intanto ricordo i link alla prima e alla seconda parte della guida:
-<ul>
-    <li><a href="http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/">Parte 1</a></li>
-    <li><a href="http://www.tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/">Parte 2</a></li>
-</ul>
-Tornando a Nagios e Munin: l&rsquo;uso dei check passivi può tornare utile se si va ad installare Nagios in una rete in cui è già  presente Munin che, per chi non lo conoscesse, è un software che crea grafici di andamento di una lunga serie di servizi o aspetti dei server (anch&rsquo;esso configurabile con agenti su vari server e un&rsquo;applicazione centralizzata per la raccolta dei dati).
-Se Munin non fosse già  installato si può valutare una configurazione Nagios-centrica con i check effettuati da NRPE e i grafici fatti con <a href="http://nagiosgraph.sourceforge.net/" target="_blank">NagiosGraph</a>.</p> &hellip; <a class="read-more" href="/2010/09/16/configurare-i-check-passivi-in-nagios-per-lintegrazione-con-munin/">&raquo;</a>
-    </p>
-	</section>
-	<footer class="post-meta">
-    <time class="post-date">September 16, 2010</time>
-	</footer>
-</article>
-
-  
-  <article class="post">
-	<header class="post-header">
-    
-		<h2 class="post-title"><a href="/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-%C3%A2-parte-2/">Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios â€“ parte 2</a></h2>
-	</header>
-	<section class="post-excerpt">
-    <p>
-      <p><a href="http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/"><strong>Leggi la prima parte della guida</strong></a></p>
-
-<p>In questa seconda parte della guida illustrerò alcune <strong>configurazioni di base</strong> per i check di <a title="Nagios" href="http://www.nagios.org/" target="_blank">Nagios</a> e l&rsquo;uso dell&rsquo;addon <strong>NRPE</strong> per check locali su sistemi remoti.
-<h3>La struttura</h3>
-In questa guida prenderò in considerazione la struttura qui si seguito che permette di illustrare vari tipi di configurazione:
-<p style="text-align: center;"><img class="aligncenter size-full wp-image-860" title="Schema Nagios" src="/uploads/2010/02/schema-nagios.jpg" alt="" width="450" height="454" /></p>
-Una panoramica sugli host e i servizi:
-<ul>
-    <li>Host A, server Linux con:
-<ul>
-    <li>Server HTTP Apache</li>
-    <li>VMWare Server con una macchina virtuale E con un server Zimbra</li>
-</ul>
-</li>
-    <li>Host B, server Linux con:
-<ul>
-    <li>Server HTTP Apache</li>
-    <li>Server MySQL</li>
-</ul>
-</li>
-</ul>
-Quindi E dipende da C che a sua volta dipende da A. Invece D dipende da B.
-Entrambi i server Apache rispondono sulle porte 80 e 443, l&rsquo;interfaccia di amministrazione di VMWare Server risponde sulla porta 8333 (con SSL).
-La macchina virtuale Zimbra fornisce i servizi SMTP, POP3 e le interfaccie di webmail e amministrazione (porta 7071).
-Infine nella macchina B il server MySQL risponde solo sull&rsquo;interfaccia locale, non è quindi possibile accedervi dall&rsquo;esterno.</p> &hellip; <a class="read-more" href="/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-%C3%A2-parte-2/">&raquo;</a>
-    </p>
-	</section>
-	<footer class="post-meta">
-    <time class="post-date">February 17, 2010</time>
-	</footer>
-</article>
-
-  
-  <article class="post">
-	<header class="post-header">
-    
-		<h2 class="post-title"><a href="/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios---parte-1/">Costruirsi un sistema di monitoraggio &#34;casalingo&#34; con Nagios - parte 1</a></h2>
-	</header>
-	<section class="post-excerpt">
-    <p>
-      <p><img class="alignleft size-full wp-image-813" title="Embedded PC" src="/uploads/2010/02/embedded.jpg" alt="" width="300" height="254" />Se, come me, avete vari server a giro per il mondo a cui fare da baby-sitter, probabilmente avrete sentito la necessità  di avere tutto sotto controllo e di scoprire (e magari risolvere) i problemi non appena si presentano.</p>
-
-<p>Dopo aver configurato sistemi di monitoraggio per alcune P.A. e aziende, mi sono deciso a farlo anche per i miei server e descriverò in queste pagine ciò che ho fatto o sto ancora facendo.</p>
-
-<p>Dividerò questa guida in più parti, per renderla più leggibile e per poter facilmente aggiungere nuove parti via via che incremento le funzionalità  del sistema.</p> &hellip; <a class="read-more" href="/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios---parte-1/">&raquo;</a>
-    </p>
-	</section>
-	<footer class="post-meta">
-    <time class="post-date">February 12, 2010</time>
+    <time class="post-date">2011-03-08</time>
 	</footer>
 </article>
 

@@ -60,7 +60,7 @@
       
       <h2 class="post-title">Create a contact form for Jekyll</h2>
       <section class="post-meta">
-        <time class="post-date">August 28, 2012</time>
+        <time class="post-date">2012-08-28</time>
       </section>
     </header>
     <section class="post-content">
@@ -71,164 +71,164 @@
 <p>The first step is to register a free account to <a href="http://www.google.com/recaptcha">reCAPTCHA</a> and get the public and private API keys. Then register a <a href="https://devcenter.heroku.com/articles/sendgrid">Sendgrid free account as Heroku add-on</a> in your website app.</p>
 
 <p>To use a rack-based app on Heroku you need a <em>config.ru</em> file, this is mine:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">require &#39;rubygems&#39;
-require &#39;sinatra&#39;
-require &#39;rack/recaptcha&#39;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;rubygems&#39;</span>
+<span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;sinatra&#39;</span>
+<span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;rack/recaptcha&#39;</span>
 
-use Rack::Recaptcha, :public_key =&gt; &#39;MyPublicKey&#39;, :private_key =&gt; &#39;TheS3cr3tS3cr3tKey&#39;
-helpers Rack::Recaptcha::Helpers
-enable :sessions
+use Rack<span style="color:#ff79c6">::</span>Recaptcha, <span style="color:#f1fa8c">:public_key</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;MyPublicKey&#39;</span>, <span style="color:#f1fa8c">:private_key</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;TheS3cr3tS3cr3tKey&#39;</span>
+helpers Rack<span style="color:#ff79c6">::</span>Recaptcha<span style="color:#ff79c6">::</span>Helpers
+enable <span style="color:#f1fa8c">:sessions</span>
 
-require &#39;./application&#39;
-run Sinatra::Application</code></pre></div>
+<span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;./application&#39;</span>
+run Sinatra<span style="color:#ff79c6">::</span>Application</code></pre></div>
 <p>Just insert the reCAPTCHA keys and the file is ready. Now the <em>application.rb</em> file called by the <em>require</em> above:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-ruby" data-lang="prettyprint lang-ruby">set :public, Proc.new { File.join(root, &#34;_site&#34;) }
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">set <span style="color:#f1fa8c">:public</span>, Proc<span style="color:#ff79c6">.</span>new { File<span style="color:#ff79c6">.</span>join(root, <span style="color:#f1fa8c">&#34;_site&#34;</span>) }
 
-post &#39;/send&#39; do
-  if recaptcha_valid?
-    session[:captcha] = true
-    { :message =&gt; &#39;success&#39; }.to_json
-  else
-    session[:captcha] = false
-    { :message =&gt; &#39;failure&#39; }.to_json
-  end
-end
+post <span style="color:#f1fa8c">&#39;/send&#39;</span> <span style="color:#ff79c6">do</span>
+  <span style="color:#ff79c6">if</span> recaptcha_valid?
+    session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>
+    { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;success&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+  <span style="color:#ff79c6">else</span>
+    session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>
+    { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+  <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span>
 
-post &#39;/send_email&#39; do
-    require &#39;pony&#39;
-    require &#39;json&#39;
+post <span style="color:#f1fa8c">&#39;/send_email&#39;</span> <span style="color:#ff79c6">do</span>
+    <span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;pony&#39;</span>
+    <span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;json&#39;</span>
 
-    if session[:captcha]
-      session[:captcha] = false
-      res = Pony.mail(
-	:from =&gt; params[:name] + &#34;&lt;&#34; + params[:email] + &#34;&gt;&#34;,
-	:to =&gt; &#39;me@mydomain.com&#39;,
-	:subject =&gt; &#34;Message from your awesome website :)&#34;,
-	:body =&gt; params[:message],
-	:port =&gt; &#39;587&#39;,
-	:via =&gt; :smtp,
-	:via_options =&gt; {
-	  :address              =&gt; &#39;smtp.sendgrid.net&#39;,
-	  :port                 =&gt; &#39;587&#39;,
-	  :enable_starttls_auto =&gt; true,
-	  :user_name            =&gt; ENV[&#39;SENDGRID_USERNAME&#39;],
-	  :password             =&gt; ENV[&#39;SENDGRID_PASSWORD&#39;],
-	  :authentication       =&gt; :plain,
-	  :domain               =&gt; &#39;heroku.com&#39;
+    <span style="color:#ff79c6">if</span> session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span>
+      session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>
+      res <span style="color:#ff79c6">=</span> Pony<span style="color:#ff79c6">.</span>mail(
+	<span style="color:#f1fa8c">:from</span> <span style="color:#ff79c6">=&gt;</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:name</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;&lt;&#34;</span> <span style="color:#ff79c6">+</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:email</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;&gt;&#34;</span>,
+	<span style="color:#f1fa8c">:to</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;me@mydomain.com&#39;</span>,
+	<span style="color:#f1fa8c">:subject</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;Message from your awesome website :)&#34;</span>,
+	<span style="color:#f1fa8c">:body</span> <span style="color:#ff79c6">=&gt;</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:message</span><span style="color:#ff79c6">]</span>,
+	<span style="color:#f1fa8c">:port</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;587&#39;</span>,
+	<span style="color:#f1fa8c">:via</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">:smtp</span>,
+	<span style="color:#f1fa8c">:via_options</span> <span style="color:#ff79c6">=&gt;</span> {
+	  <span style="color:#f1fa8c">:address</span>              <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;smtp.sendgrid.net&#39;</span>,
+	  <span style="color:#f1fa8c">:port</span>                 <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;587&#39;</span>,
+	  <span style="color:#f1fa8c">:enable_starttls_auto</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">true</span>,
+	  <span style="color:#f1fa8c">:user_name</span>            <span style="color:#ff79c6">=&gt;</span> ENV<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">&#39;SENDGRID_USERNAME&#39;</span><span style="color:#ff79c6">]</span>,
+	  <span style="color:#f1fa8c">:password</span>             <span style="color:#ff79c6">=&gt;</span> ENV<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">&#39;SENDGRID_PASSWORD&#39;</span><span style="color:#ff79c6">]</span>,
+	  <span style="color:#f1fa8c">:authentication</span>       <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">:plain</span>,
+	  <span style="color:#f1fa8c">:domain</span>               <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;heroku.com&#39;</span>
 	})
-      content_type :json
-      if res
-	  { :message =&gt; &#39;success&#39; }.to_json
-      else
-	  { :message =&gt; &#39;failure&#39; }.to_json
-      end
-    else
-      { :message =&gt; &#39;failure&#39; }.to_json
-    end
-end
+      content_type <span style="color:#f1fa8c">:json</span>
+      <span style="color:#ff79c6">if</span> res
+	  { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;success&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+      <span style="color:#ff79c6">else</span>
+	  { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+      <span style="color:#ff79c6">end</span>
+    <span style="color:#ff79c6">else</span>
+      { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+    <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span>
 
-before do
-    response.headers[&#39;Cache-Control&#39;] = &#39;public, max-age=36000&#39;
-end
+before <span style="color:#ff79c6">do</span>
+    response<span style="color:#ff79c6">.</span>headers<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">&#39;Cache-Control&#39;</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;public, max-age=36000&#39;</span>
+<span style="color:#ff79c6">end</span>
 
-not_found do
-    File.read(&#39;_site/404.html&#39;)
-end
+not_found <span style="color:#ff79c6">do</span>
+    File<span style="color:#ff79c6">.</span>read(<span style="color:#f1fa8c">&#39;_site/404.html&#39;</span>)
+<span style="color:#ff79c6">end</span>
 
-get &#39;/*&#39; do
-    file_name = &#34;_site#{request.path_info}/index.html&#34;.gsub(%r{\/+},&#39;/&#39;)
-    if File.exists?(file_name)
-	File.read(file_name)
-    else
-	raise Sinatra::NotFound
-    end
-end</code></pre></div>
+get <span style="color:#f1fa8c">&#39;/*&#39;</span> <span style="color:#ff79c6">do</span>
+    file_name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;_site</span><span style="color:#f1fa8c">#{</span>request<span style="color:#ff79c6">.</span>path_info<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/index.html&#34;</span><span style="color:#ff79c6">.</span>gsub(<span style="color:#f1fa8c">%r{\/+}</span>,<span style="color:#f1fa8c">&#39;/&#39;</span>)
+    <span style="color:#ff79c6">if</span> File<span style="color:#ff79c6">.</span>exists?(file_name)
+	File<span style="color:#ff79c6">.</span>read(file_name)
+    <span style="color:#ff79c6">else</span>
+	<span style="color:#ff79c6">raise</span> Sinatra<span style="color:#ff79c6">::</span>NotFound
+    <span style="color:#ff79c6">end</span>
+<span style="color:#ff79c6">end</span></code></pre></div>
 <p>As you see in the code I use two methods, <em>send</em> and <em>send_email</em>: the first check the captcha and set a session variable, returning a JSON message (<em>success</em>). The second method sends the email using Pony only if the captcha was verified.
 The SendGrid username and password are loaded automatically from your Heroku environment.</p>
 
 <p>The last step is to create the contact form page, including the reCAPTCHA js:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-html" data-lang="prettyprint lang-html">&lt;script type=&#34;text/javascript&#34; src=&#34;http://www.google.com/recaptcha/api/js/recaptcha_ajax.js&#34;&gt;&lt;/script&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;http://www.google.com/recaptcha/api/js/recaptcha_ajax.js&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
 
-&lt;script type=&#34;text/javascript&#34;&gt;
-  function showRecaptcha(element) {
-     Recaptcha.create(&#34;MyPublicKey&#34;, element, {
-       theme: &#34;red&#34;,
-       callback: Recaptcha.focus_response_field});
+&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span>&gt;
+  <span style="color:#8be9fd;font-style:italic">function</span> showRecaptcha(element) {
+     Recaptcha.create(<span style="color:#f1fa8c">&#34;MyPublicKey&#34;</span>, element, {
+       theme<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;red&#34;</span>,
+       callback<span style="color:#ff79c6">:</span> Recaptcha.focus_response_field});
    }
-   $(document).ready(function(){
-	showRecaptcha(&#39;recaptcha_div&#39;);
-	
-	$(&#34;#form&#34;).submit(function(ev){
+   $(<span style="color:#8be9fd;font-style:italic">document</span>).ready(<span style="color:#8be9fd;font-style:italic">function</span>(){
+	showRecaptcha(<span style="color:#f1fa8c">&#39;recaptcha_div&#39;</span>);
+
+	$(<span style="color:#f1fa8c">&#34;#form&#34;</span>).submit(<span style="color:#8be9fd;font-style:italic">function</span>(ev){
 	    ev.preventDefault();
-	    if (!$(this).valid()) return;
+	    <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span>$(<span style="color:#ff79c6">this</span>).valid()) <span style="color:#ff79c6">return</span>;
 	    $.ajax({
-	      type: &#34;post&#34;,
-	      url: &#34;/send&#34;,
-	      data: $(&#39;#form&#39;).serialize(),
-	      dataType: &#34;json&#34;,
-	      success: function(response) {
-		if(response.message === &#34;success&#34;) {
+	      type<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;post&#34;</span>,
+	      url<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;/send&#34;</span>,
+	      data<span style="color:#ff79c6">:</span> $(<span style="color:#f1fa8c">&#39;#form&#39;</span>).serialize(),
+	      dataType<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;json&#34;</span>,
+	      success<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span>(response) {
+		<span style="color:#ff79c6">if</span>(response.message <span style="color:#ff79c6">===</span> <span style="color:#f1fa8c">&#34;success&#34;</span>) {
 		  $.ajax({
-		      type: &#34;post&#34;,
-		      url: &#34;/send_email&#34;,
-		      data: $(&#39;#form&#39;).serialize(),
-		      dataType: &#34;json&#34;,
-		      success: function(response) {
-			  $(&#39;#form&#39;).html(&#34;&lt;div id=&#39;message&#39;&gt;&lt;/div&gt;&#34;);
-			  if(response.message === &#34;success&#34;) {
-			      $(&#39;#message&#39;).html(&#34;&lt;h2&gt;Message successfully sent.&lt;/h2&gt;&#34;).hide().fadeIn(1500);
-			  } else {
-			      $(&#39;#message&#39;).html(&#34;&lt;h2&gt;Error sending the message&lt;/h2&gt;&#34;).hide().fadeIn(1500);
+		      type<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;post&#34;</span>,
+		      url<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;/send_email&#34;</span>,
+		      data<span style="color:#ff79c6">:</span> $(<span style="color:#f1fa8c">&#39;#form&#39;</span>).serialize(),
+		      dataType<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;json&#34;</span>,
+		      success<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span>(response) {
+			  $(<span style="color:#f1fa8c">&#39;#form&#39;</span>).html(<span style="color:#f1fa8c">&#34;&lt;div id=&#39;message&#39;&gt;&lt;/div&gt;&#34;</span>);
+			  <span style="color:#ff79c6">if</span>(response.message <span style="color:#ff79c6">===</span> <span style="color:#f1fa8c">&#34;success&#34;</span>) {
+			      $(<span style="color:#f1fa8c">&#39;#message&#39;</span>).html(<span style="color:#f1fa8c">&#34;&lt;h2&gt;Message successfully sent.&lt;/h2&gt;&#34;</span>).hide().fadeIn(<span style="color:#bd93f9">1500</span>);
+			  } <span style="color:#ff79c6">else</span> {
+			      $(<span style="color:#f1fa8c">&#39;#message&#39;</span>).html(<span style="color:#f1fa8c">&#34;&lt;h2&gt;Error sending the message&lt;/h2&gt;&#34;</span>).hide().fadeIn(<span style="color:#bd93f9">1500</span>);
 			  }
 		      },
-		      error: function(xhr, ajaxOptions, thrownError){
-			  $(&#39;#form&#39;).html(&#34;&lt;div id=&#39;message&#39;&gt;&lt;/div&gt;&#34;);
-			  $(&#39;#message&#39;).html(&#34;&lt;h2&gt;Error sending the message&lt;/h2&gt;&#34;).hide().fadeIn(1500);
-		      } 
+		      error<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span>(xhr, ajaxOptions, thrownError){
+			  $(<span style="color:#f1fa8c">&#39;#form&#39;</span>).html(<span style="color:#f1fa8c">&#34;&lt;div id=&#39;message&#39;&gt;&lt;/div&gt;&#34;</span>);
+			  $(<span style="color:#f1fa8c">&#39;#message&#39;</span>).html(<span style="color:#f1fa8c">&#34;&lt;h2&gt;Error sending the message&lt;/h2&gt;&#34;</span>).hide().fadeIn(<span style="color:#bd93f9">1500</span>);
+		      }
 		  });
-		} else {
-		  showRecaptcha(&#39;recaptcha_div&#39;);
-		  $(&#39;#notice&#39;).html(&#34;Captcha failed!&#34;).hide().fadeIn(1500);
+		} <span style="color:#ff79c6">else</span> {
+		  showRecaptcha(<span style="color:#f1fa8c">&#39;recaptcha_div&#39;</span>);
+		  $(<span style="color:#f1fa8c">&#39;#notice&#39;</span>).html(<span style="color:#f1fa8c">&#34;Captcha failed!&#34;</span>).hide().fadeIn(<span style="color:#bd93f9">1500</span>);
 		}
 	      },
-	      error: function(xhr, ajaxOptions, thrownError){
-		  $(&#39;#form&#39;).html(&#34;&lt;div id=&#39;message&#39;&gt;&lt;/div&gt;&#34;);
-		  $(&#39;#message&#39;).html(&#34;&lt;h2&gt;Error sending the message&lt;/h2&gt;&#34;).hide().fadeIn(1500);
+	      error<span style="color:#ff79c6">:</span> <span style="color:#8be9fd;font-style:italic">function</span>(xhr, ajaxOptions, thrownError){
+		  $(<span style="color:#f1fa8c">&#39;#form&#39;</span>).html(<span style="color:#f1fa8c">&#34;&lt;div id=&#39;message&#39;&gt;&lt;/div&gt;&#34;</span>);
+		  $(<span style="color:#f1fa8c">&#39;#message&#39;</span>).html(<span style="color:#f1fa8c">&#34;&lt;h2&gt;Error sending the message&lt;/h2&gt;&#34;</span>).hide().fadeIn(<span style="color:#bd93f9">1500</span>);
 	      }
 	    });
 	});
     });
-&lt;/script&gt;</code></pre></div>
+&lt;/<span style="color:#ff79c6">script</span>&gt;</code></pre></div>
 <p><strong>The code seems a bit tricky :)</strong> but it&rsquo;s simple. It just intercepts the form submission, send a first POST call to <em>/send</em> and, if the captcha is verified, generates a second POST call to <em>/send_email</em>, which sends the email.
 The last piece is the form HTML code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-html" data-lang="prettyprint lang-html">&lt;form id=&#34;form&#34; method=&#34;post&#34;&gt;
-	&lt;label for=&#34;name&#34;&gt;Name&lt;/label&gt;
-	&lt;input type=&#34;text&#34; name=&#34;name&#34; id=&#34;name&#34; /&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">form</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;form&#34;</span> <span style="color:#50fa7b">method</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post&#34;</span>&gt;
+	&lt;<span style="color:#ff79c6">label</span> <span style="color:#50fa7b">for</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;name&#34;</span>&gt;Name&lt;/<span style="color:#ff79c6">label</span>&gt;
+	&lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;name&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;name&#34;</span> /&gt;
 
-	&lt;label for=&#34;email&#34;&gt;Email&lt;/label&gt;
-	&lt;input type=&#34;text&#34; name=&#34;email&#34; id=&#34;email&#34; /&gt;
+	&lt;<span style="color:#ff79c6">label</span> <span style="color:#50fa7b">for</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;email&#34;</span>&gt;Email&lt;/<span style="color:#ff79c6">label</span>&gt;
+	&lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;email&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;email&#34;</span> /&gt;
 
-	&lt;label for=&#34;message&#34; class=&#34;label&#34;&gt;Message&lt;/label&gt;
-	&lt;textarea name=&#34;message&#34; id=&#34;message&#34;&gt;&lt;/textarea&gt;
+	&lt;<span style="color:#ff79c6">label</span> <span style="color:#50fa7b">for</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;message&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;label&#34;</span>&gt;Message&lt;/<span style="color:#ff79c6">label</span>&gt;
+	&lt;<span style="color:#ff79c6">textarea</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;message&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;message&#34;</span>&gt;&lt;/<span style="color:#ff79c6">textarea</span>&gt;
 
-	&lt;div id=&#34;recaptcha_div&#34;&gt;&lt;/div&gt;
-	&lt;div id=&#34;notice&#34;&gt;&lt;/div&gt;
+	&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;recaptcha_div&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+	&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;notice&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
 
-	&lt;input class=&#34;submit&#34; type=&#34;submit&#34; value=&#34;Send&#34; /&gt;
-&lt;/form&gt;</code></pre></div>
+	&lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;submit&#34;</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;submit&#34;</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;Send&#34;</span> /&gt;
+&lt;/<span style="color:#ff79c6">form</span>&gt;</code></pre></div>
 <p>That&rsquo;s it, now you can send email from a <em>static</em> website.</p>
 
     </section>
     <footer class="post-footer">
       <section class="tags post-meta">
         Tagged
-        <a href="http://tommyblue.it/tags/jekyll/">jekyll</a>
-          <a href="http://tommyblue.it/tags/sito/">sito</a>
-          <a href="http://tommyblue.it/tags/informatica/">informatica</a>
-          <a href="http://tommyblue.it/tags/sinatra/">sinatra</a>
-          <a href="http://tommyblue.it/tags/heroku/">heroku</a>
-          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
-          <a href="http://tommyblue.it/tags/ruby/">ruby</a>
+        <a href="https://tommyblue.it/tags/jekyll/">jekyll</a>
+          <a href="https://tommyblue.it/tags/sito/">sito</a>
+          <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/sinatra/">sinatra</a>
+          <a href="https://tommyblue.it/tags/heroku/">heroku</a>
+          <a href="https://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="https://tommyblue.it/tags/ruby/">ruby</a>
           
       </section>
     </footer>

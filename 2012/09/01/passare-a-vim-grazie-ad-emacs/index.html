@@ -60,7 +60,7 @@
       
       <h2 class="post-title">Passare a Vim grazie ad Emacs</h2>
       <section class="post-meta">
-        <time class="post-date">September 01, 2012</time>
+        <time class="post-date">2012-09-01</time>
       </section>
     </header>
     <section class="post-content">
@@ -82,33 +82,33 @@ Troverete la versione aggiornata e completa dei file nel <a href="https://github
 
 <p>Tutto ciò che concerne Vim è essenzialmente in due posti: il file <em>~/.vimrc</em> e la cartella <em>~/.vim/</em>. Il file <em>~/.vimrc</em> viene eseguito al lancio del programma mentre nella cartella si trovano tutte le estensioni (colori, plugin, ecc.).
 Come prima cosa impostiamo un po&rsquo; di configurazioni di base in <em>~/.vimrc</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">set showcmd     &#34;show incomplete cmds down the bottom
-set showmode    &#34;show current mode down the bottom
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">set showcmd<span style="color:#6272a4">     &#34;show incomplete cmds down the bottom</span>
+set showmode<span style="color:#6272a4">    &#34;show current mode down the bottom</span>
 
-set incsearch   &#34;find the next match as we type the search
-set hlsearch    &#34;hilight searches by default
-
-&#34;turn off needless toolbar on gvim/mvim
-set guioptions-=T
-
-&#34;indent settings
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set incsearch<span style="color:#6272a4">   &#34;find the next match as we type the search</span>
+set hlsearch<span style="color:#6272a4">    &#34;hilight searches by default
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34;turn off needless toolbar on gvim/mvim</span>
+set guioptions-=T<span style="color:#6272a4">
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34;indent settings</span>
+set tabstop=<span style="color:#bd93f9">4</span>
+set shiftwidth=<span style="color:#bd93f9">4</span>
+set softtabstop=<span style="color:#bd93f9">4</span>
 set cindent
 set smartindent
 set autoindent
-set expandtab
+set expandtab<span style="color:#6272a4">
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34;folding settings</span>
+set foldmethod=indent<span style="color:#6272a4">   &#34;fold based on indent</span>
+set foldnestmax=<span style="color:#bd93f9">3</span><span style="color:#6272a4">       &#34;deepest fold is 3 levels</span>
+set nofoldenable<span style="color:#6272a4">        &#34;dont fold by default</span>
 
-&#34;folding settings
-set foldmethod=indent   &#34;fold based on indent
-set foldnestmax=3       &#34;deepest fold is 3 levels
-set nofoldenable        &#34;dont fold by default
-
-set wildmode=list:longest   &#34;make cmdline tab completion similar to bash
-set wildmenu                &#34;enable ctrl-n and ctrl-p to scroll thru matches
-
-&#34; Vim tabs navigation
+set wildmode=list:longest<span style="color:#6272a4">   &#34;make cmdline tab completion similar to bash</span>
+set wildmenu<span style="color:#6272a4">                &#34;enable ctrl-n and ctrl-p to scroll thru matches
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34; Vim tabs navigation</span>
 nmap &lt;leader&gt;] :tabn&lt;CR&gt;
 nmap &lt;leader&gt;[ :tabp&lt;CR&gt;</code></pre></div>
 <p>Per Vim sono disponibili tantissimi <a href="http://www.vim.org/scripts/script_search_results.php?keywords=&amp;script_type=color+scheme&amp;order_by=rating&amp;direction=descending&amp;search=search">schemi di colore</a>, per installarli è necessario copiare il file <em>.vim</em> contenente lo schema in <em>~/.vim/colors</em>. A quel punto è possibile abilitare a runtime lo schema colori con:</p>
@@ -122,100 +122,100 @@ nmap &lt;leader&gt;[ :tabp&lt;CR&gt;</code></pre></div>
 </code></pre>
 
 <p>Di seguito una configurazione leggermente più complessa riguardante lo schema colori che tiene conto dell&rsquo;interfaccia di Vim usata:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">&#34; Color scheme
-if has(&#34;gui_running&#34;)
-    &#34;tell the term has 256 colors
-    set t_Co=256
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#6272a4">&#34; Color scheme</span>
+<span style="color:#ff79c6">if</span> has(<span style="color:#6272a4">&#34;gui_running&#34;)
+</span><span style="color:#6272a4">    &#34;tell the term has 256 colors</span>
+    set t_Co=<span style="color:#bd93f9">256</span>
 
     colorscheme railscasts
     set guitablabel=%M%t
-    set lines=40
-    set columns=115
+    set lines=<span style="color:#bd93f9">40</span>
+    set columns=<span style="color:#bd93f9">115</span>
 
-    if has(&#34;gui_gnome&#34;)
-	set term=gnome-256color
+    <span style="color:#ff79c6">if</span> has(<span style="color:#6272a4">&#34;gui_gnome&#34;)</span>
+	set term=gnome<span style="color:#bd93f9">-256</span>color
 	colorscheme railscasts
-	set guifont=Monospace\ Bold\ 12
-    endif
+	set guifont=Monospace\ Bold\ <span style="color:#bd93f9">12</span>
+    <span style="color:#ff79c6">endif</span>
 
-    if has(&#34;gui_mac&#34;) || has(&#34;gui_macvim&#34;)
-	set guifont=Menlo:h14
-	&#34; key binding for Command-T to behave properly
-	&#34; uncomment to replace the Mac Command-T key to Command-T plugin
-	&#34;macmenu &amp;File.New\ Tab key=&lt;nop&gt;
-	&#34;map &lt;D-t&gt; :CommandT&lt;CR&gt;
-	&#34; make Mac&#39;s Option key behave as the Meta key
-    endif
+    <span style="color:#ff79c6">if</span> has(<span style="color:#6272a4">&#34;gui_mac&#34;) || has(&#34;gui_macvim&#34;)</span>
+	set guifont=Menlo:h14<span style="color:#6272a4">
+</span><span style="color:#6272a4">	&#34; key binding for Command-T to behave properly
+</span><span style="color:#6272a4">	&#34; uncomment to replace the Mac Command-T key to Command-T plugin
+</span><span style="color:#6272a4">	&#34;macmenu &amp;File.New\ Tab key=&lt;nop&gt;
+</span><span style="color:#6272a4">	&#34;map &lt;D-t&gt; :CommandT&lt;CR&gt;
+</span><span style="color:#6272a4">	&#34; make Mac&#39;s Option key behave as the Meta key</span>
+    <span style="color:#ff79c6">endif</span>
 
-    if has(&#34;gui_win32&#34;) || has(&#34;gui_win32s&#34;)
+    <span style="color:#ff79c6">if</span> has(<span style="color:#6272a4">&#34;gui_win32&#34;) || has(&#34;gui_win32s&#34;)</span>
 	set guifont=Consolas:h12
-	set enc=utf-8
-    endif
-else
-    &#34;dont load csapprox if there is no gui support - silences an annoying warning
-    let g:CSApprox_loaded = 1
-
-    &#34;set railscasts colorscheme when running vim in gnome terminal
-    if $COLORTERM == &#39;gnome-terminal&#39;
-	set term=gnome-256color
+	set enc=utf<span style="color:#bd93f9">-8</span>
+    <span style="color:#ff79c6">endif</span>
+<span style="color:#ff79c6">else</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">    &#34;dont load csapprox if there is no gui support - silences an annoying warning</span>
+    <span style="color:#ff79c6">let</span> g:CSApprox_loaded = <span style="color:#bd93f9">1</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">    &#34;set railscasts colorscheme when running vim in gnome terminal</span>
+    <span style="color:#ff79c6">if</span> $COLORTERM == <span style="color:#f1fa8c">&#39;gnome-terminal&#39;</span>
+	set term=gnome<span style="color:#bd93f9">-256</span>color
 	colorscheme railscasts
-    else
-	if $TERM == &#39;xterm&#39;
-	    set term=xterm-256color
+    <span style="color:#ff79c6">else</span>
+	<span style="color:#ff79c6">if</span> $TERM == <span style="color:#f1fa8c">&#39;xterm&#39;</span>
+	    set term=xterm<span style="color:#bd93f9">-256</span>color
 	    colorscheme railscasts
-	else
+	<span style="color:#ff79c6">else</span>
 	    colorscheme default
-	endif
-    endif
-endif</code></pre></div>
+	<span style="color:#ff79c6">endif</span>
+    <span style="color:#ff79c6">endif</span>
+<span style="color:#ff79c6">endif</span></code></pre></div>
 <p>Personalmente non modifico il tasto Leader (di default *\*), ma se lo volete fare:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">let mapleader=&#34;,&#34;</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#ff79c6">let</span> mapleader=<span style="color:#6272a4">&#34;,&#34;</span></code></pre></div>
 <h2 id="pathogen">Pathogen</h2>
 
 <p>Installare un plugin in Vim vuol dire copiare i suoi file nella cartella <em>~/.vim/</em> e in particolare nelle sue varie sottodirectory (<em>plugin</em>, <em>doc</em>, <em>autoload</em>, ecc). Non mi piace molto dover dividere i file di uno stesso plugin ed evidentemente non sono il solo dato che esiste il plugin <a href="http://www.vim.org/scripts/script.php?script_id=2332">Pathogen</a> che permette di scompattare ogni plugin nella sua cartella in <em>~/.vim/bundle/</em>.
 Per installare il plugin bisogna copiare il plugin in <em>~/.vim/autoload</em> e creare la cartella <em>~/.vim/bundle/</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">mkdir -p ~/.vim/autoload ~/.vim/bundle 
-curl &#39;www.vim.org/scripts/download_script.php?src_id=16224&#39; &gt; ~/.vim/autoload/pathogen.vim</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p ~/.vim/autoload ~/.vim/bundle
+curl <span style="color:#f1fa8c">&#39;www.vim.org/scripts/download_script.php?src_id=16224&#39;</span> &gt; ~/.vim/autoload/pathogen.vim</code></pre></div>
 <p>Per attivare il plugin basta inserire in <em>~/.vimrc</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">&#34;necessary on some Linux distros for pathogen to properly load bundles
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#6272a4">&#34;necessary on some Linux distros for pathogen to properly load bundles</span>
 filetype on
-filetype off
-
-&#34;load pathogen managed plugins
+filetype off<span style="color:#6272a4">
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34;load pathogen managed plugins</span>
 call pathogen#infect()</code></pre></div>
 <h2 id="nerdtree">NERDTree</h2>
 
 <p>Adesso che abbiamo installato Pathogen cosa di meglio se non provarlo! Uno dei plugin che uso di più è sicuramente <a href="http://www.vim.org/scripts/script.php?script_id=1658">NerdTree</a>, che permette la visualizzazione dell&rsquo;albero delle directory e dei file. Per installarlo quindi si seguono le <a href="https://github.com/scrooloose/nerdtree">istruzioni del repository GitHub</a>, ovvero:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">cd ~/.vim/bundle
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">cd</span> ~/.vim/bundle
 git clone https://github.com/scrooloose/nerdtree.git</code></pre></div>
 <p>Personalmente utilizzo queste configurazioni in <em>~/.vimrc</em> per NerdTree:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">&#34; Visualizzo NERDTree con i tasti &#39;wm&#39;
-nmap wm :NERDTree&lt;cr&gt;
-&#34; Ignoro i file di backup di Vim
-let NERDTreeIgnore=[&#39;\.swp$&#39;]
-&#34; Utilizzo &lt;leader&gt;p per mostrare e nascondere NERDTree
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#6272a4">&#34; Visualizzo NERDTree con i tasti &#39;wm&#39;</span>
+nmap wm :NERDTree&lt;cr&gt;<span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34; Ignoro i file di backup di Vim</span>
+<span style="color:#ff79c6">let</span> NERDTreeIgnore=[<span style="color:#f1fa8c">&#39;\.swp$&#39;</span>]<span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34; Utilizzo &lt;leader&gt;p per mostrare e nascondere NERDTree</span>
 silent! nmap &lt;silent&gt; &lt;Leader&gt;p :NERDTreeToggle&lt;CR&gt;</code></pre></div>
 <h2 id="vundle">Vundle</h2>
 
 <p>Come abbiamo appena visto installare i plugin è molto semplice, specialmente con Pathogen, ma a lungo andare si potrebbe perdere un po&rsquo; traccia di cosa si è installato e, soprattutto, se i plugin installati sono anche aggiornati. Per ovviare al problema uso <a href="https://github.com/gmarik/vundle">Vundle</a>, un plugin che, sfruttando Pathogen, permette di automatizzare le operazioni di installazione e aggiornamento dei plugin. Per installarlo:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</code></pre></div>
 <p>La configurazione a questo punto è piuttosto semplice:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">set nocompatible               &#34; be iMproved
-filetype off                   &#34; required!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">set nocompatible<span style="color:#6272a4">               &#34; be iMproved</span>
+filetype off<span style="color:#6272a4">                   &#34; required!</span>
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~<span style="color:#f1fa8c">/.vim/</span>bundle<span style="color:#f1fa8c">/vundle/</span>
+call vundle#rc()<span style="color:#6272a4">
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34; let Vundle manage Vundle
+</span><span style="color:#6272a4">&#34; required!</span>
+Bundle <span style="color:#f1fa8c">&#39;gmarik/vundle&#39;</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">
+</span><span style="color:#6272a4">&#34; Set plugins here...</span>
 
-&#34; let Vundle manage Vundle
-&#34; required! 
-Bundle &#39;gmarik/vundle&#39;
 
-&#34; Set plugins here...
-
-
-filetype plugin indent on     &#34; required!</code></pre></div>
+filetype plugin indent on<span style="color:#6272a4">     &#34; required!</span></code></pre></div>
 <p>Se a questo punto si vuole installare un plugin da GitHub (ad esempio reinstalliamo, dopo averlo eliminato, NerdTree), basta inserire in <em>~/.vimrc</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">Bundle &#39;scrooloose/nerdtree.git&#39;</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">Bundle <span style="color:#f1fa8c">&#39;scrooloose/nerdtree.git&#39;</span></code></pre></div>
 <p>Se il plugin non fosse su GitHub è sufficiente indicare l&rsquo;url GIT completo.</p>
 
 <p>Una volta inserito il plugin si lancia Vim e si esegue:</p>
@@ -245,35 +245,35 @@ filetype plugin indent on     &#34; required!</code></pre></div>
 <h2 id="fugitive">Fugitive</h2>
 
 <p>Inizio con Fugitive, un plugin che trasforma Vim in un client Git. Personalmente, almeno per ora, non uso direttamente le funzionalità  per Git, ma mi è utile per visualizzare lo stato del repository su cui sto lavorando. Dopo aver inserito il bundle:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">Bundle &#39;tpope/vim-fugitive&#39;</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">Bundle <span style="color:#f1fa8c">&#39;tpope/vim-fugitive&#39;</span></code></pre></div>
 <p>per vedere lo stato del repository si inserisce in <em>~/.vimrc</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">set statusline+=%{fugitive#statusline()}</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">set statusline+=%{fugitive#statusline()}</code></pre></div>
 <p>Per una panoramica più completa del plugin esiste una <a href="http://vimcasts.org/blog/2011/05/the-fugitive-series/">serie di screencast su Fugitive</a></p>
 
 <h2 id="snipmate">SnipMate</h2>
 
 <p><a href="https://github.com/msanders/snipmate.vim">Snipmate</a> è un plugin che permette l&rsquo;uso degli snippet, ovvero l&rsquo;uso di una stringa che, seguita dal Tab, genera del codice. Snipmate non va d&rsquo;accordo con Pathogen quindi non è possibile utilizzare Vundle. Per installarlo bisogna quindi seguire la guida:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">git clone git://github.com/msanders/snipmate.vim.git
-cd snipmate.vim
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone git://github.com/msanders/snipmate.vim.git
+<span style="color:#8be9fd;font-style:italic">cd</span> snipmate.vim
 cp -R * ~/.vim</code></pre></div>
 <p>Per fare un esempio, si può aprire un file html, digitare <em>html</em> seguito da un Tab e Snipmate genererà :</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-html" data-lang="prettyprint lang-html">&lt;html&gt;&lt;/html&gt;</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">html</span>&gt;&lt;/<span style="color:#ff79c6">html</span>&gt;</code></pre></div>
 <p>Se lavorate molto con l&rsquo;HTML vi consiglio di dare un bello sguardo a <a href="https://github.com/rstacruz/sparkup">Sparkup</a> che permette di creare HTML molto complesso con poco, ad esempio:</p>
 
 <pre><code>nav &gt; ul &gt; li &gt; a*4 { Links }
 </code></pre>
 
 <p>seguito da un Tab produce:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-html" data-lang="prettyprint lang-html">&lt;nav&gt;
-   &lt;ul&gt;
-      &lt;li&gt;
-         &lt;a href=&#34;&#34;&gt; Links &lt;/a&gt;
-         &lt;a href=&#34;&#34;&gt; Links &lt;/a&gt;
-         &lt;a href=&#34;&#34;&gt; Links &lt;/a&gt;
-         &lt;a href=&#34;&#34;&gt; Links &lt;/a&gt;
-      &lt;/li&gt;
-   &lt;/ul&gt;
-&lt;/nav&gt;</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">nav</span>&gt;
+   &lt;<span style="color:#ff79c6">ul</span>&gt;
+      &lt;<span style="color:#ff79c6">li</span>&gt;
+         &lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>&gt; Links &lt;/<span style="color:#ff79c6">a</span>&gt;
+         &lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>&gt; Links &lt;/<span style="color:#ff79c6">a</span>&gt;
+         &lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>&gt; Links &lt;/<span style="color:#ff79c6">a</span>&gt;
+         &lt;<span style="color:#ff79c6">a</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>&gt; Links &lt;/<span style="color:#ff79c6">a</span>&gt;
+      &lt;/<span style="color:#ff79c6">li</span>&gt;
+   &lt;/<span style="color:#ff79c6">ul</span>&gt;
+&lt;/<span style="color:#ff79c6">nav</span>&gt;</code></pre></div>
 <p>Mica male&hellip; :)</p>
 
 <h2 id="command-t">Command-T</h2>
@@ -288,16 +288,16 @@ cp -R * ~/.vim</code></pre></div>
 </code></pre>
 
 <p>Il plugin si può installare con Vundle, quindi in <em>~/.vimrc</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">Bundle &#39;git://git.wincent.com/command-t.git&#39;</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">Bundle <span style="color:#f1fa8c">&#39;git://git.wincent.com/command-t.git&#39;</span></code></pre></div>
 <p>e, come al solito, si installa con:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">:BundleInstall</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">:BundleInstall</code></pre></div>
 <p>Fatto questo il plugin va compilato. Se, come me, usate RVM, prima di compilare Command-T, switchate al ruby di sistema con:</p>
 
 <pre><code>rvm use system
 </code></pre>
 
 <p>entrate poi nella cartella <em>~/.vim/bundle/command-t/ruby/command-t/</em> e lanciate:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-bash" data-lang="prettyprint lang-bash">ruby extconf.rb
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ruby extconf.rb
 make</code></pre></div>
 <p>Se tra l&rsquo;installazione del plugin e la sua compilazione provate a lanciare vim vi troverete con un bel <strong>Segmentation Fault</strong> :)</p>
 
@@ -307,7 +307,7 @@ make</code></pre></div>
 
 <p>Eccoci al mio plugin preferito: <a href="https://github.com/tpope/vim-rails">Vim-Rails</a>. Chiunque programmi in Ruby on Rails amerà  <em>:Rmodel</em>, <em>:Rview</em>, <em>:Rcontroller</em> per navigare velocemente l&rsquo;MVC di una risorsa, <em>:Rextract</em> per creare un partial al volo di un codice selezionato, ecc.
 Per installarlo, in <em>~/.vimrc</em>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-prettyprint lang-vim" data-lang="prettyprint lang-vim">Bundle &#39;tpope/vim-rails.git&#39;</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">Bundle <span style="color:#f1fa8c">&#39;tpope/vim-rails.git&#39;</span></code></pre></div>
 <h2 id="altri-plugin">Altri plugin</h2>
 
 <p>Termino con una breve descrizione di altri plugin utili:</p>
@@ -327,10 +327,10 @@ Per installarlo, in <em>~/.vimrc</em>:</p>
     <footer class="post-footer">
       <section class="tags post-meta">
         Tagged
-        <a href="http://tommyblue.it/tags/informatica/">informatica</a>
-          <a href="http://tommyblue.it/tags/editor/">editor</a>
-          <a href="http://tommyblue.it/tags/how-to/">how-to</a>
-          <a href="http://tommyblue.it/tags/vim/">vim</a>
+        <a href="https://tommyblue.it/tags/informatica/">informatica</a>
+          <a href="https://tommyblue.it/tags/editor/">editor</a>
+          <a href="https://tommyblue.it/tags/how-to/">how-to</a>
+          <a href="https://tommyblue.it/tags/vim/">vim</a>
           
       </section>
     </footer>
