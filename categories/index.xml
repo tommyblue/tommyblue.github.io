@@ -86,7 +86,7 @@
     <item>
       <title>Elixir</title>
       <link>https://tommyblue.it/categories/elixir/</link>
-      <pubDate>Sat, 31 Mar 2018 19:34:35 +0000</pubDate>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
       <guid>https://tommyblue.it/categories/elixir/</guid>
       <description></description>
@@ -257,7 +257,7 @@
     <item>
       <title>Phoenix</title>
       <link>https://tommyblue.it/categories/phoenix/</link>
-      <pubDate>Sat, 31 Mar 2018 19:34:35 +0000</pubDate>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
       <guid>https://tommyblue.it/categories/phoenix/</guid>
       <description></description>
@@ -293,7 +293,7 @@
     <item>
       <title>React</title>
       <link>https://tommyblue.it/categories/react/</link>
-      <pubDate>Sat, 31 Mar 2018 19:34:35 +0000</pubDate>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
       <guid>https://tommyblue.it/categories/react/</guid>
       <description></description>
@@ -399,11 +399,29 @@
     </item>
     
     <item>
+      <title>Typescript</title>
+      <link>https://tommyblue.it/categories/typescript/</link>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/typescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Vim</title>
       <link>https://tommyblue.it/categories/vim/</link>
       <pubDate>Sat, 01 Sep 2012 17:38:51 +0000</pubDate>
       
       <guid>https://tommyblue.it/categories/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Webpack</title>
+      <link>https://tommyblue.it/categories/webpack/</link>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/webpack/</guid>
       <description></description>
     </item>
     

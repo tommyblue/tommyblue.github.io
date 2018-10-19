@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Webpack on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/webpack/</link>
+    <description>Recent content in Webpack on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Oct 2018 18:26:09 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to add a JS frontend to an API-only Phoenix app</title>
+      <link>https://tommyblue.it/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/</link>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/</guid>
+      <description>&lt;p&gt;If you generated a &lt;a href=&#34;https://phoenixframework.org/&#34;&gt;Phoenix&lt;/a&gt; app with the &lt;code&gt;--no-brunch&lt;/code&gt; option you probably needed an API backend app.&lt;/p&gt;
+
+&lt;p&gt;What if, with your app growing, you realize you&amp;rsquo;d like to add also some frontend code?
+This short how-to will show you how integrate a &lt;a href=&#34;https://webpack.js.org/&#34;&gt;Webpack&lt;/a&gt; based app with
+support to &lt;a href=&#34;https://www.typescriptlang.org/&#34;&gt;Typescript&lt;/a&gt;, &lt;a href=&#34;https://reactjs.org/&#34;&gt;React&lt;/a&gt; and &lt;a href=&#34;https://sass-lang.com/&#34;&gt;Sass&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

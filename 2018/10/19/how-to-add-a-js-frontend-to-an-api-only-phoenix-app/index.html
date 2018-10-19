@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      How to add a JS frontend to an API-only Phoenix app - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="37e4FLC84-RVL93UW9xcAS-Goa_qi5yNloYPcho0Ydk" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+        <img src="/images/2018/10/jose-alejandro-cuffia-799485-unsplash.jpg"></img>
+      
+      <h2 class="post-title">How to add a JS frontend to an API-only Phoenix app</h2>
+      <section class="post-meta">
+        <time class="post-date">2018-10-19</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p>If you generated a <a href="https://phoenixframework.org/">Phoenix</a> app with the <code>--no-brunch</code> option you probably needed an API backend app.</p>
+
+<p>What if, with your app growing, you realize you&rsquo;d like to add also some frontend code?
+This short how-to will show you how integrate a <a href="https://webpack.js.org/">Webpack</a> based app with
+support to <a href="https://www.typescriptlang.org/">Typescript</a>, <a href="https://reactjs.org/">React</a> and <a href="https://sass-lang.com/">Sass</a>.</p>
+
+<p></p>
+
+<p><em>If, instead, you have a standard Phoenix app (with Brunch support) and you want to switch to webpack, then <a href="/2017/09/05/react-sass-typescript-with-phoenix-framework-usingwebpack/">read my previous article</a>.</em></p>
+
+<h3 id="create-the-webpack-scaffolding">Create the Webpack scaffolding</h3>
+
+<p>To begin, let&rsquo;s create some initial files in the <code>frontend</code> folder (which
+needs to be created):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p frontend/src
+<span style="color:#8be9fd;font-style:italic">cd</span> frontend/
+npm init
+touch src/index.tsx
+touch src/style.scss</code></pre></div>
+<p><em>All future commands are supposed to be ran from within the <code>frontend/</code> folder.</em></p>
+
+<p>The <code>npm init</code> helped you create an initial <code>package.json</code> file. It is now time to add some required packages.</p>
+
+<p><strong>Webpack</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D webpack webpack-cli</code></pre></div>
+<p><strong>Babel</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D babel-loader @babel/core @babel/preset-env</code></pre></div>
+<p><strong>Sass and CSS</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D style-loader css-loader sass-loader node-sass</code></pre></div>
+<p><strong>Typescript</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D typescript awesome-typescript-loader</code></pre></div>
+<p><strong>React</strong> and its typings</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add react react-dom
+yarn add -D @types/react @types/react-dom</code></pre></div>
+<p>Webpack&rsquo;s <strong>extract-text plugin</strong> (I&rsquo;m using <code>@next</code> version because of an <a href="https://stackoverflow.com/questions/51383618/chunk-entrypoints-use-chunks-groupsiterable-and-filter-by-instanceof-entrypoint">annoying bug</a> in the stable version):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D extract-text-webpack-plugin@next</code></pre></div>
+<p>Don&rsquo;t forget to add the <code>node_modules</code> folder to your <code>.gitignore</code> file or you&rsquo;ll commit a lot of useless files:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">echo</span> node_modules &gt; ../.gitignore</code></pre></div>
+<p>Also create Typescript config and linting files:</p>
+
+<p><code>tsconfig.json</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#ff79c6">&#34;compilerOptions&#34;</span>: {
+		<span style="color:#ff79c6">&#34;allowJs&#34;</span>: <span style="color:#ff79c6">true</span>,
+		<span style="color:#ff79c6">&#34;baseUrl&#34;</span>: <span style="color:#f1fa8c">&#34;js&#34;</span>,
+		<span style="color:#ff79c6">&#34;jsx&#34;</span>: <span style="color:#f1fa8c">&#34;react&#34;</span>,
+		<span style="color:#ff79c6">&#34;module&#34;</span>: <span style="color:#f1fa8c">&#34;commonjs&#34;</span>,
+		<span style="color:#ff79c6">&#34;moduleResolution&#34;</span>: <span style="color:#f1fa8c">&#34;node&#34;</span>,
+		<span style="color:#ff79c6">&#34;noImplicitAny&#34;</span>: <span style="color:#ff79c6">true</span>,
+		<span style="color:#ff79c6">&#34;outDir&#34;</span>: <span style="color:#f1fa8c">&#34;ts-build&#34;</span>,
+		<span style="color:#ff79c6">&#34;sourceMap&#34;</span>: <span style="color:#ff79c6">false</span>,
+		<span style="color:#ff79c6">&#34;target&#34;</span>: <span style="color:#f1fa8c">&#34;es5&#34;</span>
+	},
+	<span style="color:#ff79c6">&#34;include&#34;</span>: [
+		<span style="color:#f1fa8c">&#34;./src/**/*&#34;</span>
+	]
+}</code></pre></div>
+<p><code>tslint.json</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#ff79c6">&#34;extends&#34;</span>: [<span style="color:#f1fa8c">&#34;tslint:recommended&#34;</span>, <span style="color:#f1fa8c">&#34;tslint-react&#34;</span>],
+  <span style="color:#ff79c6">&#34;rules&#34;</span>: {
+    <span style="color:#ff79c6">&#34;no-console&#34;</span>: [<span style="color:#ff79c6">false</span>]
+  }
+}</code></pre></div>
+<p><em>If, like me, you&rsquo;re running an editor that supports linting and you&rsquo;ll run it from the main app
+folder, you probably want to symlink the <code>tslint.json</code> from there (or configure the editor linter
+to find it inside the <code>frontend/</code> folder).</em></p>
+
+<p>Final step is to create the webpack configuration with the <code>frontend/webpack.config.js</code> file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#ff79c6">const</span> env <span style="color:#ff79c6">=</span>  process.env.NODE_ENV
+<span style="color:#ff79c6">const</span> path <span style="color:#ff79c6">=</span>  require(<span style="color:#f1fa8c">&#39;path&#39;</span>);
+
+<span style="color:#ff79c6">const</span> ExtractTextPlugin <span style="color:#ff79c6">=</span>  require(<span style="color:#f1fa8c">&#34;extract-text-webpack-plugin&#34;</span>);
+
+module.exports <span style="color:#ff79c6">=</span> {
+	entry<span style="color:#ff79c6">:</span> [<span style="color:#f1fa8c">&#39;./src/index.tsx&#39;</span>, <span style="color:#f1fa8c">&#39;./src/style.scss&#39;</span>],
+	output<span style="color:#ff79c6">:</span> {
+		path<span style="color:#ff79c6">:</span> path.resolve(__dirname, <span style="color:#f1fa8c">&#34;../priv/static&#34;</span>),
+		filename<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;js/app.js&#34;</span>
+	},
+	resolve<span style="color:#ff79c6">:</span> {
+		extensions<span style="color:#ff79c6">:</span> [<span style="color:#f1fa8c">&#34;.ts&#34;</span>, <span style="color:#f1fa8c">&#34;.tsx&#34;</span>, <span style="color:#f1fa8c">&#34;.js&#34;</span>, <span style="color:#f1fa8c">&#34;.jsx&#34;</span>],
+		modules<span style="color:#ff79c6">:</span> [<span style="color:#f1fa8c">&#34;deps&#34;</span>, <span style="color:#f1fa8c">&#34;node_modules&#34;</span>]
+	},
+	module<span style="color:#ff79c6">:</span> {
+		rules<span style="color:#ff79c6">:</span> [{
+			test<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">/\.scss$/</span>,
+			use<span style="color:#ff79c6">:</span> ExtractTextPlugin.extract({
+				use<span style="color:#ff79c6">:</span> [{
+					loader<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;css-loader&#34;</span>,
+					options<span style="color:#ff79c6">:</span> {
+						minimize<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+						sourceMap<span style="color:#ff79c6">:</span> env <span style="color:#ff79c6">===</span>  <span style="color:#f1fa8c">&#39;production&#39;</span>,
+					}
+				}, {
+					loader<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;sass-loader&#34;</span>,
+					options<span style="color:#ff79c6">:</span> {
+						includePaths<span style="color:#ff79c6">:</span> [path.resolve(<span style="color:#f1fa8c">&#39;node_modules&#39;</span>)]
+					}
+				}],
+				fallback<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;style-loader&#34;</span>
+			})
+		}, {
+			test<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">/\.tsx?$/</span>,
+			loader<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;awesome-typescript-loader&#34;</span>
+		}, {
+			test<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">/\.js$/</span>,
+			exclude<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">/(node_modules|bower_components)/</span>,
+			use<span style="color:#ff79c6">:</span> {
+				<span style="color:#f1fa8c">&#39;loader&#39;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#39;babel-loader&#39;</span>,
+				options<span style="color:#ff79c6">:</span> {
+					presets<span style="color:#ff79c6">:</span> [<span style="color:#f1fa8c">&#39;@babel/preset-env&#39;</span>]
+				}
+			}
+		}]
+	},
+	plugins<span style="color:#ff79c6">:</span> [
+		<span style="color:#ff79c6">new</span>  ExtractTextPlugin({
+		filename<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;css/app.css&#34;</span>
+	})
+	]
+};
+</code></pre></div>
+<p>At this point the frontend pipeline is ready to be executed. From the <code>frontend</code> folder, run</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">webpack --watch-stdin --progress --color</code></pre></div>
+<p>and, hopefully, your app will be correctly compiled.</p>
+
+<h3 id="run-the-pipeline-with-phoenix-server">Run the pipeline with Phoenix server</h3>
+
+<p>We want to run the pipeline when we execute <code>mix phx.server</code>. This can be done editing the <code>config/dev.exs</code> file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#f1fa8c">watchers</span>: [
+  <span style="color:#f1fa8c">node</span>: [
+    <span style="color:#f1fa8c">&#34;node_modules/webpack/bin/webpack.js&#34;</span>, <span style="color:#f1fa8c">&#34;--watch-stdin&#34;</span>, <span style="color:#f1fa8c">&#34;--progress&#34;</span>, <span style="color:#f1fa8c">&#34;--color&#34;</span>,
+    <span style="color:#f1fa8c">cd</span>: <span style="color:#50fa7b">Path</span><span style="color:#ff79c6">.</span>expand(<span style="color:#f1fa8c">&#34;../frontend&#34;</span>, __DIR__)
+  ]
+]</code></pre></div>
+<h3 id="react-hello-world">React &ldquo;Hello, World!&rdquo;</h3>
+
+<p>Our scaffolding <em>should</em> work, to verify it, let&rsquo;s create a simple React &ldquo;Hello, World!&rdquo;.</p>
+
+<p>It&rsquo;s simple enough to only be contained in the <code>frontend/src/index.tsx</code> file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span> as React from <span style="color:#f1fa8c">&#34;react&#34;</span>;
+<span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span> as ReactDOM from <span style="color:#f1fa8c">&#34;react-dom&#34;</span>;
+
+<span style="color:#ff79c6">const</span> MainComponent <span style="color:#ff79c6">=</span> () =&gt; (<span style="color:#ff79c6">&lt;</span>div className<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;hello-world&#34;</span><span style="color:#ff79c6">&gt;</span>Hello, World<span style="color:#ff79c6">!&lt;</span>/div&gt;);
+
+ReactDOM.render(
+    <span style="color:#ff79c6">&lt;</span>MainComponent /&gt;,
+    <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;app&#34;</span>)
+);
+</code></pre></div>
+<p>The template file at <code>lib/&lt;app&gt;_web/templates/layout/app.html.eex</code> must be edited adding the react entrypoint <code>&lt;div id=&quot;app&quot; /&gt;</code>.</p>
+
+<p>It&rsquo;s done, run <code>mix phx.server</code> and profit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mix phx.server
+
+<span style="color:#ff79c6">[</span>info<span style="color:#ff79c6">]</span> Running &lt;app&gt;.Endpoint with Cowboy using http://0.0.0.0:4000
+ <span style="color:#bd93f9">10</span>% building modules <span style="color:#bd93f9">1</span>/1 modules <span style="color:#bd93f9">0</span> active
+webpack is watching the files…
+...
+<span style="color:#ff79c6">[</span>debug<span style="color:#ff79c6">]</span> Live reload: priv/static/js/app.js
+<span style="color:#ff79c6">[</span>debug<span style="color:#ff79c6">]</span> Live reload: priv/static/css/app.css
+...</code></pre></div>
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/elixir/">elixir</a>
+          <a href="https://tommyblue.it/tags/phoenix/">phoenix</a>
+          <a href="https://tommyblue.it/tags/react/">react</a>
+          <a href="https://tommyblue.it/tags/typescript/">typescript</a>
+          <a href="https://tommyblue.it/tags/webpack/">webpack</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9338649-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-9338649-1');
+</script>
+
+    </body>
+</html>

@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://tommyblue.it/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/</loc>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://tommyblue.it/2018/03/31/api-authentication-with-phoenix-and-react---part-2/</loc>
     <lastmod>2018-03-31T19:34:35+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -263,14 +270,14 @@
   
   <url>
     <loc>https://tommyblue.it/tags/elixir/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://tommyblue.it/categories/elixir/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -529,14 +536,14 @@
   
   <url>
     <loc>https://tommyblue.it/tags/phoenix/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://tommyblue.it/categories/phoenix/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -557,7 +564,7 @@
   
   <url>
     <loc>https://tommyblue.it/post/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -592,14 +599,14 @@
   
   <url>
     <loc>https://tommyblue.it/tags/react/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://tommyblue.it/categories/react/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -767,7 +774,21 @@
   
   <url>
     <loc>https://tommyblue.it/</loc>
-    <lastmod>2018-03-31T19:34:35+00:00</lastmod>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/typescript/</loc>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/typescript/</loc>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -782,6 +803,20 @@
   <url>
     <loc>https://tommyblue.it/categories/vim/</loc>
     <lastmod>2012-09-01T17:38:51+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/webpack/</loc>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/webpack/</loc>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
