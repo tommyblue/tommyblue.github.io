@@ -144,30 +144,30 @@ Una cosa che ben presto si capisce di IPv6 è che le tanto odiate NAT in certi c
 <p>Ho scritto un breve script per <strong>ip6tables</strong> prendendo spunto dalla wiki si SixXS, dopo averlo personalizzato (dovete settare qualche IP) basta metterlo in <em>/etc/init.d</em> e aggiungerlo al runlevel di default (<em>update-rc.d firewall-ipv6 defaults</em>):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff79c6">#! /bin/bash
 </span><span style="color:#ff79c6"></span>
-<span style="color:#6272a4">### BEGIN INIT INFO
-</span><span style="color:#6272a4"># Provides:             firewall-ipv6
-</span><span style="color:#6272a4"># Required-Start:       $remote_fs $syslog
-</span><span style="color:#6272a4"># Required-Stop:        $remote_fs $syslog
-</span><span style="color:#6272a4"># Default-Start:        2 3 4 5
-</span><span style="color:#6272a4"># Default-Stop:         0 1 6
-</span><span style="color:#6272a4"># Short-Description:    IPTables-based IPv6 firewall
-</span><span style="color:#6272a4">### END INIT INFO
-</span><span style="color:#6272a4"></span>
+<span style="color:#6272a4">### BEGIN INIT INFO</span>
+<span style="color:#6272a4"># Provides:             firewall-ipv6</span>
+<span style="color:#6272a4"># Required-Start:       $remote_fs $syslog</span>
+<span style="color:#6272a4"># Required-Stop:        $remote_fs $syslog</span>
+<span style="color:#6272a4"># Default-Start:        2 3 4 5</span>
+<span style="color:#6272a4"># Default-Stop:         0 1 6</span>
+<span style="color:#6272a4"># Short-Description:    IPTables-based IPv6 firewall</span>
+<span style="color:#6272a4">### END INIT INFO</span>
+
 <span style="color:#8be9fd;font-style:italic">set</span> -e
 
-<span style="color:#6272a4"># /etc/init.d/firewall-ipv6: start and stop the ip6tables firewall
-</span><span style="color:#6272a4"></span>
+<span style="color:#6272a4"># /etc/init.d/firewall-ipv6: start and stop the ip6tables firewall</span>
+
 <span style="color:#8be9fd;font-style:italic">IP6</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/sbin/ip6tables&#34;</span>
 
-<span style="color:#6272a4"># L&#39;indirizzo IP di questa macchina
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">THIS_HOST</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;2001:1418:AAAA:AAAA::2&#34;</span>
+<span style="color:#6272a4"># L&#39;indirizzo IP di questa macchina</span>
+<span style="color:#8be9fd;font-style:italic">THIS_HOST</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;2001:1418:AAAA:AAAA::2&#34;</span>
 
-<span style="color:#6272a4"># La subnet assegnata da SixXS
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">SUBNET_PREFIX</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;2001:1418:BBBB::/48&#34;</span>
+<span style="color:#6272a4"># La subnet assegnata da SixXS</span>
+<span style="color:#8be9fd;font-style:italic">SUBNET_PREFIX</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;2001:1418:BBBB::/48&#34;</span>
 
 stop_firewall<span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
-<span style="color:#6272a4"># First, delete all:
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -F
+<span style="color:#6272a4"># First, delete all:</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -F
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -X
 
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -P INPUT   ACCEPT
@@ -178,47 +178,47 @@ stop_firewall<span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{
 start_firewall<span style="color:#ff79c6">()</span> <span style="color:#ff79c6">{</span>
 stop_firewall
 
-<span style="color:#6272a4"># Allow anything on the local link
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT  -i lo -j ACCEPT
+<span style="color:#6272a4"># Allow anything on the local link</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT  -i lo -j ACCEPT
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -o lo -j ACCEPT
 
-<span style="color:#6272a4"># Allow anything out on the internet
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -o sixxs -j ACCEPT
+<span style="color:#6272a4"># Allow anything out on the internet</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -o sixxs -j ACCEPT
 
-<span style="color:#6272a4"># Allow the localnet access us:
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT    -i eth0   -j ACCEPT
+<span style="color:#6272a4"># Allow the localnet access us:</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT    -i eth0   -j ACCEPT
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT   -o eth0   -j ACCEPT
 
-<span style="color:#6272a4"># Filter all packets that have RH0 headers:
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -m rt --rt-type <span style="color:#bd93f9">0</span> -j DROP
+<span style="color:#6272a4"># Filter all packets that have RH0 headers:</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -m rt --rt-type <span style="color:#bd93f9">0</span> -j DROP
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -A FORWARD -m rt --rt-type <span style="color:#bd93f9">0</span> -j DROP
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -m rt --rt-type <span style="color:#bd93f9">0</span> -j DROP
 
-<span style="color:#6272a4"># Allow Link-Local addresses
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -s fe80::/10 -j ACCEPT
+<span style="color:#6272a4"># Allow Link-Local addresses</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -s fe80::/10 -j ACCEPT
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -s fe80::/10 -j ACCEPT
 
-<span style="color:#6272a4"># Allow multicast
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -s ff00::/8 -j ACCEPT
+<span style="color:#6272a4"># Allow multicast</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -s ff00::/8 -j ACCEPT
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -A OUTPUT -s ff00::/8 -j ACCEPT
 
-<span style="color:#6272a4"># Allow ICMPv6 everywhere
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -I INPUT  -p icmpv6 -j ACCEPT
+<span style="color:#6272a4"># Allow ICMPv6 everywhere</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -I INPUT  -p icmpv6 -j ACCEPT
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -I OUTPUT -p icmpv6 -j ACCEPT
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -I FORWARD -p icmpv6 -j ACCEPT
 
-<span style="color:#6272a4"># Allow forwarding
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A FORWARD -m state --state NEW -i eth0 -o sixxs -s <span style="color:#8be9fd;font-style:italic">$SUBNET_PREFIX</span> -j ACCEPT
+<span style="color:#6272a4"># Allow forwarding</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A FORWARD -m state --state NEW -i eth0 -o sixxs -s <span style="color:#8be9fd;font-style:italic">$SUBNET_PREFIX</span> -j ACCEPT
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-<span style="color:#6272a4"># SSH verso questa macchina
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -i sixxs -p tcp -d <span style="color:#8be9fd;font-style:italic">$THIS_HOST</span> --dport <span style="color:#bd93f9">22</span> -j ACCEPT
+<span style="color:#6272a4"># SSH verso questa macchina</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -A INPUT -i sixxs -p tcp -d <span style="color:#8be9fd;font-style:italic">$THIS_HOST</span> --dport <span style="color:#bd93f9">22</span> -j ACCEPT
 
-<span style="color:#6272a4"># Accesso a macchine della rete
-</span><span style="color:#6272a4">#$IP6 -A FORWARD -i sixxs -p tcp -d $IP_DA_RAGGIUNGERE --dport $PORTA_DA_RAGGIUNGERE -j ACCEPT
-</span><span style="color:#6272a4"></span>
-<span style="color:#6272a4"># Set the default policy
-</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">$IP6</span> -P INPUT   DROP
+<span style="color:#6272a4"># Accesso a macchine della rete</span>
+<span style="color:#6272a4">#$IP6 -A FORWARD -i sixxs -p tcp -d $IP_DA_RAGGIUNGERE --dport $PORTA_DA_RAGGIUNGERE -j ACCEPT</span>
+
+<span style="color:#6272a4"># Set the default policy</span>
+<span style="color:#8be9fd;font-style:italic">$IP6</span> -P INPUT   DROP
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -P FORWARD DROP
 <span style="color:#8be9fd;font-style:italic">$IP6</span> -P OUTPUT  ACCEPT
 <span style="color:#ff79c6">}</span>
@@ -274,7 +274,7 @@ start_firewall
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2018 TommyBlue.it</section>
+  <section class="copyright">&copy; 2019 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

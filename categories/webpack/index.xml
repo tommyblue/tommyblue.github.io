@@ -21,9 +21,7 @@
 
 &lt;p&gt;What if, with your app growing, you realize you&amp;rsquo;d like to add also some frontend code?
 This short how-to will show you how integrate a &lt;a href=&#34;https://webpack.js.org/&#34;&gt;Webpack&lt;/a&gt; based app with
-support to &lt;a href=&#34;https://www.typescriptlang.org/&#34;&gt;Typescript&lt;/a&gt;, &lt;a href=&#34;https://reactjs.org/&#34;&gt;React&lt;/a&gt; and &lt;a href=&#34;https://sass-lang.com/&#34;&gt;Sass&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+support to &lt;a href=&#34;https://www.typescriptlang.org/&#34;&gt;Typescript&lt;/a&gt;, &lt;a href=&#34;https://reactjs.org/&#34;&gt;React&lt;/a&gt; and &lt;a href=&#34;https://sass-lang.com/&#34;&gt;Sass&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
   </channel>

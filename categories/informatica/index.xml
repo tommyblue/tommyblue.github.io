@@ -51,10 +51,10 @@ Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambi
     
     <item>
       <title>Rubyfatt 1.0 - software di fatturazione per partite IVA</title>
-      <link>https://tommyblue.it/2012/08/23/rubyfatt-1.0---software-di-fatturazione-per-partite-iva/</link>
+      <link>https://tommyblue.it/2012/08/23/rubyfatt-1.0-software-di-fatturazione-per-partite-iva/</link>
       <pubDate>Thu, 23 Aug 2012 08:29:40 +0000</pubDate>
       
-      <guid>https://tommyblue.it/2012/08/23/rubyfatt-1.0---software-di-fatturazione-per-partite-iva/</guid>
+      <guid>https://tommyblue.it/2012/08/23/rubyfatt-1.0-software-di-fatturazione-per-partite-iva/</guid>
       <description>Approfittando della pausa estiva sono riuscito a lavorare un po&#39; su Rubyfatt, il software che mi sono scritto per la gestione della mia partita IVA.
 Senza dilungarmi troppo, dalla versione 1.0 il software è ormai maturo e può essere usato senza problemi (spero). Vi rimando alla pagina ufficiale all&#39;indirizzo: http://rubyfatt.kreations.it in cu si trova la lista di tutte le caratteristiche e le istruzioni per installarlo.
 Ovviamente ogni aiuto è ben accetto, trovate tutto sulla pagina di Github del progetto</description>
@@ -142,7 +142,14 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
 
 &lt;p&gt;Ho recentemente configurato alcuni server per l&amp;rsquo;invio di email. Parte del lavoro ha riguardato la corretta configurazione di Postfix e del server DNS per evitare che le email inviate venissero rilevate come spam.
 &lt;em&gt;In una diversa guida spiegherò come ottimizzare la configurazione di Postfix per grandi quantità  di email (â‰¥1.000.000/mese). Dato che già  in molti me lo hanno chiesto: no, non si tratta di server per l&amp;rsquo;invio di spam, ma server per il &lt;a href=&#34;http://en.wikipedia.org/wiki/E-mail_marketing&#34; target=&#34;_blank&#34;&gt;mail marketing&lt;/a&gt; (quando il servizio sarà  pubblico potrò tranquillamente rivelarne il nome).
-&lt;/em&gt;&lt;/p&gt;</description>
+&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;La configurazione ha riguardato &lt;strong&gt;tre punti principali&lt;/strong&gt;:
+&lt;ul&gt;
+    &lt;li&gt;Impostazione del record AÂ e del reverse address&lt;/li&gt;
+    &lt;li&gt;Impostazione di SPF&lt;/li&gt;
+    &lt;li&gt;Configurazione di DKIM e DomainKeys&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
