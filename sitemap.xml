@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://tommyblue.it/2019/04/05/complete-backup-of-a-smugmug-account/</loc>
+    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://tommyblue.it/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/</loc>
     <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -339,6 +346,20 @@
   </url>
   
   <url>
+    <loc>https://tommyblue.it/tags/golang/</loc>
+    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/golang/</loc>
+    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://tommyblue.it/tags/heroku/</loc>
     <lastmod>2012-08-28T10:49:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -564,7 +585,7 @@
   
   <url>
     <loc>https://tommyblue.it/post/</loc>
-    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
+    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -710,6 +731,20 @@
   </url>
   
   <url>
+    <loc>https://tommyblue.it/tags/smugmug/</loc>
+    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/smugmug/</loc>
+    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://tommyblue.it/tags/software-libero/</loc>
     <lastmod>2012-08-23T08:29:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -774,7 +809,7 @@
   
   <url>
     <loc>https://tommyblue.it/</loc>
-    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
+    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
