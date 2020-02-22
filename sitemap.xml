@@ -3,21 +3,77 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://tommyblue.it/categories/aws/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/aws/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/batch/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://tommyblue.it/categories/</loc>
-    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/2020/02/22/how-to-use-a-launch-template-in-aws-batch-compute-environment-with-custom-user_data-file/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/post/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/terraform/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/terraform/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/</loc>
+    <lastmod>2020-02-22T22:31:07+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://tommyblue.it/2019/04/05/complete-backup-of-a-smugmug-account/</loc>
-    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommyblue.it/tags/golang/</loc>
     <lastmod>2019-04-05T23:47:14+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -31,7 +87,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/post/</loc>
+    <loc>https://tommyblue.it/tags/golang/</loc>
     <lastmod>2019-04-05T23:47:14+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -52,28 +108,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/</loc>
-    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommyblue.it/</loc>
-    <lastmod>2019-04-05T23:47:14+02:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommyblue.it/categories/elixir/</loc>
+    <loc>https://tommyblue.it/tags/elixir/</loc>
     <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/elixir/</loc>
+    <loc>https://tommyblue.it/categories/elixir/</loc>
     <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -101,13 +143,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/react/</loc>
-    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/tags/react/</loc>
     <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -115,7 +150,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/typescript/</loc>
+    <loc>https://tommyblue.it/categories/react/</loc>
     <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -129,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/webpack/</loc>
+    <loc>https://tommyblue.it/categories/typescript/</loc>
     <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -137,6 +172,13 @@
   
   <url>
     <loc>https://tommyblue.it/categories/webpack/</loc>
+    <lastmod>2018-10-19T18:26:09+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/webpack/</loc>
     <lastmod>2018-10-19T18:26:09+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -164,14 +206,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/deploy/</loc>
+    <loc>https://tommyblue.it/tags/deploy/</loc>
     <lastmod>2014-04-11T06:59:27+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/deploy/</loc>
+    <loc>https://tommyblue.it/categories/deploy/</loc>
     <lastmod>2014-04-11T06:59:27+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -234,13 +276,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/ghost/</loc>
-    <lastmod>2014-04-02T07:53:27+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/categories/ghost/</loc>
     <lastmod>2014-04-02T07:53:27+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -248,14 +283,21 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/git/</loc>
-    <lastmod>2013-11-29T10:03:40+00:00</lastmod>
+    <loc>https://tommyblue.it/tags/ghost/</loc>
+    <lastmod>2014-04-02T07:53:27+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://tommyblue.it/tags/git/</loc>
+    <lastmod>2013-11-29T10:03:40+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/git/</loc>
     <lastmod>2013-11-29T10:03:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -269,14 +311,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/informatica/</loc>
+    <loc>https://tommyblue.it/tags/informatica/</loc>
     <lastmod>2013-11-29T10:03:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/informatica/</loc>
+    <loc>https://tommyblue.it/categories/informatica/</loc>
     <lastmod>2013-11-29T10:03:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -297,14 +339,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/paypal/</loc>
+    <loc>https://tommyblue.it/tags/paypal/</loc>
     <lastmod>2013-07-02T20:12:19+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/paypal/</loc>
+    <loc>https://tommyblue.it/categories/paypal/</loc>
     <lastmod>2013-07-02T20:12:19+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -318,13 +360,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/ruby/</loc>
-    <lastmod>2013-07-02T20:12:19+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/categories/ruby/</loc>
     <lastmod>2013-07-02T20:12:19+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -332,14 +367,21 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/editor/</loc>
-    <lastmod>2012-09-01T17:38:51+00:00</lastmod>
+    <loc>https://tommyblue.it/tags/ruby/</loc>
+    <lastmod>2013-07-02T20:12:19+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://tommyblue.it/categories/editor/</loc>
+    <lastmod>2012-09-01T17:38:51+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/tags/editor/</loc>
     <lastmod>2012-09-01T17:38:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -353,14 +395,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/vim/</loc>
+    <loc>https://tommyblue.it/categories/vim/</loc>
     <lastmod>2012-09-01T17:38:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/vim/</loc>
+    <loc>https://tommyblue.it/tags/vim/</loc>
     <lastmod>2012-09-01T17:38:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -388,14 +430,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/jekyll/</loc>
+    <loc>https://tommyblue.it/tags/jekyll/</loc>
     <lastmod>2012-08-28T10:49:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/jekyll/</loc>
+    <loc>https://tommyblue.it/categories/jekyll/</loc>
     <lastmod>2012-08-28T10:49:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -416,13 +458,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/sito/</loc>
-    <lastmod>2012-08-28T10:49:43+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/tags/sito/</loc>
     <lastmod>2012-08-28T10:49:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -430,14 +465,21 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/ruby-on-rails/</loc>
-    <lastmod>2012-08-23T08:29:40+00:00</lastmod>
+    <loc>https://tommyblue.it/categories/sito/</loc>
+    <lastmod>2012-08-28T10:49:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://tommyblue.it/tags/ruby-on-rails/</loc>
+    <lastmod>2012-08-23T08:29:40+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/ruby-on-rails/</loc>
     <lastmod>2012-08-23T08:29:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -465,14 +507,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/icinga/</loc>
+    <loc>https://tommyblue.it/categories/icinga/</loc>
     <lastmod>2012-06-13T11:30:15+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/icinga/</loc>
+    <loc>https://tommyblue.it/tags/icinga/</loc>
     <lastmod>2012-06-13T11:30:15+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -514,13 +556,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/mdadm/</loc>
-    <lastmod>2012-04-26T11:47:30+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/categories/mdadm/</loc>
     <lastmod>2012-04-26T11:47:30+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -528,7 +563,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/raid/</loc>
+    <loc>https://tommyblue.it/tags/mdadm/</loc>
     <lastmod>2012-04-26T11:47:30+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -542,6 +577,13 @@
   </url>
   
   <url>
+    <loc>https://tommyblue.it/tags/raid/</loc>
+    <lastmod>2012-04-26T11:47:30+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://tommyblue.it/2012/04/26/sostituire-un-disco-in-un-raid-software/</loc>
     <lastmod>2012-04-26T11:47:30+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -549,14 +591,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/bind/</loc>
+    <loc>https://tommyblue.it/tags/bind/</loc>
     <lastmod>2012-04-03T13:34:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/bind/</loc>
+    <loc>https://tommyblue.it/categories/bind/</loc>
     <lastmod>2012-04-03T13:34:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -570,13 +612,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/dns/</loc>
-    <lastmod>2012-04-03T13:34:43+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/tags/dns/</loc>
     <lastmod>2012-04-03T13:34:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -584,7 +619,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/github/</loc>
+    <loc>https://tommyblue.it/categories/dns/</loc>
     <lastmod>2012-04-03T13:34:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -598,14 +633,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/2011/11/10/accesso-ssh-inverso/</loc>
-    <lastmod>2011-11-10T10:09:40+00:00</lastmod>
+    <loc>https://tommyblue.it/categories/github/</loc>
+    <lastmod>2012-04-03T13:34:43+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/memoria-ausiliaria/</loc>
+    <loc>https://tommyblue.it/2011/11/10/accesso-ssh-inverso/</loc>
     <lastmod>2011-11-10T10:09:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -619,7 +654,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/ssh/</loc>
+    <loc>https://tommyblue.it/tags/memoria-ausiliaria/</loc>
     <lastmod>2011-11-10T10:09:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -633,8 +668,8 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/alix/</loc>
-    <lastmod>2011-08-03T12:41:51+00:00</lastmod>
+    <loc>https://tommyblue.it/categories/ssh/</loc>
+    <lastmod>2011-11-10T10:09:40+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -647,7 +682,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/ipv6/</loc>
+    <loc>https://tommyblue.it/tags/alix/</loc>
     <lastmod>2011-08-03T12:41:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -661,6 +696,13 @@
   </url>
   
   <url>
+    <loc>https://tommyblue.it/tags/ipv6/</loc>
+    <lastmod>2011-08-03T12:41:51+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://tommyblue.it/2011/08/03/ipv6-in-pochi-passi-con-alix-e-sixxs/</loc>
     <lastmod>2011-08-03T12:41:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -668,14 +710,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/sixxs/</loc>
+    <loc>https://tommyblue.it/categories/sixxs/</loc>
     <lastmod>2011-08-03T12:41:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/sixxs/</loc>
+    <loc>https://tommyblue.it/tags/sixxs/</loc>
     <lastmod>2011-08-03T12:41:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -710,14 +752,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/dkim/</loc>
+    <loc>https://tommyblue.it/tags/dkim/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/dkim/</loc>
+    <loc>https://tommyblue.it/categories/dkim/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -731,14 +773,14 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/domainkeys/</loc>
+    <loc>https://tommyblue.it/categories/domainkeys/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/domainkeys/</loc>
+    <loc>https://tommyblue.it/tags/domainkeys/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -759,13 +801,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/reverse-dns/</loc>
-    <lastmod>2010-01-18T00:02:50+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/tags/reverse-dns/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -773,7 +808,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/smtp/</loc>
+    <loc>https://tommyblue.it/categories/reverse-dns/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -787,7 +822,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/spam/</loc>
+    <loc>https://tommyblue.it/categories/smtp/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -795,6 +830,13 @@
   
   <url>
     <loc>https://tommyblue.it/tags/spam/</loc>
+    <lastmod>2010-01-18T00:02:50+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/spam/</loc>
     <lastmod>2010-01-18T00:02:50+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -829,13 +871,6 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/fedora/</loc>
-    <lastmod>2009-03-19T09:05:06+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommyblue.it/tags/fedora/</loc>
     <lastmod>2009-03-19T09:05:06+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -843,7 +878,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/tags/lvm/</loc>
+    <loc>https://tommyblue.it/categories/fedora/</loc>
     <lastmod>2009-03-19T09:05:06+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -857,7 +892,7 @@
   </url>
   
   <url>
-    <loc>https://tommyblue.it/categories/xfs/</loc>
+    <loc>https://tommyblue.it/tags/lvm/</loc>
     <lastmod>2009-03-19T09:05:06+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -865,6 +900,13 @@
   
   <url>
     <loc>https://tommyblue.it/tags/xfs/</loc>
+    <lastmod>2009-03-19T09:05:06+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommyblue.it/categories/xfs/</loc>
     <lastmod>2009-03-19T09:05:06+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
