@@ -7,7 +7,7 @@
     
     <title>
       
-      Informatica - TommyBlue.it
+      informatica - TommyBlue.it
       
 		</title>
 
@@ -81,7 +81,9 @@
 	<section class="post-excerpt">
     <p>
       In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON .
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1e 2).
+Per terminare aggiungere Icinga ai servizi di avvio e lanciare Ido2db e Icinga:
+mysql&gt; CREATE DATABASE icinga_web; GRANT USAGE ON . TO &lsquo;icinga_web&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED BY &lsquo;icinga_web&rsquo; WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.
 
       <p><a class="read-more" href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">Read More  &raquo;</a></p>
     </p>
@@ -101,7 +103,7 @@ Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsq
     <p>
       Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
-La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat
+La situazione di un raid 1 con un disco rotto è più o meno questa:
 
       <p><a class="read-more" href="/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/">Read More  &raquo;</a></p>
     </p>
@@ -119,18 +121,12 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
 	</header>
 	<section class="post-excerpt">
     <p>
-      <p><strong>Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay</strong></p>
-
+      <p><!-- raw HTML omitted -->Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay<!-- raw HTML omitted --></p>
 <p>Ho recentemente configurato alcuni server per l&rsquo;invio di email. Parte del lavoro ha riguardato la corretta configurazione di Postfix e del server DNS per evitare che le email inviate venissero rilevate come spam.
-<em>In una diversa guida spiegherò come ottimizzare la configurazione di Postfix per grandi quantità  di email (â‰¥1.000.000/mese). Dato che già  in molti me lo hanno chiesto: no, non si tratta di server per l&rsquo;invio di spam, ma server per il <a href="http://en.wikipedia.org/wiki/E-mail_marketing" target="_blank">mail marketing</a> (quando il servizio sarà  pubblico potrò tranquillamente rivelarne il nome).
-</em></p>
-
-<p>La configurazione ha riguardato <strong>tre punti principali</strong>:
-<ul>
-    <li>Impostazione del record AÂ e del reverse address</li>
-    <li>Impostazione di SPF</li>
-    <li>Configurazione di DKIM e DomainKeys</li>
-</ul></p>
+<!-- raw HTML omitted -->In una diversa guida spiegherò come ottimizzare la configurazione di Postfix per grandi quantità  di email (â‰¥1.000.000/mese). Dato che già  in molti me lo hanno chiesto: no, non si tratta di server per l&rsquo;invio di spam, ma server per il <!-- raw HTML omitted -->mail marketing<!-- raw HTML omitted --> (quando il servizio sarà  pubblico potrò tranquillamente rivelarne il nome).
+<!-- raw HTML omitted --></p>
+<p>La configurazione ha riguardato <!-- raw HTML omitted -->tre punti principali<!-- raw HTML omitted -->:</p>
+<!-- raw HTML omitted -->
 
       <p><a class="read-more" href="/2010/01/18/dns-e-postfix-come-non-generare-spam/">Read More  &raquo;</a></p>
     </p>
@@ -149,7 +145,8 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
 	<section class="post-excerpt">
     <p>
       Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
-Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&rsquo;opzione -s (&ndash;scan) la configurazione viene letta dal file.
+Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in:
+Con l&rsquo;opzione -s (&ndash;scan) la configurazione viene letta dal file.
 
       <p><a class="read-more" href="/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/">Read More  &raquo;</a></p>
     </p>
@@ -167,9 +164,7 @@ Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, 
 	</header>
 	<section class="post-excerpt">
     <p>
-      Ovvero come installare Fedora 10 da cd utilizzando XFS come filesystem per la root (/) :)
-Nota: avrete bisogno di due partizioni di almeno 4&frasl;5 GB
-L&rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (in particolare per espandere le partizioni &ldquo;al volo&rdquo;), cosa che spiegherò di seguito. I passi sono molto semplici:  Avviate dal cd di Fedora 10 Installate normalmente Fedora utilizzando una partizione LVM di almenoÂ 5.
+      Ovvero come installare Fedora 10 da cd utilizzando XFS come filesystem per la root (/) :)Nota: avrete bisogno di due partizioni di almeno 4/5 GBL&rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (in particolare per espandere le partizioni &ldquo;al volo&rdquo;), cosa che spiegherò di seguito. I passi sono molto semplici:
 
       <p><a class="read-more" href="/2009/03/19/convertire-il-filesystem-della-partizione-root/">Read More  &raquo;</a></p>
     </p>
@@ -196,7 +191,7 @@ L&rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

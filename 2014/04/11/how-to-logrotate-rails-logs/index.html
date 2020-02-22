@@ -65,27 +65,20 @@
       </section>
     </header>
     <section class="post-content">
-      
-
-<p>If you deploy a rails app forgetting to configure logs automatic rotation, few weeks later won&rsquo;t be difficult to find something like this:</p>
+      <p>If you deploy a rails app forgetting to configure logs automatic rotation, few weeks later won&rsquo;t be difficult to find something like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls -lh log/production.log
-  -rw-rw-r-- <span style="color:#bd93f9">1</span> www-data www-data <span style="color:#bd93f9">93</span>,2M apr <span style="color:#bd93f9">10</span> <span style="color:#bd93f9">17</span>:49 production.log</code></pre></div>
-<p>Think if you have to find some error log inside a 100MB file, not easy&hellip; :)</p>
-
+  -rw-rw-r-- <span style="color:#bd93f9">1</span> www-data www-data 93,2M apr <span style="color:#bd93f9">10</span> 17:49 production.log
+</code></pre></div><p>Think if you have to find some error log inside a 100MB file, not easy&hellip; :)</p>
 <p>Setting log rotation isn&rsquo;t difficult at all. I know two main ways.</p>
-
 <h2 id="use-syslog">Use syslog</h2>
-
 <p>This is a really easy solution. Rails will use standard syslog as logger, which means the logs will rotate automatically.</p>
-
 <p>Open <code>config/environments/production.rb</code> and add this line:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">config<span style="color:#ff79c6">.</span>logger <span style="color:#ff79c6">=</span> SyslogLogger<span style="color:#ff79c6">.</span>new</code></pre></div>
-<p>If you want to avoid your logs to be mixed with system logs you need to add some parameters:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">config<span style="color:#ff79c6">.</span>logger <span style="color:#ff79c6">=</span> SyslogLogger<span style="color:#ff79c6">.</span>new(<span style="color:#f1fa8c">&#39;/var/log/&lt;APP_NAME&gt;.log&#39;</span>)</code></pre></div>
-<h2 id="use-logrotate">Use logrotate</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">config<span style="color:#ff79c6">.</span>logger <span style="color:#ff79c6">=</span> SyslogLogger<span style="color:#ff79c6">.</span>new
+</code></pre></div><p>If you want to avoid your logs to be mixed with system logs you need to add some parameters:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">config<span style="color:#ff79c6">.</span>logger <span style="color:#ff79c6">=</span> SyslogLogger<span style="color:#ff79c6">.</span>new(<span style="color:#f1fa8c">&#39;/var/log/&lt;APP_NAME&gt;.log&#39;</span>)
+</code></pre></div><h2 id="use-logrotate">Use logrotate</h2>
 <p>This is the cleaner way, but requires to create a file in the server, inside the <code>/etc/logrotate.d/</code> folder. This is a possible content of the <code>/etc/logrotate.d/rails_apps</code> file:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cron" data-lang="cron">/path/to/rails/app/log/*.log {
+<pre><code class="language-cron" data-lang="cron">/path/to/rails/app/log/*.log {
     weekly
     missingok
     rotate 28
@@ -93,10 +86,10 @@
     delaycompress
     notifempty
     copytruncate
-}</code></pre></div>
-<p>The <code>copytruncate</code> option is required unless you want to restart the rails app after log rotation. Otherwise the app will continue to use the old log file, if it exists, or will stop logging (or, worse, will crash) if the file is deleted.
+}
+</code></pre><p>The <code>copytruncate</code> option is required unless you want to restart the rails app after log rotation. Otherwise the app will continue to use the old log file, if it exists, or will stop logging (or, worse, will crash) if the file is deleted.
 Below the <code>copytruncate</code> details from <a href="http://linuxcommand.org/man_pages/logrotate8.html">the logrotate man page</a>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-init" data-lang="init">copytruncate
+<pre><code class="language-init" data-lang="init">copytruncate
       Truncate  the  original log file in place after creating a copy,
       instead of moving the old log file and optionally creating a new
       one,  It  can be used when some program can not be told to close
@@ -104,11 +97,12 @@ Below the <code>copytruncate</code> details from <a href="http://linuxcommand.or
       previous log file forever.  Note that there is a very small time
       slice between copying the file and truncating it, so  some  log-
       ging  data  might be lost.  When this option is used, the create
-      option will have no effect, as the old log file stays in  place.</code></pre></div>
-<p>To check the logrotate script you can use the <code>logrotate</code> command with the debug (<code>-d</code>) option, which executes a dry-run:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo logrotate -d /etc/logrotate.d/rails_apps</code></pre></div>
-<p>If everything seems ok you can wait until the next day or manually launch the rotation with:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo logrotate -v /etc/logrotate.d/rails_apps</code></pre></div>
+      option will have no effect, as the old log file stays in  place.
+</code></pre><p>To check the logrotate script you can use the <code>logrotate</code> command with the debug (<code>-d</code>) option, which executes a dry-run:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo logrotate -d /etc/logrotate.d/rails_apps
+</code></pre></div><p>If everything seems ok you can wait until the next day or manually launch the rotation with:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo logrotate -v /etc/logrotate.d/rails_apps
+</code></pre></div>
     </section>
     <footer class="post-footer">
       <section class="tags post-meta">
@@ -126,7 +120,7 @@ Below the <code>copytruncate</code> details from <a href="http://linuxcommand.or
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

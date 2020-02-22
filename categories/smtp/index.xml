@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Smtp on TommyBlue.it</title>
+    <title>smtp on TommyBlue.it</title>
     <link>https://tommyblue.it/categories/smtp/</link>
-    <description>Recent content in Smtp on TommyBlue.it</description>
+    <description>Recent content in smtp on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 18 Jan 2010 00:02:50 +0000</lastBuildDate>
@@ -17,18 +17,12 @@
       <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
       
       <guid>https://tommyblue.it/2010/01/18/dns-e-postfix-come-non-generare-spam/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay&lt;/strong&gt;&lt;/p&gt;
-
+      <description>&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 &lt;p&gt;Ho recentemente configurato alcuni server per l&amp;rsquo;invio di email. Parte del lavoro ha riguardato la corretta configurazione di Postfix e del server DNS per evitare che le email inviate venissero rilevate come spam.
-&lt;em&gt;In una diversa guida spiegherò come ottimizzare la configurazione di Postfix per grandi quantità  di email (â‰¥1.000.000/mese). Dato che già  in molti me lo hanno chiesto: no, non si tratta di server per l&amp;rsquo;invio di spam, ma server per il &lt;a href=&#34;http://en.wikipedia.org/wiki/E-mail_marketing&#34; target=&#34;_blank&#34;&gt;mail marketing&lt;/a&gt; (quando il servizio sarà  pubblico potrò tranquillamente rivelarne il nome).
-&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;La configurazione ha riguardato &lt;strong&gt;tre punti principali&lt;/strong&gt;:
-&lt;ul&gt;
-    &lt;li&gt;Impostazione del record AÂ e del reverse address&lt;/li&gt;
-    &lt;li&gt;Impostazione di SPF&lt;/li&gt;
-    &lt;li&gt;Configurazione di DKIM e DomainKeys&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;</description>
+&lt;!-- raw HTML omitted --&gt;In una diversa guida spiegherò come ottimizzare la configurazione di Postfix per grandi quantità  di email (â‰¥1.000.000/mese). Dato che già  in molti me lo hanno chiesto: no, non si tratta di server per l&amp;rsquo;invio di spam, ma server per il &lt;!-- raw HTML omitted --&gt;mail marketing&lt;!-- raw HTML omitted --&gt; (quando il servizio sarà  pubblico potrò tranquillamente rivelarne il nome).
+&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;La configurazione ha riguardato &lt;!-- raw HTML omitted --&gt;tre punti principali&lt;!-- raw HTML omitted --&gt;:&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;</description>
     </item>
     
   </channel>

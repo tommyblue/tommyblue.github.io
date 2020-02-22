@@ -66,16 +66,12 @@
     </header>
     <section class="post-content">
       <p>Ho recentemente scoperto un&rsquo;interessante opzione di <em>sfdisk</em> che risolve molti problemi quando si deve sostituire un disco di un raid software. Integro quindi <a href="/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/">l&rsquo;articolo originale</a> segnlando questa opzione, da usare nel caso in cui al comando:</p>
-
 <pre><code>sfdisk -d /dev/sda | sfdisk /dev/sdb
 </code></pre>
-
 <p>sfdisk si rifiuti di partizionare correttamente <em>/dev/sdb</em> a causa di problemi con i cilindri.
 Dato che Linux è molto meno schizzinoso del DOS, esiste un&rsquo;opzione per ignorare problemi che con Linux, appunto, non sono tali:</p>
-
 <pre><code>sfdisk -d /dev/sda | sfdisk --Linux /dev/sdb
 </code></pre>
-
 <p>et voilà ! :)</p>
 
     </section>
@@ -96,7 +92,7 @@ Dato che Linux è molto meno schizzinoso del DOS, esiste un&rsquo;opzione per ig
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 
