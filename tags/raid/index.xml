@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>raid on TommyBlue.it</title>
+    <title>Raid on TommyBlue.it</title>
     <link>https://tommyblue.it/tags/raid/</link>
-    <description>Recent content in raid on TommyBlue.it</description>
+    <description>Recent content in Raid on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 26 Apr 2012 11:47:30 +0000</lastBuildDate>
@@ -29,7 +29,7 @@ sfdisk -d /dev/sda | sfdisk /dev/sdb  sfdisk si rifiuti di partizionare corretta
       <guid>https://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
       <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
-La situazione di un raid 1 con un disco rotto è più o meno questa:</description>
+La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
     </item>
     
     <item>
@@ -39,8 +39,7 @@ La situazione di un raid 1 con un disco rotto è più o meno questa:</descriptio
       
       <guid>https://tommyblue.it/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
       <description>Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
-Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in:
-Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
+Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
     </item>
     
   </channel>

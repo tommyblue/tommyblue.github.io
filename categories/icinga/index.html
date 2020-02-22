@@ -7,7 +7,7 @@
     
     <title>
       
-      icinga - TommyBlue.it
+      Icinga - TommyBlue.it
       
 		</title>
 
@@ -100,9 +100,7 @@ Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come 
 	<section class="post-excerpt">
     <p>
       In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1e 2).
-Per terminare aggiungere Icinga ai servizi di avvio e lanciare Ido2db e Icinga:
-mysql&gt; CREATE DATABASE icinga_web; GRANT USAGE ON . TO &lsquo;icinga_web&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED BY &lsquo;icinga_web&rsquo; WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON .
 
       <p><a class="read-more" href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">Read More  &raquo;</a></p>
     </p>
@@ -127,7 +125,7 @@ mysql&gt; CREATE DATABASE icinga_web; GRANT USAGE ON . TO &lsquo;icinga_web&rsqu
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2020 TommyBlue.it</section>
+  <section class="copyright">&copy; 2019 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

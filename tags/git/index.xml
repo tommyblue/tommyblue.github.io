@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>git on TommyBlue.it</title>
+    <title>Git on TommyBlue.it</title>
     <link>https://tommyblue.it/tags/git/</link>
-    <description>Recent content in git on TommyBlue.it</description>
+    <description>Recent content in Git on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 29 Nov 2013 10:03:40 +0000</lastBuildDate>
@@ -17,7 +17,7 @@
       <pubDate>Fri, 29 Nov 2013 10:03:40 +0000</pubDate>
       
       <guid>https://tommyblue.it/2013/11/29/git-content-addressable-filesystem-and-version-control-system/</guid>
-      <description></description>
+      <description>GIT: Content-addressable filesystem and Version Control System  from Tommaso Visconti</description>
     </item>
     
   </channel>

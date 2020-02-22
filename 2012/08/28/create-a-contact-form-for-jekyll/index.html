@@ -66,32 +66,32 @@
     </header>
     <section class="post-content">
       <p>As I promised to a reader who wrote me an email some days ago, with this post I&rsquo;ll explain how I built the contact form of this website using Sinatra and Sendgrid. As you know (or you&rsquo;re just learning) this site is made by <a href="https://github.com/mojombo/jekyll">Jekyll</a>, a static site generator written in Ruby. As the result of the work of Jekyll it is a static HTML website, so it&rsquo;s not immediate to build a contact form. I tried to find a JS solution to maintain a full static website, but didn&rsquo;t find any. So I wrote a few Ruby lines and the contact form is now working.</p>
+
 <p>How to let the form work is strictly dependent on how you deploy your Jekyll website. I use <a href="http://www.heroku.com/">Heroku</a> so I deploy the site as a <a href="https://devcenter.heroku.com/articles/rack">Rack-based app</a> using <a href="http://www.sinatrarb.com/">Sinatra</a>, this how-to works only if you have my deployment configuration. If not, you must adapt it to your needs.</p>
+
 <p>The first step is to register a free account to <a href="http://www.google.com/recaptcha">reCAPTCHA</a> and get the public and private API keys. Then register a <a href="https://devcenter.heroku.com/articles/sendgrid">Sendgrid free account as Heroku add-on</a> in your website app.</p>
+
 <p>To use a rack-based app on Heroku you need a <em>config.ru</em> file, this is mine:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">
-<span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;rubygems&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;rubygems&#39;</span>
 <span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;sinatra&#39;</span>
 <span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;rack/recaptcha&#39;</span>
 
-use Rack<span style="color:#ff79c6">::</span>Recaptcha, <span style="color:#f1fa8c">:public_key</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;MyPublicKey&#39;</span>, <span style="color:#f1fa8c">:private_key</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;TheS3cr3tS3cr3tKey&#39;</span>
+use Rack<span style="color:#ff79c6">::</span>Recaptcha, <span style="color:#f1fa8c">:public_key</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;MyPublicKey&#39;</span>, <span style="color:#f1fa8c">:private_key</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;TheS3cr3tS3cr3tKey&#39;</span>
 helpers Rack<span style="color:#ff79c6">::</span>Recaptcha<span style="color:#ff79c6">::</span>Helpers
 enable <span style="color:#f1fa8c">:sessions</span>
 
 <span style="color:#8be9fd;font-style:italic">require</span> <span style="color:#f1fa8c">&#39;./application&#39;</span>
-run Sinatra<span style="color:#ff79c6">::</span>Application
-
-</code></pre></div><p>Just insert the reCAPTCHA keys and the file is ready. Now the <em>application.rb</em> file called by the <em>require</em> above:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">
-set <span style="color:#f1fa8c">:public</span>, Proc<span style="color:#ff79c6">.</span>new { File<span style="color:#ff79c6">.</span>join(root, <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">_site</span><span style="color:#f1fa8c">&#34;</span>) }
+run Sinatra<span style="color:#ff79c6">::</span>Application</code></pre></div>
+<p>Just insert the reCAPTCHA keys and the file is ready. Now the <em>application.rb</em> file called by the <em>require</em> above:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">set <span style="color:#f1fa8c">:public</span>, Proc<span style="color:#ff79c6">.</span>new { File<span style="color:#ff79c6">.</span>join(root, <span style="color:#f1fa8c">&#34;_site&#34;</span>) }
 
 post <span style="color:#f1fa8c">&#39;/send&#39;</span> <span style="color:#ff79c6">do</span>
   <span style="color:#ff79c6">if</span> recaptcha_valid?
     session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>
-    { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;success&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+    { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;success&#39;</span> }<span style="color:#ff79c6">.</span>to_json
   <span style="color:#ff79c6">else</span>
     session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>
-    { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+    { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
   <span style="color:#ff79c6">end</span>
 <span style="color:#ff79c6">end</span>
 
@@ -102,29 +102,29 @@ post <span style="color:#f1fa8c">&#39;/send_email&#39;</span> <span style="color
     <span style="color:#ff79c6">if</span> session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span>
       session<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:captcha</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>
       res <span style="color:#ff79c6">=</span> Pony<span style="color:#ff79c6">.</span>mail(
-	<span style="color:#f1fa8c">:from</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:name</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">&lt;</span><span style="color:#f1fa8c">&#34;</span> <span style="color:#ff79c6">+</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:email</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">&gt;</span><span style="color:#f1fa8c">&#34;</span>,
-	<span style="color:#f1fa8c">:to</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;me@mydomain.com&#39;</span>,
-	<span style="color:#f1fa8c">:subject</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">Message from your awesome website :)</span><span style="color:#f1fa8c">&#34;</span>,
-	<span style="color:#f1fa8c">:body</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:message</span><span style="color:#ff79c6">]</span>,
-	<span style="color:#f1fa8c">:port</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;587&#39;</span>,
-	<span style="color:#f1fa8c">:via</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">:smtp</span>,
-	<span style="color:#f1fa8c">:via_options</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> {
-	  <span style="color:#f1fa8c">:address</span>              <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;smtp.sendgrid.net&#39;</span>,
-	  <span style="color:#f1fa8c">:port</span>                 <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;587&#39;</span>,
-	  <span style="color:#f1fa8c">:enable_starttls_auto</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">true</span>,
-	  <span style="color:#f1fa8c">:user_name</span>            <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> ENV<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">&#39;SENDGRID_USERNAME&#39;</span><span style="color:#ff79c6">]</span>,
-	  <span style="color:#f1fa8c">:password</span>             <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> ENV<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">&#39;SENDGRID_PASSWORD&#39;</span><span style="color:#ff79c6">]</span>,
-	  <span style="color:#f1fa8c">:authentication</span>       <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">:plain</span>,
-	  <span style="color:#f1fa8c">:domain</span>               <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;heroku.com&#39;</span>
+	<span style="color:#f1fa8c">:from</span> <span style="color:#ff79c6">=&gt;</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:name</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;&lt;&#34;</span> <span style="color:#ff79c6">+</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:email</span><span style="color:#ff79c6">]</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;&gt;&#34;</span>,
+	<span style="color:#f1fa8c">:to</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;me@mydomain.com&#39;</span>,
+	<span style="color:#f1fa8c">:subject</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#34;Message from your awesome website :)&#34;</span>,
+	<span style="color:#f1fa8c">:body</span> <span style="color:#ff79c6">=&gt;</span> params<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">:message</span><span style="color:#ff79c6">]</span>,
+	<span style="color:#f1fa8c">:port</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;587&#39;</span>,
+	<span style="color:#f1fa8c">:via</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">:smtp</span>,
+	<span style="color:#f1fa8c">:via_options</span> <span style="color:#ff79c6">=&gt;</span> {
+	  <span style="color:#f1fa8c">:address</span>              <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;smtp.sendgrid.net&#39;</span>,
+	  <span style="color:#f1fa8c">:port</span>                 <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;587&#39;</span>,
+	  <span style="color:#f1fa8c">:enable_starttls_auto</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#ff79c6">true</span>,
+	  <span style="color:#f1fa8c">:user_name</span>            <span style="color:#ff79c6">=&gt;</span> ENV<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">&#39;SENDGRID_USERNAME&#39;</span><span style="color:#ff79c6">]</span>,
+	  <span style="color:#f1fa8c">:password</span>             <span style="color:#ff79c6">=&gt;</span> ENV<span style="color:#ff79c6">[</span><span style="color:#f1fa8c">&#39;SENDGRID_PASSWORD&#39;</span><span style="color:#ff79c6">]</span>,
+	  <span style="color:#f1fa8c">:authentication</span>       <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">:plain</span>,
+	  <span style="color:#f1fa8c">:domain</span>               <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;heroku.com&#39;</span>
 	})
       content_type <span style="color:#f1fa8c">:json</span>
       <span style="color:#ff79c6">if</span> res
-	  { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;success&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+	  { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;success&#39;</span> }<span style="color:#ff79c6">.</span>to_json
       <span style="color:#ff79c6">else</span>
-	  { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+	  { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
       <span style="color:#ff79c6">end</span>
     <span style="color:#ff79c6">else</span>
-      { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=</span><span style="color:#ff79c6">&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
+      { <span style="color:#f1fa8c">:message</span> <span style="color:#ff79c6">=&gt;</span> <span style="color:#f1fa8c">&#39;failure&#39;</span> }<span style="color:#ff79c6">.</span>to_json
     <span style="color:#ff79c6">end</span>
 <span style="color:#ff79c6">end</span>
 
@@ -137,19 +137,18 @@ not_found <span style="color:#ff79c6">do</span>
 <span style="color:#ff79c6">end</span>
 
 get <span style="color:#f1fa8c">&#39;/*&#39;</span> <span style="color:#ff79c6">do</span>
-    file_name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">_site</span><span style="color:#f1fa8c">#{</span>request<span style="color:#ff79c6">.</span>path_info<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/index.html</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">.</span>gsub(<span style="color:#f1fa8c">%r{</span><span style="color:#f1fa8c">\</span><span style="color:#f1fa8c">/+</span><span style="color:#f1fa8c">}</span>,<span style="color:#f1fa8c">&#39;/&#39;</span>)
+    file_name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;_site</span><span style="color:#f1fa8c">#{</span>request<span style="color:#ff79c6">.</span>path_info<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/index.html&#34;</span><span style="color:#ff79c6">.</span>gsub(<span style="color:#f1fa8c">%r{\/+}</span>,<span style="color:#f1fa8c">&#39;/&#39;</span>)
     <span style="color:#ff79c6">if</span> File<span style="color:#ff79c6">.</span>exists?(file_name)
 	File<span style="color:#ff79c6">.</span>read(file_name)
     <span style="color:#ff79c6">else</span>
 	<span style="color:#ff79c6">raise</span> Sinatra<span style="color:#ff79c6">::</span>NotFound
     <span style="color:#ff79c6">end</span>
-<span style="color:#ff79c6">end</span>
-
-</code></pre></div><p>As you see in the code I use two methods, <em>send</em> and <em>send_email</em>: the first check the captcha and set a session variable, returning a JSON message (<em>success</em>). The second method sends the email using Pony only if the captcha was verified.
+<span style="color:#ff79c6">end</span></code></pre></div>
+<p>As you see in the code I use two methods, <em>send</em> and <em>send_email</em>: the first check the captcha and set a session variable, returning a JSON message (<em>success</em>). The second method sends the email using Pony only if the captcha was verified.
 The SendGrid username and password are loaded automatically from your Heroku environment.</p>
+
 <p>The last step is to create the contact form page, including the reCAPTCHA js:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">
-&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;http://www.google.com/recaptcha/api/js/recaptcha_ajax.js&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;http://www.google.com/recaptcha/api/js/recaptcha_ajax.js&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
 
 &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span>&gt;
   <span style="color:#8be9fd;font-style:italic">function</span> showRecaptcha(element) {
@@ -200,12 +199,10 @@ The SendGrid username and password are loaded automatically from your Heroku env
 	    });
 	});
     });
-&lt;/<span style="color:#ff79c6">script</span>&gt;
-
-</code></pre></div><p><strong>The code seems a bit tricky :)</strong> but it&rsquo;s simple. It just intercepts the form submission, send a first POST call to <em>/send</em> and, if the captcha is verified, generates a second POST call to <em>/send_email</em>, which sends the email.
+&lt;/<span style="color:#ff79c6">script</span>&gt;</code></pre></div>
+<p><strong>The code seems a bit tricky :)</strong> but it&rsquo;s simple. It just intercepts the form submission, send a first POST call to <em>/send</em> and, if the captcha is verified, generates a second POST call to <em>/send_email</em>, which sends the email.
 The last piece is the form HTML code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">
-&lt;<span style="color:#ff79c6">form</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;form&#34;</span> <span style="color:#50fa7b">method</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post&#34;</span>&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#ff79c6">form</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;form&#34;</span> <span style="color:#50fa7b">method</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;post&#34;</span>&gt;
 	&lt;<span style="color:#ff79c6">label</span> <span style="color:#50fa7b">for</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;name&#34;</span>&gt;Name&lt;/<span style="color:#ff79c6">label</span>&gt;
 	&lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;name&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;name&#34;</span> /&gt;
 
@@ -219,9 +216,8 @@ The last piece is the form HTML code:</p>
 	&lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;notice&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
 
 	&lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;submit&#34;</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;submit&#34;</span> <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;Send&#34;</span> /&gt;
-&lt;/<span style="color:#ff79c6">form</span>&gt;
-
-</code></pre></div><p>That&rsquo;s it, now you can send email from a <em>static</em> website.</p>
+&lt;/<span style="color:#ff79c6">form</span>&gt;</code></pre></div>
+<p>That&rsquo;s it, now you can send email from a <em>static</em> website.</p>
 
     </section>
     <footer class="post-footer">
@@ -244,7 +240,7 @@ The last piece is the form HTML code:</p>
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2020 TommyBlue.it</section>
+  <section class="copyright">&copy; 2019 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

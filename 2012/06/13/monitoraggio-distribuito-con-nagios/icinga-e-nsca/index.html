@@ -65,31 +65,48 @@
       </section>
     </header>
     <section class="post-content">
-      <p>Sebbene Icinga/Nagios e NRPE siano un&rsquo;ottima coppia per monitorare le macchine (sia via socket che internamente), a volte possono non bastare.
+      
+
+<p>Sebbene Icinga/Nagios e NRPE siano un&rsquo;ottima coppia per monitorare le macchine (sia via socket che internamente), a volte possono non bastare.
 Potrebbe infatti essere utile distribuire i check su più macchine, sia per un fattore di carico sia per aggirare eventuali firewall.</p>
-<p>Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto <!-- raw HTML omitted -->qui<!-- raw HTML omitted -->, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale.</p>
+
+<p>Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come descritto <a href="http://tommyblue.it/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga">qui</a>, mostrerò come configurare un secondo server remoto che comunica via NSCA il risultato dei check al server principale.</p>
+
 <h1 id="configurazione-del-server-distribuito-client">Configurazione del server distribuito (client)</h1>
+
 <p>Sulla macchina client (Ubuntu server 12.04 LTS) si installano i seguenti pacchetti:</p>
+
 <pre><code>sudo apt-get install icinga-core nsca nagios-plugins-extra
 </code></pre>
+
 <p>Bisogna configurare <em>/etc/send_nsca.cfg</em> inserendo la password e la scelta di cifratura. Entrambi i dati andranno fedelmente riprodotti nel server NSCA.</p>
+
 <p>Adesso si edita il file <em>/etc/icinga/commands.cfg</em> aggiungendo il comando che invierà  i dati al server NSCA:</p>
+
 <pre><code>define command{
     command_name    submit_check_result
     command_line    /usr/share/icinga/plugins/eventhandlers/distributed-monitoring/submit_check_result_via_nsca $HOSTNAME$ '$SERVICEDESC$' $SERVICESTATEID$ '$SERVICEOUTPUT$'
 }
 </code></pre>
+
 <p>Nel file <em>/usr/share/icinga/plugins/eventhandlers/distributed-monitoring/submit_check_result_via_nsca</em> bisogna editare la variabile <em>IcingaHost</em> con l&rsquo;hostname del server Icinga principale.</p>
+
 <p>Il concetto di funzionamento del monitoraggio distribuito è che i server secondari inviano al master i risultati dei check. Per farlo bisogna attivare il servizio OCSP (<strong>obsessive compulsive service processor</strong>) in <em>/etc/icinga/icinga.cfg</em> dicendogli di usare il comando precedentemente definito per comunicare al server NSCA i risultati dei check:</p>
+
 <pre><code>obsess_over_services=1
 ocsp_command=submit_check_result
 ocsp_timeout=5
 </code></pre>
+
 <p>Dato che il server slave deve soltanto comunicare i risultati dei check, si disabilitano le notifiche dei servizi in <em>objects/generic-service_icinga.cfg</em> impostando:</p>
+
 <pre><code>notifications_enabled   0
 </code></pre>
+
 <p>In questo modo eventuali allarmi partiranno soltanto dal server principale.</p>
+
 <p>Per finire si può definire un check base:</p>
+
 <pre><code>define host{
         use                     generic-host
         host_name               base-icinga
@@ -104,8 +121,11 @@ define service{
         check_command                   check_all_disks!20%!10%
 }
 </code></pre>
+
 <h1 id="integrazione-di-nsca-nel-server-principale-e-ricezione-dei-check-passivi">Integrazione di NSCA nel server principale e ricezione dei check passivi</h1>
+
 <p>Passiamo al server principale e per prima cosa definiamo un servizio passivo:</p>
+
 <pre><code>define service{
     use                     generic-service   ; template to inherit from
     name                    passive-service   ; name of this template
@@ -117,21 +137,30 @@ define service{
     register                0                 ; this is a template, not a real service
     }
 </code></pre>
+
 <p>Tale template verrà  usato per ogni servizio passivo.</p>
+
 <p>Per abilitare la ricezione di check passivi in <em>icinga.cfg</em> devono essere presenti:</p>
+
 <pre><code>check_external_commands=1
 command_check_interval=&lt;n&gt;[s]
 log_passive_checks=1
 </code></pre>
+
 <p>Si faccia attenzione: i check passivi non arriveranno dal server slave, ma dal server NSCA che sarà  installato su questa stessa macchina e che li passa a Icinga.
 Si installa quindi il pacchetto <strong>nsca</strong> e si configura <em>/etc/nsca.cfg</em>, ricordandosi di settare la password e la cifratura inseriti nel client. Si dia un occhio anche ad altre configurazioni, ad esempio il percorso al file che accetta i check passivi, nel mio caso:</p>
+
 <pre><code>command_file=/usr/local/icinga/var/rw/icinga.cmd
 </code></pre>
+
 <p>Una volta avviato il server NSCA (standalone o via xinetd) se dal client si lancia una connessione questo dovrebbe essere il risultato:</p>
+
 <pre><code>echo -e &quot;A\tB\tC\tD\n&quot; | /usr/share/icinga/plugins/eventhandlers/distributed-monitoring/submit_check_result_via_nsca
 0 data packet(s) sent to host successfully.
 </code></pre>
+
 <p>Adesso si può definire l&rsquo;host e il check passivo:</p>
+
 <pre><code>define host {
         use             drwolf-server
         host_name       base-icinga
@@ -145,15 +174,20 @@ define service{
     service_description     Current Users
     }
 </code></pre>
+
 <p>Al termine si può riavviare Icinga e tutto dovrebbe essere a posto.
 Attenzione che il nome dell&rsquo;host (<strong>host_name</strong>) e il nome del servizio (<strong>service_description</strong>) siano esattamente gli stessi definiti nello slave, altrimenti nel file <em>/var/log/icinga/icinga.log</em> troverete messaggi come questo:</p>
+
 <pre><code>[1339598868] EXTERNAL COMMAND: PROCESS_SERVICE_CHECK_RESULT;localhost;HTTP;0;HTTP OK: HTTP/1.1 200 OK - 453 bytes in 0,001 second response time
 [1339598868] Warning:  Passive check result was received for service 'HTTP' on host 'localhost', but the host could not be found!
 </code></pre>
+
 <p>Se invece va tutto bene troverete nel log questi messaggi:</p>
+
 <pre><code>[1339599272] EXTERNAL COMMAND: PROCESS_SERVICE_CHECK_RESULT;base-icinga;Current Users;0;USERS OK - 1 users currently logged in
 [1339599277] PASSIVE SERVICE CHECK: base-icinga;Current Users;0;USERS OK - 1 users currently logged in
 </code></pre>
+
 <p>e dall&rsquo;interfaccia di Icinga vedrete cambiare lo stato dei vari servizi remoti :)</p>
 
     </section>
@@ -176,7 +210,7 @@ Attenzione che il nome dell&rsquo;host (<strong>host_name</strong>) e il nome de
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2020 TommyBlue.it</section>
+  <section class="copyright">&copy; 2019 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

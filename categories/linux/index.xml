@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>linux on TommyBlue.it</title>
+    <title>Linux on TommyBlue.it</title>
     <link>https://tommyblue.it/categories/linux/</link>
-    <description>Recent content in linux on TommyBlue.it</description>
+    <description>Recent content in Linux on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 28 Sep 2010 12:16:31 +0000</lastBuildDate>
@@ -19,7 +19,7 @@
       <guid>https://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
       <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
-La situazione di un raid 1 con un disco rotto è più o meno questa:</description>
+La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
     </item>
     
   </channel>

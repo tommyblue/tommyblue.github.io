@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta name="generator" content="Hugo 0.64.1" />
+	<meta name="generator" content="Hugo 0.54.0" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -64,7 +64,9 @@
 
 <nav class="pagination" role="navigation">
     
-    <span class="page-number">Page 1 of 1</span>
+    <span class="page-number">Page 1 of 3</span>
+    
+        <a class="older-posts" href="/page/2/">Older Posts &rarr;</a>
     
 </nav>
 
@@ -73,13 +75,21 @@
       <article class="post">
 	<header class="post-header">
     
-		<h2 class="post-title"><a href="/post/">Posts</a></h2>
+      <img src="/images/2019/04/complete-backup-of-a-smugmug-account.jpeg"></img>
+    
+		<h2 class="post-title"><a href="/2019/04/05/complete-backup-of-a-smugmug-account/">Complete backup of a SmugMug account</a></h2>
 	</header>
 	<section class="post-excerpt">
     <p>
-      
+      <p>I&rsquo;m a happy customer of the <a href="https://www.smugmug.com/">SmugMug</a> service where I store all my photos
+(~50GB divided in ~120 galleries).</p>
 
-      <p><a class="read-more" href="/post/">Read More  &raquo;</a></p>
+<p>I really love their interface, the mobile app, the website, etc. but they miss a very important
+feature IMHO: <strong>it&rsquo;s not possible to make a complete download of all the photos</strong>.</p>
+
+<p>That&rsquo;s why I wrote a <a href="https://github.com/tommyblue/smugmug-backup">program</a> that does it.</p>
+
+      <p><a class="read-more" href="/2019/04/05/complete-backup-of-a-smugmug-account/">Read More  &raquo;</a></p>
     </p>
 	</section>
 	<footer class="post-meta">
@@ -88,11 +98,199 @@
 </article>
 
 		
+      <article class="post">
+	<header class="post-header">
+    
+      <img src="/images/2018/10/jose-alejandro-cuffia-799485-unsplash.jpg"></img>
+    
+		<h2 class="post-title"><a href="/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/">How to add a JS frontend to an API-only Phoenix app</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      <p>If you generated a <a href="https://phoenixframework.org/">Phoenix</a> app with the <code>--no-brunch</code> option you probably needed an API backend app.</p>
+
+<p>What if, with your app growing, you realize you&rsquo;d like to add also some frontend code?
+This short how-to will show you how integrate a <a href="https://webpack.js.org/">Webpack</a> based app with
+support to <a href="https://www.typescriptlang.org/">Typescript</a>, <a href="https://reactjs.org/">React</a> and <a href="https://sass-lang.com/">Sass</a>.</p>
+
+      <p><a class="read-more" href="/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2018-10-19</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+      <img src="/images/2018/03/1_-MTuYZ4k46A8JJdWlq_x5A-1.png"></img>
+    
+		<h2 class="post-title"><a href="/2018/03/31/api-authentication-with-phoenix-and-react-part-2/">API Authentication with Phoenix and React - part 2</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      In the first part of this post I&rsquo;ve shown how to configure the API server to let the user authenticate, return an authentication token, and request it to access protected routes. Now I&rsquo;m going to configure a React app to consume that API and manage authentication.
+The app uses React Router to manage routes and Redux for the state of the app.
+Protect private routes I&rsquo;m going to define a PrivateRoute component as a wrapper around Route.
+
+      <p><a class="read-more" href="/2018/03/31/api-authentication-with-phoenix-and-react-part-2/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2018-03-31</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+      <img src="/images/2018/03/1_-MTuYZ4k46A8JJdWlq_x5A.png"></img>
+    
+		<h2 class="post-title"><a href="/2018/03/28/api-authentication-with-phoenix-and-react-part-1/">API Authentication with Phoenix and React - part 1</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Scenario: you just wrote a cool web app using React for the frontend part and Phoenix as the API server. Then you realize everybody can poke around your stuff and you decide it’s time to restrict the access to known users, how to do it?
+I’ll configure a Phoenix server to manage access tokens, used by a React app to make authenticated calls.
+This blog post only deals with the backend part and consists of these steps:
+
+      <p><a class="read-more" href="/2018/03/28/api-authentication-with-phoenix-and-react-part-1/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2018-03-28</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+      <img src="/images/2018/03/1_ffJ5VWBKVuOnBBxhrKfXKQ-1.jpeg"></img>
+    
+		<h2 class="post-title"><a href="/2017/09/05/react-sass-typescript-with-phoenix-framework-using-webpack/">React&#43;Sass&#43;Typescript with Phoenix framework using Webpack</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      If you’re playing with Elixir and Phoenix you’ll probably already know that Phoenix uses Brunch.io to build the assets pipeline. I initially started building my app with React / Redux + SASS and I was quite happy, but when I decided to add Typescript to the recipe, I found Brunch.io wasn’t very helpful!
+I’ve already used these tools using Webpack as building tool, so I decided to switch to it.
+
+      <p><a class="read-more" href="/2017/09/05/react-sass-typescript-with-phoenix-framework-using-webpack/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2017-09-05</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/2014/04/11/how-to-logrotate-rails-logs/">How to logrotate rails logs</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      If you deploy a rails app forgetting to configure logs automatic rotation, few weeks later won&rsquo;t be difficult to find something like this:
+$ ls -lh log/production.log -rw-rw-r-- 1 www-data www-data 93,2M apr 10 17:49 production.log Think if you have to find some error log inside a 100MB file, not easy&hellip; :)
+Setting log rotation isn&rsquo;t difficult at all. I know two main ways.
+Use syslog This is a really easy solution.
+
+      <p><a class="read-more" href="/2014/04/11/how-to-logrotate-rails-logs/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2014-04-11</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/2014/04/02/generate-the-sitemap-of-a-ghost-blog-during-deploy/">Generate the sitemap of a Ghost blog during deploy</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Waiting for a sitemap generator inside the core of Ghost (planned as &ldquo;future implementation&rdquo;) I decided to implement a way to generate an up-to-date sitemap.xml during deployment. As you can read in the previous post I&rsquo;m deploying this blog with Capistrano and capistrano-node-deploy. So I added a deploy:generate_sitemap task which is executed at the end of the deployment process.
+This is the Capfile extract:
+namespace :deploy do task :generate_sitemap do run &#34;cd #{latest_release}&amp;&amp; .
+
+      <p><a class="read-more" href="/2014/04/02/generate-the-sitemap-of-a-ghost-blog-during-deploy/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2014-04-02</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/2013/11/29/git-content-addressable-filesystem-and-version-control-system/">Git: Content-addressable filesystem and Version Control System</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      GIT: Content-addressable filesystem and Version Control System  from Tommaso Visconti
+
+      <p><a class="read-more" href="/2013/11/29/git-content-addressable-filesystem-and-version-control-system/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2013-11-29</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/2013/07/02/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/">Paypal Express Checkout with Ruby on Rails and paypal-sdk-merchant</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      In my last work, Agrimè.it, an ecommerce built using Ruby on rails, I had to implement the cart payment using Paypal Express Checkout.
+Sadly, I found that was the worst time to do it, because Paypal was migrating the classic API to the new REST API and the documentation was a real mess! Walking through the doc links, I jumped (without a particular logic) from the new to the old API reference and vice versa.
+
+      <p><a class="read-more" href="/2013/07/02/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2013-07-02</time>
+	</footer>
+</article>
+
+		
+      <article class="post">
+	<header class="post-header">
+    
+		<h2 class="post-title"><a href="/2012/09/01/passare-a-vim-grazie-ad-emacs/">Passare a Vim grazie ad Emacs</a></h2>
+	</header>
+	<section class="post-excerpt">
+    <p>
+      Grazie Sciamp per avermi convinto a passare a Vim parlandomi di Emacs :)
+Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambiare editor passando da Textmate a qualcos&rsquo;altro, ho intravisto Sublime Text 2, ma volevo qualcosa di open source. Da un po&rsquo; di tempo Alessandro stava rompendo le scatole a tutti su quanto è figo Emacs :) e avevo iniziato a lavorarci un po&rsquo;, ma non sono mai riuscito ad entrarci in sintonia.
+
+      <p><a class="read-more" href="/2012/09/01/passare-a-vim-grazie-ad-emacs/">Read More  &raquo;</a></p>
+    </p>
+	</section>
+	<footer class="post-meta">
+    <time class="post-date">2012-09-01</time>
+	</footer>
+</article>
+
+		
     
 
 <nav class="pagination" role="navigation">
     
-    <span class="page-number">Page 1 of 1</span>
+    <span class="page-number">Page 1 of 3</span>
+    
+        <a class="older-posts" href="/page/2/">Older Posts &rarr;</a>
     
 </nav>
 
@@ -102,7 +300,7 @@
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2020 TommyBlue.it</section>
+  <section class="copyright">&copy; 2019 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

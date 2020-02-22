@@ -65,23 +65,97 @@
       </section>
     </header>
     <section class="post-content">
-      <p>In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il <!-- raw HTML omitted -->genitore<!-- raw HTML omitted -->) e Icinga Web su Ubuntu 10.04 server.</p>
-<p>Molti passi sono uguali a quelli che ho già  descritto nelle due guide sull&rsquo;installazione di Nagios (<!-- raw HTML omitted -->1<!-- raw HTML omitted --> e <!-- raw HTML omitted -->2<!-- raw HTML omitted -->).</p>
-<!-- raw HTML omitted -->
-<p>Per terminare aggiungere Icinga ai servizi di avvio e lanciare Ido2db e Icinga:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+      
+
+<p>In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il <em>genitore</em>) e Icinga Web su Ubuntu 10.04 server.</p>
+
+<p>Molti passi sono uguali a quelli che ho già  descritto nelle due guide sull&rsquo;installazione di Nagios (<a href="http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/">1</a> e <a href="http://www.tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/">2</a>).
+<h2>Operazioni preliminari</h2>
+Installare i pacchetti necessari:
+<pre>apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</pre>
+Aggiungere utenti e gruppi:
+<pre>addgroup &ndash;system icinga
+adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga
+addgroup &ndash;system icinga-cmd
+usermod -a -G icinga-cmd icinga
+usermod -a -G icinga-cmd www-data</pre>
+Creare il database:
+<pre> #&gt; mysql -u root -p
+ mysql&gt; CREATE DATABASE icinga;
+ GRANT USAGE ON <em>.</em> TO &lsquo;icinga&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED BY &lsquo;icinga&rsquo; WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+ GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO &lsquo;icinga&rsquo;@&lsquo;localhost&rsquo;;
+ FLUSH PRIVILEGES ;
+ quit</pre>
+Scaricare Icinga:
+<pre>cd /usr/src
+git clone git://git.icinga.org/icinga-core.git
+cd icinga-core/
+git submodule init
+git submodule update
+./configure &ndash;with-command-group=icinga-cmd &ndash;enable-idoutils
+make all
+make fullinstall
+make install-api
+cd /usr/local/icinga/etc/
+cp idomod.cfg-sample idomod.cfg
+cp ido2db.cfg-sample ido2db.cfg</pre>
+Editare i due ultimi file per adattarli alle configurazioni del database. Nel file <em>/usr/local/icinga/etc/icinga.cfg</em> scommentare la riga:
+<pre>broker_module=/usr/local/icinga/bin/idomod.o config_file=/usr/local/icinga/etc/idomod.cfg</pre>
+Creare le tabelle:
+<pre> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
+ #&gt; mysql -u root -p icinga &lt; mysql.sql</pre>
+<strong>Edit 15/03/11:</strong>
+Ho dovuto modificare il file <em>/usr/local/icinga/etc/objects/commands.cfg</em> perchè il path al comando <em>mail</em> era sbagliato, quindi modificate le definizioni di <em>notify-host-by-email</em> e <em>notify-service-by-email</em> per utilizzare<em> /usr/bin/mail</em> e non <em>/bin/mail</em>.</p>
+
+<p>Per terminare aggiungere Icinga ai servizi di avvio e lanciare Ido2db e Icinga:
+<pre>update-rc.d icinga defaults
+/etc/init.d/ido2db start
+/etc/init.d/icinga restart</pre>
+<h2>Plugins</h2>
+Scaricare e installare i <a href="http://www.nagiosplugins.org/" target="_blank">plugin di Nagios</a>. Si faccia riferimento alla<a href="http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/" target="_blank"> guida di Nagios</a> per l&rsquo;installazione, si presti solo attenzione alle differenti opzioni di configurazione:
+<pre>./configure &ndash;prefix=/usr/local/icinga &ndash;with-cgiurl=/icinga/cgi-bin &ndash;with-htmurl=/icinga &ndash;with-nagios-user=icinga &ndash;with-nagios-group=icinga</pre>
+<h2>Configurazione dei check</h2>
+Per la configurazione degli host e dei servizi potete vedere le mie precedenti guide per Nagios: <a href="http://www.tommyblue.it/2010/02/12/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-1/">parte 1</a> e <a href="http://www.tommyblue.it/2010/02/17/costruirsi-un-sistema-di-monitoraggio-casalingo-con-nagios-parte-2/">parte 2</a>.
+<h2>Le interfacce web</h2>
+Icinga ha a disposizione due interfacce web: la classica interfaccia CGI e la nuova Icinga Web. Le due installazioni possono convivere tranquillamente.
+<h3>Icinga</h3>
+Installare i CGI:
+<pre>make cgis
+make install-cgis
+make install-html
+make install-webconf</pre>
+Creare l&rsquo;utente e la password per l&rsquo;accesso:
+<pre>htpasswd -c /usr/local/icinga/etc/htpasswd.users icingaadmin</pre>
+<h3>Icinga Web</h3>
+Installare il necessario:
+<pre>apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-gd php5-ldap php5-mysql
+a2enmod rewrite</pre>
+Scaricare e installare Icinga Web:
+<pre>cd /usr/src
+git clone git://git.icinga.org/icinga-web.git
+cd icinga-web
+./configure
+make install
+make install-apache-config</pre>
+Creare il database e lo schema:
+<pre># mysql -u root -p</p>
+
 <p>mysql&gt; CREATE DATABASE icinga_web;
-GRANT USAGE ON <em>.</em> TO &lsquo;icinga_web&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED BY &lsquo;icinga_web&rsquo; WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO &lsquo;icinga_web&rsquo;@&lsquo;localhost&rsquo;;
-quit</p>
-<h1 id="make-db-initializepre">make db-initialize<!-- raw HTML omitted --></h1>
-<p>E, per finire:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Se avete utilizzato le impostazioni di default non dovete fare altro, altrimenti date una lettura alla <!-- raw HTML omitted -->guida ufficiale<!-- raw HTML omitted -->. Riavviate apache e connettetevi al server: <!-- raw HTML omitted -->http://&lt;hostname&gt;/icinga-web<!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
+       GRANT USAGE ON <em>.</em> TO &lsquo;icinga_web&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED BY &lsquo;icinga_web&rsquo; WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+       GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO &lsquo;icinga_web&rsquo;@&lsquo;localhost&rsquo;;
+       quit</p>
+
+<h1 id="make-db-initialize-pre">make db-initialize</pre></h1>
+
+<p>E, per finire:
+<pre>/etc/init.d/icinga restart
+/etc/init.d/apache2 restart</pre>
+Se avete utilizzato le impostazioni di default non dovete fare altro, altrimenti date una lettura alla <a title="Installation of the Icinga Web Frontend" href="http://docs.icinga.org/latest/en/icinga-web-scratch.html" target="_blank">guida ufficiale</a>. Riavviate apache e connettetevi al server: <em>http://&lt;hostname&gt;/icinga-web</em>
+<h2>Webografia</h2>
+<ul>
+    <li><a title="Icinga with IDOUtils Quickstart" href="http://docs.icinga.org/latest/en/quickstart-idoutils.html" target="_blank"><a href="http://docs.icinga.org/latest/en/quickstart-idoutils.html">http://docs.icinga.org/latest/en/quickstart-idoutils.html</a></a></li>
+    <li><a title="Installation of the Icinga Web Frontend" href="http://docs.icinga.org/latest/en/icinga-web-scratch.html" target="_blank"><a href="http://docs.icinga.org/latest/en/icinga-web-scratch.html">http://docs.icinga.org/latest/en/icinga-web-scratch.html</a></a></li>
+</ul></p>
 
     </section>
     <footer class="post-footer">
@@ -103,7 +177,7 @@ quit</p>
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2020 TommyBlue.it</section>
+  <section class="copyright">&copy; 2019 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 
