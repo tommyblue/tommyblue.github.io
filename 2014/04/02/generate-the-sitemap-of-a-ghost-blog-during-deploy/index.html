@@ -68,34 +68,28 @@
       <p>Waiting for a sitemap generator inside the core of <a href="https://ghost.org/">Ghost</a> (planned as <em><a href="https://github.com/TryGhost/Ghost/wiki/Planned-Features">&ldquo;future implementation&rdquo;</a></em>) I decided to implement a way to generate an up-to-date <code>sitemap.xml</code> during deployment.
 As you can read in the <a href="/2014/04/01/deploy-ghost-blog-with-capistrano-rbenv-and-nvm/">previous post</a> I&rsquo;m deploying this blog with <a href="http://capistranorb.com/">Capistrano</a> and <a href="https://github.com/loopj/capistrano-node-deploy">capistrano-node-deploy</a>.
 So I added a <code>deploy:generate_sitemap</code> task which is executed at the end of the deployment process.</p>
-
 <p>This is the <code>Capfile</code> extract:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">namespace <span style="color:#f1fa8c">:deploy</span> <span style="color:#ff79c6">do</span>
   task <span style="color:#f1fa8c">:generate_sitemap</span> <span style="color:#ff79c6">do</span>
     run <span style="color:#f1fa8c">&#34;cd </span><span style="color:#f1fa8c">#{</span>latest_release<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> &amp;&amp; ./ghost_sitemap.sh </span><span style="color:#f1fa8c">#{</span>latest_release<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>
   <span style="color:#ff79c6">end</span>
 <span style="color:#ff79c6">end</span>
-after <span style="color:#f1fa8c">&#34;node:restart&#34;</span>, <span style="color:#f1fa8c">&#34;deploy:generate_sitemap&#34;</span></code></pre></div>
-<p>So at the end of the deployment the <code>ghost_sitemap.sh</code> script is executed. The script is placed in the blog root and is a personalized version of the code you can find here: <a href="http://ghost.centminmod.com/ghost-sitemap-generator/">http://ghost.centminmod.com/ghost-sitemap-generator/</a></p>
-
+after <span style="color:#f1fa8c">&#34;node:restart&#34;</span>, <span style="color:#f1fa8c">&#34;deploy:generate_sitemap&#34;</span>
+</code></pre></div><p>So at the end of the deployment the <code>ghost_sitemap.sh</code> script is executed. The script is placed in the blog root and is a personalized version of the code you can find here: <a href="http://ghost.centminmod.com/ghost-sitemap-generator/">http://ghost.centminmod.com/ghost-sitemap-generator/</a></p>
 <p>It essentially does 3 things:</p>
-
 <ul>
 <li>Puts the <code>sitemap.xml</code> link in the <code>robots.txt</code> file</li>
 <li>Scans (using <code>wget</code>) the website and generates the <code>sitemap.xml</code> file in the <code>content</code> folder</li>
 <li>Notifies <a href="https://www.google.com/webmasters/tools/home">Google Webmaster Tools</a></li>
 </ul>
-
 <p>What I changed of the original script is:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#50fa7b">url</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;www.tommyblue.it&#34;</span>
 <span style="color:#50fa7b">webroot</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;${1}/content&#34;</span>
 <span style="color:#50fa7b">path</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;${webroot}/sitemap.xml&#34;</span>
 <span style="color:#50fa7b">user</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;&lt;USER&gt;&#39;</span>
-<span style="color:#50fa7b">group</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;&lt;GROUP&gt;&#39;</span></code></pre></div>
-<p><code>user</code> and <code>group</code> will be used to <code>chmod</code> the <code>sitemap.xml</code> file, so check that the web user (probably <code>www-data</code>) can read that file.</p>
-
+<span style="color:#50fa7b">group</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;&lt;GROUP&gt;&#39;</span>
+</code></pre></div><p><code>user</code> and <code>group</code> will be used to <code>chmod</code> the <code>sitemap.xml</code> file, so check that the web user (probably <code>www-data</code>) can read that file.</p>
 <p>This process has a big problem: the sitemap is generated only during deploy, not when I publish a new post. A workaround is to run <code>cap deploy:generate_sitemap</code> after a new post is published.</p>
-
 <p>It works but I need an automatic way. Any idea?</p>
 
     </section>
@@ -114,7 +108,7 @@ after <span style="color:#f1fa8c">&#34;node:restart&#34;</span>, <span style="co
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

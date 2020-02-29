@@ -7,7 +7,7 @@
     
     <title>
       
-      How To - TommyBlue.it
+      how-to - TommyBlue.it
       
 		</title>
 
@@ -60,7 +60,7 @@
 <main class="content" role="main">
   
     
-      <h2 class="tag-title">How To</h2>
+      <h2 class="tag-title">how-to</h2>
     
   
 
@@ -179,7 +179,7 @@ sfdisk -d /dev/sda | sfdisk /dev/sdb  sfdisk si rifiuti di partizionare corretta
 	<section class="post-excerpt">
     <p>
       Può tornare utile accedere via SSH ad un pc/server non pubblico. Capita ad esempio quando un cliente disperato sta provando a mettere le mani sul server impallato e tu stai cercando di dettargli i comandi al telefono (generalmente con pessimi risultati).
-Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&rsquo;utente test, basta che digiti il comando: ssh -R 9000:127.
+Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&rsquo;utente test, basta che digiti il comando:
 
       <p><a class="read-more" href="/2011/11/10/accesso-ssh-inverso/">Read More  &raquo;</a></p>
     </p>
@@ -217,7 +217,8 @@ Come da tradizione il sistema operativo è Debian Voyage, ma tutta la procedura 
 	<section class="post-excerpt">
     <p>
       In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON .
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2).
+Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup --system icinga adduser --system --no-create-home --home /usr/local/icinga --ingroup icinga --disabled-password icinga addgroup --system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON *.
 
       <p><a class="read-more" href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">Read More  &raquo;</a></p>
     </p>
@@ -237,7 +238,7 @@ Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsq
     <p>
       Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
-La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat
+La situazione di un raid 1 con un disco rotto è più o meno questa:
 
       <p><a class="read-more" href="/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/">Read More  &raquo;</a></p>
     </p>
@@ -256,17 +257,15 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
 	<section class="post-excerpt">
     <p>
       <p><strong>Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay</strong></p>
-
 <p>Ho recentemente configurato alcuni server per l&rsquo;invio di email. Parte del lavoro ha riguardato la corretta configurazione di Postfix e del server DNS per evitare che le email inviate venissero rilevate come spam.
 <em>In una diversa guida spiegherò come ottimizzare la configurazione di Postfix per grandi quantità  di email (â‰¥1.000.000/mese). Dato che già  in molti me lo hanno chiesto: no, non si tratta di server per l&rsquo;invio di spam, ma server per il <a href="http://en.wikipedia.org/wiki/E-mail_marketing" target="_blank">mail marketing</a> (quando il servizio sarà  pubblico potrò tranquillamente rivelarne il nome).
 </em></p>
-
-<p>La configurazione ha riguardato <strong>tre punti principali</strong>:
+<p>La configurazione ha riguardato <strong>tre punti principali</strong>:</p>
 <ul>
-    <li>Impostazione del record AÂ e del reverse address</li>
-    <li>Impostazione di SPF</li>
-    <li>Configurazione di DKIM e DomainKeys</li>
-</ul></p>
+	<li>Impostazione del record AÂ e del reverse address</li>
+	<li>Impostazione di SPF</li>
+	<li>Configurazione di DKIM e DomainKeys</li>
+</ul>
 
       <p><a class="read-more" href="/2010/01/18/dns-e-postfix-come-non-generare-spam/">Read More  &raquo;</a></p>
     </p>
@@ -293,7 +292,7 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

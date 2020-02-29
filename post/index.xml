@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on TommyBlue.it</title>
@@ -6,10 +6,20 @@
     <description>Recent content in Posts on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Apr 2019 23:47:14 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 22 Feb 2020 22:31:07 +0100</lastBuildDate>
     
 	<atom:link href="https://tommyblue.it/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to use a launch template in AWS Batch compute environment with custom user_data file</title>
+      <link>https://tommyblue.it/2020/02/22/how-to-use-a-launch-template-in-aws-batch-compute-environment-with-custom-user_data-file/</link>
+      <pubDate>Sat, 22 Feb 2020 22:31:07 +0100</pubDate>
+      
+      <guid>https://tommyblue.it/2020/02/22/how-to-use-a-launch-template-in-aws-batch-compute-environment-with-custom-user_data-file/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/it/batch/&#34;&gt;AWS Batch&lt;/a&gt; is a service from AWS to run batch processes on custom compute environments.&lt;/p&gt;
+&lt;p&gt;Among all the services I&amp;rsquo;ve used on AWS, Batch is, in my opinion, the most rough and less integrated with &lt;a href=&#34;https://www.terraform.io/&#34;&gt;Terraform&lt;/a&gt;. One example of how Batch isn&amp;rsquo;t the most shining service in the AWS world is the integration between the Batch compute environment and the EC2 launch template.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Complete backup of a SmugMug account</title>
@@ -19,10 +29,8 @@
       <guid>https://tommyblue.it/2019/04/05/complete-backup-of-a-smugmug-account/</guid>
       <description>&lt;p&gt;I&amp;rsquo;m a happy customer of the &lt;a href=&#34;https://www.smugmug.com/&#34;&gt;SmugMug&lt;/a&gt; service where I store all my photos
 (~50GB divided in ~120 galleries).&lt;/p&gt;
-
 &lt;p&gt;I really love their interface, the mobile app, the website, etc. but they miss a very important
 feature IMHO: &lt;strong&gt;it&amp;rsquo;s not possible to make a complete download of all the photos&lt;/strong&gt;.&lt;/p&gt;
-
 &lt;p&gt;That&amp;rsquo;s why I wrote a &lt;a href=&#34;https://github.com/tommyblue/smugmug-backup&#34;&gt;program&lt;/a&gt; that does it.&lt;/p&gt;</description>
     </item>
     
@@ -33,7 +41,6 @@ feature IMHO: &lt;strong&gt;it&amp;rsquo;s not possible to make a complete downl
       
       <guid>https://tommyblue.it/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/</guid>
       <description>&lt;p&gt;If you generated a &lt;a href=&#34;https://phoenixframework.org/&#34;&gt;Phoenix&lt;/a&gt; app with the &lt;code&gt;--no-brunch&lt;/code&gt; option you probably needed an API backend app.&lt;/p&gt;
-
 &lt;p&gt;What if, with your app growing, you realize you&amp;rsquo;d like to add also some frontend code?
 This short how-to will show you how integrate a &lt;a href=&#34;https://webpack.js.org/&#34;&gt;Webpack&lt;/a&gt; based app with
 support to &lt;a href=&#34;https://www.typescriptlang.org/&#34;&gt;Typescript&lt;/a&gt;, &lt;a href=&#34;https://reactjs.org/&#34;&gt;React&lt;/a&gt; and &lt;a href=&#34;https://sass-lang.com/&#34;&gt;Sass&lt;/a&gt;.&lt;/p&gt;</description>
@@ -68,7 +75,7 @@ This blog post only deals with the backend part and consists of these steps:</de
       
       <guid>https://tommyblue.it/2017/09/05/react-sass-typescript-with-phoenix-framework-using-webpack/</guid>
       <description>If you’re playing with Elixir and Phoenix you’ll probably already know that Phoenix uses Brunch.io to build the assets pipeline. I initially started building my app with React / Redux + SASS and I was quite happy, but when I decided to add Typescript to the recipe, I found Brunch.io wasn’t very helpful!
-I’ve already used these tools using Webpack as building tool, so I decided to switch to it.</description>
+I’ve already used these tools using Webpack as building tool, so I decided to switch to it. I had a working Webpack configuration I was using in other projects, so I only had to find out how to apply it to Phoenix.</description>
     </item>
     
     <item>
@@ -100,7 +107,7 @@ namespace :deploy do task :generate_sitemap do run &amp;#34;cd #{latest_release}
       <pubDate>Fri, 29 Nov 2013 10:03:40 +0000</pubDate>
       
       <guid>https://tommyblue.it/2013/11/29/git-content-addressable-filesystem-and-version-control-system/</guid>
-      <description>GIT: Content-addressable filesystem and Version Control System  from Tommaso Visconti</description>
+      <description>  GIT: Content-addressable filesystem and Version Control System  from Tommaso Visconti  </description>
     </item>
     
     <item>
@@ -181,7 +188,7 @@ gem install bind_log_analyzer  Starting from version 0.2.1 it includes a simple 
       
       <guid>https://tommyblue.it/2011/11/10/accesso-ssh-inverso/</guid>
       <description>Può tornare utile accedere via SSH ad un pc/server non pubblico. Capita ad esempio quando un cliente disperato sta provando a mettere le mani sul server impallato e tu stai cercando di dettargli i comandi al telefono (generalmente con pessimi risultati).
-Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&amp;rsquo;utente test, basta che digiti il comando: ssh -R 9000:127.</description>
+Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&amp;rsquo;utente test, basta che digiti il comando:</description>
     </item>
     
     <item>
@@ -201,7 +208,8 @@ Come da tradizione il sistema operativo è Debian Voyage, ma tutta la procedura 
       
       <guid>https://tommyblue.it/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/</guid>
       <description>In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&amp;rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &amp;ndash;system icinga adduser &amp;ndash;system &amp;ndash;no-create-home &amp;ndash;home /usr/local/icinga &amp;ndash;ingroup icinga &amp;ndash;disabled-password icinga addgroup &amp;ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&amp;gt; mysql -u root -p mysql&amp;gt; CREATE DATABASE icinga; GRANT USAGE ON .</description>
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&amp;rsquo;installazione di Nagios (1 e 2).
+Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup --system icinga adduser --system --no-create-home --home /usr/local/icinga --ingroup icinga --disabled-password icinga addgroup --system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&amp;gt; mysql -u root -p mysql&amp;gt; CREATE DATABASE icinga; GRANT USAGE ON *.</description>
     </item>
     
     <item>
@@ -212,7 +220,7 @@ Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&amp
       <guid>https://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
       <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
-La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
+La situazione di un raid 1 con un disco rotto è più o meno questa:</description>
     </item>
     
     <item>
@@ -222,17 +230,15 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
       
       <guid>https://tommyblue.it/2010/01/18/dns-e-postfix-come-non-generare-spam/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Edit (29/01/2010): Aggiunte una correzione per far funzionare la firma DKIM su server di relay&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;Ho recentemente configurato alcuni server per l&amp;rsquo;invio di email. Parte del lavoro ha riguardato la corretta configurazione di Postfix e del server DNS per evitare che le email inviate venissero rilevate come spam.
 &lt;em&gt;In una diversa guida spiegherò come ottimizzare la configurazione di Postfix per grandi quantità  di email (â‰¥1.000.000/mese). Dato che già  in molti me lo hanno chiesto: no, non si tratta di server per l&amp;rsquo;invio di spam, ma server per il &lt;a href=&#34;http://en.wikipedia.org/wiki/E-mail_marketing&#34; target=&#34;_blank&#34;&gt;mail marketing&lt;/a&gt; (quando il servizio sarà  pubblico potrò tranquillamente rivelarne il nome).
 &lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;La configurazione ha riguardato &lt;strong&gt;tre punti principali&lt;/strong&gt;:
+&lt;p&gt;La configurazione ha riguardato &lt;strong&gt;tre punti principali&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
-    &lt;li&gt;Impostazione del record AÂ e del reverse address&lt;/li&gt;
-    &lt;li&gt;Impostazione di SPF&lt;/li&gt;
-    &lt;li&gt;Configurazione di DKIM e DomainKeys&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;</description>
+	&lt;li&gt;Impostazione del record AÂ e del reverse address&lt;/li&gt;
+	&lt;li&gt;Impostazione di SPF&lt;/li&gt;
+	&lt;li&gt;Configurazione di DKIM e DomainKeys&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -242,7 +248,8 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
       
       <guid>https://tommyblue.it/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
       <description>Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
-Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
+Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in:
+# mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
     </item>
     
     <item>
@@ -252,8 +259,9 @@ Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, 
       
       <guid>https://tommyblue.it/2009/03/19/convertire-il-filesystem-della-partizione-root/</guid>
       <description>Ovvero come installare Fedora 10 da cd utilizzando XFS come filesystem per la root (/) :)
-Nota: avrete bisogno di due partizioni di almeno 4&amp;frasl;5 GB
-L&amp;rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (in particolare per espandere le partizioni &amp;ldquo;al volo&amp;rdquo;), cosa che spiegherò di seguito. I passi sono molto semplici:  Avviate dal cd di Fedora 10 Installate normalmente Fedora utilizzando una partizione LVM di almenoÂ 5.</description>
+Nota: avrete bisogno di due partizioni di almeno 4/5 GB
+L&amp;rsquo;uso di XFS è molto utile specialmente se utilizzato in coppia con LVM (in particolare per espandere le partizioni &amp;ldquo;al volo&amp;rdquo;), cosa che spiegherò di seguito. I passi sono molto semplici:
+ Avviate dal cd di Fedora 10 Installate normalmente Fedora utilizzando una partizione LVM di almenoÂ 5.</description>
     </item>
     
   </channel>

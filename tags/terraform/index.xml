@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>terraform on TommyBlue.it</title>
+    <link>https://tommyblue.it/tags/terraform/</link>
+    <description>Recent content in terraform on TommyBlue.it</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 22 Feb 2020 22:31:07 +0100</lastBuildDate>
+    
+	<atom:link href="https://tommyblue.it/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to use a launch template in AWS Batch compute environment with custom user_data file</title>
+      <link>https://tommyblue.it/2020/02/22/how-to-use-a-launch-template-in-aws-batch-compute-environment-with-custom-user_data-file/</link>
+      <pubDate>Sat, 22 Feb 2020 22:31:07 +0100</pubDate>
+      
+      <guid>https://tommyblue.it/2020/02/22/how-to-use-a-launch-template-in-aws-batch-compute-environment-with-custom-user_data-file/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://aws.amazon.com/it/batch/&#34;&gt;AWS Batch&lt;/a&gt; is a service from AWS to run batch processes on custom compute environments.&lt;/p&gt;
+&lt;p&gt;Among all the services I&amp;rsquo;ve used on AWS, Batch is, in my opinion, the most rough and less integrated with &lt;a href=&#34;https://www.terraform.io/&#34;&gt;Terraform&lt;/a&gt;. One example of how Batch isn&amp;rsquo;t the most shining service in the AWS world is the integration between the Batch compute environment and the EC2 launch template.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

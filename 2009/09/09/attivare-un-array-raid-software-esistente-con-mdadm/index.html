@@ -66,11 +66,10 @@
     </header>
     <section class="post-content">
       <p>Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.</p>
-
-<p>Se si avesse a disposizione il file di configurazione di mdadm <strong><em>/etc/mdadm.conf</em></strong>, attivare un array specifico consisterebbe in:
+<p>Se si avesse a disposizione il file di configurazione di mdadm <strong><em>/etc/mdadm.conf</em></strong>, attivare un array specifico consisterebbe in:</p>
 <pre># mdadm -As /dev/md0</pre>
-Con l&rsquo;opzione -s (&ndash;scan) la configurazione viene letta dal file.
-Se invece (ed è la cosa più probabile nel caso descritto sopra) tale file non sia presente si può interrogare le partizioniÂ  dei dischi per capire come fosse fatto il raid di cui facevano parte:
+<p>Con l&rsquo;opzione -s (&ndash;scan) la configurazione viene letta dal file.
+Se invece (ed è la cosa più probabile nel caso descritto sopra) tale file non sia presente si può interrogare le partizioniÂ  dei dischi per capire come fosse fatto il raid di cui facevano parte:</p>
 <pre># mdadm -E /dev/sda2
 /dev/sda2:
 Magic : a92b4efc
@@ -95,11 +94,10 @@ Working Devices : 2
 this     0       8        2        0      active sync   /dev/sda2
  0     0       8        2        0      active sync   /dev/sda2
  1     1       8       18        1      active sync   /dev/sdb2</pre>
-In questo caso /dev/sdc1 fa parte di un raid1 composto da <em><strong>/dev/sda2</strong></em> e <em><strong>/dev/sdb2</strong></em>.</p>
-
-<p>A questo punto per attivarlo:
+<p>In questo caso /dev/sdc1 fa parte di un raid1 composto da <em><strong>/dev/sda2</strong></em> e <em><strong>/dev/sdb2</strong></em>.</p>
+<p>A questo punto per attivarlo:</p>
 <pre># mdadm -A /dev/md0 /dev/sda2 /dev/sdb2</pre>
-Ulteriori approfondimenti a <a href="http://linuxdevcenter.com/pub/a/linux/2002/12/05/RAID.html?page=last" target="_blank">questo indirizzo</a>.</p>
+<p>Ulteriori approfondimenti a <a href="http://linuxdevcenter.com/pub/a/linux/2002/12/05/RAID.html?page=last" target="_blank">questo indirizzo</a>.</p>
 
     </section>
     <footer class="post-footer">
@@ -120,7 +118,7 @@ Ulteriori approfondimenti a <a href="http://linuxdevcenter.com/pub/a/linux/2002/
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

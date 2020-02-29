@@ -68,43 +68,36 @@
     </header>
     <section class="post-content">
       <p>If you generated a <a href="https://phoenixframework.org/">Phoenix</a> app with the <code>--no-brunch</code> option you probably needed an API backend app.</p>
-
 <p>What if, with your app growing, you realize you&rsquo;d like to add also some frontend code?
 This short how-to will show you how integrate a <a href="https://webpack.js.org/">Webpack</a> based app with
 support to <a href="https://www.typescriptlang.org/">Typescript</a>, <a href="https://reactjs.org/">React</a> and <a href="https://sass-lang.com/">Sass</a>.</p>
-
 <p><em>If, instead, you have a standard Phoenix app (with Brunch support) and you want to switch to webpack, then <a href="/2017/09/05/react-sass-typescript-with-phoenix-framework-usingwebpack/">read my previous article</a>.</em></p>
-
 <h3 id="create-the-webpack-scaffolding">Create the Webpack scaffolding</h3>
-
 <p>To begin, let&rsquo;s create some initial files in the <code>frontend</code> folder (which
 needs to be created):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p frontend/src
 <span style="color:#8be9fd;font-style:italic">cd</span> frontend/
 npm init
 touch src/index.tsx
-touch src/style.scss</code></pre></div>
-<p><em>All future commands are supposed to be ran from within the <code>frontend/</code> folder.</em></p>
-
+touch src/style.scss
+</code></pre></div><p><em>All future commands are supposed to be ran from within the <code>frontend/</code> folder.</em></p>
 <p>The <code>npm init</code> helped you create an initial <code>package.json</code> file. It is now time to add some required packages.</p>
-
 <p><strong>Webpack</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D webpack webpack-cli</code></pre></div>
-<p><strong>Babel</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D babel-loader @babel/core @babel/preset-env</code></pre></div>
-<p><strong>Sass and CSS</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D style-loader css-loader sass-loader node-sass</code></pre></div>
-<p><strong>Typescript</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D typescript awesome-typescript-loader</code></pre></div>
-<p><strong>React</strong> and its typings</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D webpack webpack-cli
+</code></pre></div><p><strong>Babel</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D babel-loader @babel/core @babel/preset-env
+</code></pre></div><p><strong>Sass and CSS</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D style-loader css-loader sass-loader node-sass
+</code></pre></div><p><strong>Typescript</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D typescript awesome-typescript-loader
+</code></pre></div><p><strong>React</strong> and its typings</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add react react-dom
-yarn add -D @types/react @types/react-dom</code></pre></div>
-<p>Webpack&rsquo;s <strong>extract-text plugin</strong> (I&rsquo;m using <code>@next</code> version because of an <a href="https://stackoverflow.com/questions/51383618/chunk-entrypoints-use-chunks-groupsiterable-and-filter-by-instanceof-entrypoint">annoying bug</a> in the stable version):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D extract-text-webpack-plugin@next</code></pre></div>
-<p>Don&rsquo;t forget to add the <code>node_modules</code> folder to your <code>.gitignore</code> file or you&rsquo;ll commit a lot of useless files:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">echo</span> node_modules &gt; ../.gitignore</code></pre></div>
-<p>Also create Typescript config and linting files:</p>
-
+yarn add -D @types/react @types/react-dom
+</code></pre></div><p>Webpack&rsquo;s <strong>extract-text plugin</strong> (I&rsquo;m using <code>@next</code> version because of an <a href="https://stackoverflow.com/questions/51383618/chunk-entrypoints-use-chunks-groupsiterable-and-filter-by-instanceof-entrypoint">annoying bug</a> in the stable version):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D extract-text-webpack-plugin@next
+</code></pre></div><p>Don&rsquo;t forget to add the <code>node_modules</code> folder to your <code>.gitignore</code> file or you&rsquo;ll commit a lot of useless files:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">echo</span> node_modules &gt; ../.gitignore
+</code></pre></div><p>Also create Typescript config and linting files:</p>
 <p><code>tsconfig.json</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
 	<span style="color:#ff79c6">&#34;compilerOptions&#34;</span>: {
@@ -121,18 +114,17 @@ yarn add -D @types/react @types/react-dom</code></pre></div>
 	<span style="color:#ff79c6">&#34;include&#34;</span>: [
 		<span style="color:#f1fa8c">&#34;./src/**/*&#34;</span>
 	]
-}</code></pre></div>
-<p><code>tslint.json</code></p>
+}
+</code></pre></div><p><code>tslint.json</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#ff79c6">&#34;extends&#34;</span>: [<span style="color:#f1fa8c">&#34;tslint:recommended&#34;</span>, <span style="color:#f1fa8c">&#34;tslint-react&#34;</span>],
   <span style="color:#ff79c6">&#34;rules&#34;</span>: {
     <span style="color:#ff79c6">&#34;no-console&#34;</span>: [<span style="color:#ff79c6">false</span>]
   }
-}</code></pre></div>
-<p><em>If, like me, you&rsquo;re running an editor that supports linting and you&rsquo;ll run it from the main app
+}
+</code></pre></div><p><em>If, like me, you&rsquo;re running an editor that supports linting and you&rsquo;ll run it from the main app
 folder, you probably want to symlink the <code>tslint.json</code> from there (or configure the editor linter
 to find it inside the <code>frontend/</code> folder).</em></p>
-
 <p>Final step is to create the webpack configuration with the <code>frontend/webpack.config.js</code> file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#ff79c6">const</span> env <span style="color:#ff79c6">=</span>  process.env.NODE_ENV
 <span style="color:#ff79c6">const</span> path <span style="color:#ff79c6">=</span>  require(<span style="color:#f1fa8c">&#39;path&#39;</span>);
@@ -187,24 +179,19 @@ module.exports <span style="color:#ff79c6">=</span> {
 	})
 	]
 };
-</code></pre></div>
-<p>At this point the frontend pipeline is ready to be executed. From the <code>frontend</code> folder, run</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">webpack --watch-stdin --progress --color</code></pre></div>
-<p>and, hopefully, your app will be correctly compiled.</p>
-
+</code></pre></div><p>At this point the frontend pipeline is ready to be executed. From the <code>frontend</code> folder, run</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">webpack --watch-stdin --progress --color
+</code></pre></div><p>and, hopefully, your app will be correctly compiled.</p>
 <h3 id="run-the-pipeline-with-phoenix-server">Run the pipeline with Phoenix server</h3>
-
 <p>We want to run the pipeline when we execute <code>mix phx.server</code>. This can be done editing the <code>config/dev.exs</code> file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#f1fa8c">watchers</span>: [
   <span style="color:#f1fa8c">node</span>: [
     <span style="color:#f1fa8c">&#34;node_modules/webpack/bin/webpack.js&#34;</span>, <span style="color:#f1fa8c">&#34;--watch-stdin&#34;</span>, <span style="color:#f1fa8c">&#34;--progress&#34;</span>, <span style="color:#f1fa8c">&#34;--color&#34;</span>,
     <span style="color:#f1fa8c">cd</span>: <span style="color:#50fa7b">Path</span><span style="color:#ff79c6">.</span>expand(<span style="color:#f1fa8c">&#34;../frontend&#34;</span>, __DIR__)
   ]
-]</code></pre></div>
-<h3 id="react-hello-world">React &ldquo;Hello, World!&rdquo;</h3>
-
-<p>Our scaffolding <em>should</em> work, to verify it, let&rsquo;s create a simple React &ldquo;Hello, World!&rdquo;.</p>
-
+]
+</code></pre></div><h3 id="react-hello-world">React &ldquo;Hello, World!&rdquo;</h3>
+<p>Our scaffolding <em>should</em> work, to verify it, let&rsquo;s create a simple React &ldquo;Hello, World!&quot;.</p>
 <p>It&rsquo;s simple enough to only be contained in the <code>frontend/src/index.tsx</code> file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span> as React from <span style="color:#f1fa8c">&#34;react&#34;</span>;
 <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span> as ReactDOM from <span style="color:#f1fa8c">&#34;react-dom&#34;</span>;
@@ -212,22 +199,22 @@ module.exports <span style="color:#ff79c6">=</span> {
 <span style="color:#ff79c6">const</span> MainComponent <span style="color:#ff79c6">=</span> () =&gt; (<span style="color:#ff79c6">&lt;</span>div className<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;hello-world&#34;</span><span style="color:#ff79c6">&gt;</span>Hello, World<span style="color:#ff79c6">!&lt;</span>/div&gt;);
 
 ReactDOM.render(
-    <span style="color:#ff79c6">&lt;</span>MainComponent /&gt;,
+    <span style="color:#ff79c6">&lt;</span>MainComponent <span style="color:#ff79c6">/&gt;</span>,
     <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;app&#34;</span>)
 );
-</code></pre></div>
-<p>The template file at <code>lib/&lt;app&gt;_web/templates/layout/app.html.eex</code> must be edited adding the react entrypoint <code>&lt;div id=&quot;app&quot; /&gt;</code>.</p>
 
+</code></pre></div><p>The template file at <code>lib/&lt;app&gt;_web/templates/layout/app.html.eex</code> must be edited adding the react entrypoint <code>&lt;div id=&quot;app&quot; /&gt;</code>.</p>
 <p>It&rsquo;s done, run <code>mix phx.server</code> and profit:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mix phx.server
 
 <span style="color:#ff79c6">[</span>info<span style="color:#ff79c6">]</span> Running &lt;app&gt;.Endpoint with Cowboy using http://0.0.0.0:4000
- <span style="color:#bd93f9">10</span>% building modules <span style="color:#bd93f9">1</span>/1 modules <span style="color:#bd93f9">0</span> active
+ 10% building modules 1/1 modules <span style="color:#bd93f9">0</span> active
 webpack is watching the files…
 ...
 <span style="color:#ff79c6">[</span>debug<span style="color:#ff79c6">]</span> Live reload: priv/static/js/app.js
 <span style="color:#ff79c6">[</span>debug<span style="color:#ff79c6">]</span> Live reload: priv/static/css/app.css
-...</code></pre></div>
+...
+</code></pre></div>
     </section>
     <footer class="post-footer">
       <section class="tags post-meta">
@@ -247,7 +234,7 @@ webpack is watching the files…
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

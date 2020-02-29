@@ -67,25 +67,19 @@
       </section>
     </header>
     <section class="post-content">
-      
-
-<p><a href="/2018/03/28/api-authentication-with-phoenix-and-react---part1/">In the first part of this post</a> I&rsquo;ve shown how to configure the API server to let the user authenticate, return an authentication token, and request it to access protected routes.
+      <p><a href="/2018/03/28/api-authentication-with-phoenix-and-react---part1/">In the first part of this post</a> I&rsquo;ve shown how to configure the API server to let the user authenticate, return an authentication token, and request it to access protected routes.
 Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app to consume that API and manage authentication.</p>
-
 <p>The app uses <a href="https://reacttraining.com/react-router/">React Router</a> to manage routes and <a href="https://redux.js.org/">Redux</a> for the state of the app.</p>
-
 <h2 id="protect-private-routes">Protect private routes</h2>
-
 <p>I&rsquo;m going to define a <code>PrivateRoute</code> component as a wrapper around <code>Route</code>. The component will check the user authentication.</p>
-
 <p>The router configuration will have a standard <code>Route</code> component for the <code>Login</code> page and will use <code>PrivateRoute</code> for the rest of the routes:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#ff79c6">Router</span>&gt;
     &lt;<span style="color:#ff79c6">Switch</span>&gt;
-        &lt;<span style="color:#ff79c6">Route</span> <span style="color:#50fa7b">path</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;/login&#39;</span> <span style="color:#50fa7b">component</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{Login}</span> /&gt;
-        &lt;<span style="color:#ff79c6">PrivateRoute</span> <span style="color:#50fa7b">path</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;/private&#39;</span> <span style="color:#50fa7b">component</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{PrivateComponent}/</span>&gt;
+        &lt;<span style="color:#ff79c6">Route</span> <span style="color:#50fa7b">path</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;/login&#39;</span> <span style="color:#50fa7b">component</span><span style="color:#ff79c6">=</span>{Login} /&gt;
+        &lt;<span style="color:#ff79c6">PrivateRoute</span> <span style="color:#50fa7b">path</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;/private&#39;</span> <span style="color:#50fa7b">component</span><span style="color:#ff79c6">=</span>{PrivateComponent}/&gt;
     &lt;/<span style="color:#ff79c6">Switch</span>&gt;
-&lt;/<span style="color:#ff79c6">Router</span>&gt;</code></pre></div>
-<p>The <code>PrivateRoute</code> component will check the <code>isAuthenticated</code> flag in the state and will redirect back to login if <code>false</code> or will render the private component otherwise:</p>
+&lt;/<span style="color:#ff79c6">Router</span>&gt;
+</code></pre></div><p>The <code>PrivateRoute</code> component will check the <code>isAuthenticated</code> flag in the state and will redirect back to login if <code>false</code> or will render the private component otherwise:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">import</span> React from <span style="color:#f1fa8c">&#39;react&#39;</span>;
 <span style="color:#ff79c6">import</span> { Route, Redirect } from <span style="color:#f1fa8c">&#39;react-router-dom&#39;</span>;
 <span style="color:#ff79c6">import</span> { connect } from <span style="color:#f1fa8c">&#39;react-redux&#39;</span>;
@@ -101,23 +95,22 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
         <span style="color:#ff79c6">if</span> (<span style="color:#ff79c6">!</span><span style="color:#ff79c6">this</span>.props.isAuthenticated) {
             <span style="color:#ff79c6">return</span> (
                 &lt;<span style="color:#ff79c6">Redirect</span>
-                    <span style="color:#50fa7b">to</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{{</span>
-                    <span style="color:#50fa7b">pathname</span>: &#34;/<span style="color:#50fa7b">login</span>&#34;,
-                    <span style="color:#50fa7b">state</span>: { <span style="color:#50fa7b">from</span>: <span style="color:#50fa7b">this.props.location</span> }
+                    <span style="color:#50fa7b">to</span><span style="color:#ff79c6">=</span>{{
+                    pathname<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;/login&#34;</span>,
+                    state<span style="color:#ff79c6">:</span> { from<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">this</span>.props.location }
                     }}
                 /&gt;
             );
         }
 
         <span style="color:#ff79c6">return</span> (
-            &lt;<span style="color:#ff79c6">Route</span> <span style="color:#50fa7b">component</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{this.props.Component}</span> {<span style="color:#50fa7b">...this.props</span>} /&gt;
+            &lt;<span style="color:#ff79c6">Route</span> <span style="color:#50fa7b">component</span><span style="color:#ff79c6">=</span>{<span style="color:#ff79c6">this</span>.props.Component} {<span style="color:#50fa7b">...this.props</span>} /&gt;
         );
     }
 }
 
-<span style="color:#ff79c6">export</span> <span style="color:#ff79c6">default</span> connect(mapStateToProps)(PrivateRoute);</code></pre></div>
-<h2 id="sign-in-and-receive-the-token-from-the-server">Sign in and receive the token from the server</h2>
-
+<span style="color:#ff79c6">export</span> <span style="color:#ff79c6">default</span> connect(mapStateToProps)(PrivateRoute);
+</code></pre></div><h2 id="sign-in-and-receive-the-token-from-the-server">Sign in and receive the token from the server</h2>
 <p>The <code>Login</code> component will simply show a form and will manage the initial authentication, saving the token in a cookie for later use:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">import</span> React from <span style="color:#f1fa8c">&#39;react&#39;</span>;
 <span style="color:#ff79c6">import</span> { connect } from <span style="color:#f1fa8c">&#39;react-redux&#39;</span>;
@@ -168,9 +161,9 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
                             <span style="color:#50fa7b">className</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;input&#34;</span>
                             <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;email&#34;</span>
                             <span style="color:#50fa7b">placeholder</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;Your email address&#34;</span>
-                            <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{this.state.email}</span>
-                            <span style="color:#50fa7b">autoFocus</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{true}</span>
-                            <span style="color:#50fa7b">onChange</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{(e)</span> =&gt; <span style="color:#ff79c6">this</span>.setState({...<span style="color:#ff79c6">this</span>.state, email<span style="color:#ff79c6">:</span> e.target.value})}
+                            <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span>{<span style="color:#ff79c6">this</span>.state.email}
+                            <span style="color:#50fa7b">autoFocus</span><span style="color:#ff79c6">=</span>{<span style="color:#ff79c6">true</span>}
+                            <span style="color:#50fa7b">onChange</span><span style="color:#ff79c6">=</span>{(e) =&gt; <span style="color:#ff79c6">this</span>.setState({...<span style="color:#ff79c6">this</span>.state, email<span style="color:#ff79c6">:</span> e.target.value})}
                         /&gt;
                     &lt;/<span style="color:#ff79c6">div</span>&gt;
                 &lt;/<span style="color:#ff79c6">div</span>&gt;
@@ -182,15 +175,15 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
                             <span style="color:#50fa7b">className</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;input&#34;</span>
                             <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;password&#34;</span>
                             <span style="color:#50fa7b">placeholder</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;Your password&#34;</span>
-                            <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{this.state.password}</span>
-                            <span style="color:#50fa7b">onChange</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{(e)</span> =&gt; <span style="color:#ff79c6">this</span>.setState({...<span style="color:#ff79c6">this</span>.state, password<span style="color:#ff79c6">:</span> e.target.value})}
+                            <span style="color:#50fa7b">value</span><span style="color:#ff79c6">=</span>{<span style="color:#ff79c6">this</span>.state.password}
+                            <span style="color:#50fa7b">onChange</span><span style="color:#ff79c6">=</span>{(e) =&gt; <span style="color:#ff79c6">this</span>.setState({...<span style="color:#ff79c6">this</span>.state, password<span style="color:#ff79c6">:</span> e.target.value})}
                         /&gt;
                     &lt;/<span style="color:#ff79c6">div</span>&gt;
                 &lt;/<span style="color:#ff79c6">div</span>&gt;
 
                 &lt;<span style="color:#ff79c6">button</span>
                     <span style="color:#50fa7b">className</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;button is-primary&#34;</span>
-                    <span style="color:#50fa7b">onClick</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{this.onSignIn}</span>
+                    <span style="color:#50fa7b">onClick</span><span style="color:#ff79c6">=</span>{<span style="color:#ff79c6">this</span>.onSignIn}
                 &gt;Sign <span style="color:#ff79c6">in</span>&lt;/<span style="color:#ff79c6">button</span>&gt;
             &lt;/<span style="color:#ff79c6">form</span>&gt;
         );
@@ -204,8 +197,8 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
 <span style="color:#ff79c6">export</span> <span style="color:#ff79c6">default</span> connect(
     mapStateToProps,
     mapDispatchToProps
-)(Login);</code></pre></div>
-<p>The <code>signIn</code> action is where the &ldquo;magic&rdquo; happens:</p>
+)(Login);
+</code></pre></div><p>The <code>signIn</code> action is where the &ldquo;magic&rdquo; happens:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">export</span> <span style="color:#ff79c6">const</span> signIn <span style="color:#ff79c6">=</span> (email, password) =&gt; ((dispatch) =&gt; {
     <span style="color:#ff79c6">return</span> fetch(<span style="color:#f1fa8c">`http://&lt;server_url&gt;/api/sessions/sign_in}`</span>, {
         method<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;POST&#34;</span>,
@@ -233,9 +226,8 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
     <span style="color:#ff79c6">return</span> {
         type<span style="color:#ff79c6">:</span> AUTHENTICATION_SUCCEDED,
     }
-};</code></pre></div>
-<p>Two main things happen in the <code>signInSuccessfull</code> method: the token returned by the server is passed to the <code>setAuthToken</code> method and the <code>AUTHENTICATION_SUCCEEDED</code> action is returned to the redux reducer.</p>
-
+};
+</code></pre></div><p>Two main things happen in the <code>signInSuccessfull</code> method: the token returned by the server is passed to the <code>setAuthToken</code> method and the <code>AUTHENTICATION_SUCCEEDED</code> action is returned to the redux reducer.</p>
 <p>The reducer sets the <code>isAuthenticated</code> flag to <code>true</code> (do you remember the check in the <code>PrivateRoute</code> component?):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">const</span> mainReducer <span style="color:#ff79c6">=</span> (state <span style="color:#ff79c6">=</span> initialState, action) =&gt; {
     <span style="color:#ff79c6">switch</span> (action.type) {
@@ -248,17 +240,17 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
                 isAuthenticated<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
             });
     }
-}</code></pre></div>
-<p>The <code>setAuthToken</code> method saves the token in a cookie, so that it will be then available for the next requests:</p>
+}
+</code></pre></div><p>The <code>setAuthToken</code> method saves the token in a cookie, so that it will be then available for the next requests:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">const</span> setAuthToken <span style="color:#ff79c6">=</span> (token) =&gt; {
     <span style="color:#ff79c6">const</span> cookies <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Cookies();
     cookies.set(<span style="color:#f1fa8c">&#39;my_auth_token&#39;</span>, token, {
         path<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#39;/&#39;</span>
     });
-};</code></pre></div>
-<p>I&rsquo;m using the <a href="https://github.com/reactivestack/cookies/tree/master/packages/universal-cookie">universal-cookie</a> package here, so we need to install it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add universal-cookie</code></pre></div>
-<p>Other useful methods will permit to get the cookie or delete it:</p>
+};
+</code></pre></div><p>I&rsquo;m using the <a href="https://github.com/reactivestack/cookies/tree/master/packages/universal-cookie">universal-cookie</a> package here, so we need to install it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add universal-cookie
+</code></pre></div><p>Other useful methods will permit to get the cookie or delete it:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">export</span> <span style="color:#ff79c6">const</span> getAuthToken <span style="color:#ff79c6">=</span> () =&gt; {
     <span style="color:#ff79c6">const</span> cookies <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Cookies();
     <span style="color:#ff79c6">return</span> cookies.get(<span style="color:#f1fa8c">&#39;my_auth_token&#39;</span>);
@@ -269,11 +261,9 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
     cookies.remove(<span style="color:#f1fa8c">&#39;my_auth_token&#39;</span>, {
         path<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#39;/&#39;</span>,
     });
-};</code></pre></div>
-<h2 id="use-the-token-for-private-routes">Use the token for private routes</h2>
-
+};
+</code></pre></div><h2 id="use-the-token-for-private-routes">Use the token for private routes</h2>
 <p>At this point we have a valid token saved in a cookie. We just need to use it when making a request for a private API endpoint.</p>
-
 <p>I&rsquo;ll use a wrapper function around <code>fetch</code> to add the Authorization header to the requests:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">const</span> authFetch <span style="color:#ff79c6">=</span> (url, options) =&gt; (
     fetch(url, mergeAuthHeaders(options)).then(
@@ -299,16 +289,16 @@ Now I&rsquo;m going to configure a <a href="https://reactjs.org/">React</a> app 
         <span style="color:#f1fa8c">&#39;Authorization&#39;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">`Bearer </span><span style="color:#f1fa8c">${</span>getAuthToken()<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">`</span>,
     };
     <span style="color:#ff79c6">return</span> options;
-}</code></pre></div>
-<p>The <code>authFetch</code> method receives a URL to fetch and the options for the <code>fetch</code> method. It merges the authentication header in the options and makes the request.
+}
+</code></pre></div><p>The <code>authFetch</code> method receives a URL to fetch and the options for the <code>fetch</code> method. It merges the authentication header in the options and makes the request.
 If it receives a 401 response, then it makes the sign out, deleting the cookie and setting the <code>isAuthenticated</code> flag to <code>false</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">export</span> <span style="color:#ff79c6">const</span> signOut <span style="color:#ff79c6">=</span> () =&gt; {
     removeAuthToken();
     <span style="color:#ff79c6">return</span> {
         type<span style="color:#ff79c6">:</span> AUTHENTICATION_SIGNOUT,
     }
-};</code></pre></div>
-<p>That&rsquo;s it, you should probably add more logic to manage side cases and errors, but this is enough to consume the APIs we built.</p>
+};
+</code></pre></div><p>That&rsquo;s it, you should probably add more logic to manage side cases and errors, but this is enough to consume the APIs we built.</p>
 
     </section>
     <footer class="post-footer">
@@ -327,7 +317,7 @@ If it receives a 401 response, then it makes the sign out, deleting the cookie a
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Memoria Ausiliaria on TommyBlue.it</title>
+    <title>memoria ausiliaria on TommyBlue.it</title>
     <link>https://tommyblue.it/tags/memoria-ausiliaria/</link>
-    <description>Recent content in Memoria Ausiliaria on TommyBlue.it</description>
+    <description>Recent content in memoria ausiliaria on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 10 Nov 2011 10:09:40 +0000</lastBuildDate>
@@ -18,7 +18,7 @@
       
       <guid>https://tommyblue.it/2011/11/10/accesso-ssh-inverso/</guid>
       <description>Può tornare utile accedere via SSH ad un pc/server non pubblico. Capita ad esempio quando un cliente disperato sta provando a mettere le mani sul server impallato e tu stai cercando di dettargli i comandi al telefono (generalmente con pessimi risultati).
-Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&amp;rsquo;utente test, basta che digiti il comando: ssh -R 9000:127.</description>
+Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente da utilizzare. Supponendo che il server da raggiungere sia ssh-server.test.com e l&amp;rsquo;utente test, basta che digiti il comando:</description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@ Quindi basta avere un server SSH a cui il cliente possa arrivare con un utente d
       <guid>https://tommyblue.it/2010/09/28/sostituire-un-disco-in-un-raid-1-con-mdadm/</guid>
       <description>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&amp;rsquo;anno e che, puntualmente, mi scordo come si fa :-)
 Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa sulla wiki del LILiK.
-La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /proc/mdstat</description>
+La situazione di un raid 1 con un disco rotto è più o meno questa:</description>
     </item>
     
     <item>
@@ -39,7 +39,8 @@ La situazione di un raid 1 con un disco rotto è più o meno questa: ~# cat /pro
       
       <guid>https://tommyblue.it/2009/09/09/attivare-un-array-raid-software-esistente-con-mdadm/</guid>
       <description>Può capitare, ad esempio se si avvia con una live un sistema con dischi in raid software con mdadm, che si debba attivare il raid esistente. Un tipico esempio può essere il dover recuperare dati da dischi estratti da un computer non più avviabile.
-Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in: # mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
+Se si avesse a disposizione il file di configurazione di mdadm /etc/mdadm.conf, attivare un array specifico consisterebbe in:
+# mdadm -As /dev/md0 Con l&amp;rsquo;opzione -s (&amp;ndash;scan) la configurazione viene letta dal file.</description>
     </item>
     
   </channel>

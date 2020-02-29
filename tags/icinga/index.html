@@ -7,7 +7,7 @@
     
     <title>
       
-      Icinga - TommyBlue.it
+      icinga - TommyBlue.it
       
 		</title>
 
@@ -60,7 +60,7 @@
 <main class="content" role="main">
   
     
-      <h2 class="tag-title">Icinga</h2>
+      <h2 class="tag-title">icinga</h2>
     
   
 
@@ -102,7 +102,8 @@ Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come 
 	<section class="post-excerpt">
     <p>
       In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &ndash;system icinga adduser &ndash;system &ndash;no-create-home &ndash;home /usr/local/icinga &ndash;ingroup icinga &ndash;disabled-password icinga addgroup &ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON .
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsquo;installazione di Nagios (1 e 2).
+Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup --system icinga adduser --system --no-create-home --home /usr/local/icinga --ingroup icinga --disabled-password icinga addgroup --system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&gt; mysql -u root -p mysql&gt; CREATE DATABASE icinga; GRANT USAGE ON *.
 
       <p><a class="read-more" href="/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/">Read More  &raquo;</a></p>
     </p>
@@ -127,7 +128,7 @@ Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&rsq
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

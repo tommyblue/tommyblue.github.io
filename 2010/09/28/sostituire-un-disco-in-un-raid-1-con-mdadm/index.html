@@ -66,76 +66,71 @@
     </header>
     <section class="post-content">
       <p>Lo devo fare da anni, finalmente prendo appunti per una cosa che mi capita di fare almeno un paio di volte l&rsquo;anno e che, puntualmente, mi scordo come si fa :-)</p>
-
 <p>Il punto è questo: sostituire un disco in un array Raid 1 quando si rompe. Riporto gli appunti presi qualche anno fa <a href="http://lilik.it/wiki/doku.php?id=raidsoftware" target="_blank">sulla wiki del LILiK</a>.</p>
+<p>La situazione di un raid 1 con un disco rotto è più o meno questa:</p>
+<pre>~# cat /proc/mdstat
 
-<p>La situazione di un raid 1 con un disco rotto è più o meno questa:
-<pre>~# cat /proc/mdstat</p>
+Personalities : [raid1]
+md1 : active raid1 sda2[0] sdb2[1](F)
+      1951808 blocks [2/1] [U_]
 
-<p>Personalities : [raid1]
-md1 : active raid1 sda2[0] sdb2<a href="F">1</a>
-      1951808 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]</p>
+md2 : active raid1 sda3[0] sdb3[1](F)
+      13671232 blocks [2/1] [U_]
 
-<p>md2 : active raid1 sda3[0] sdb3<a href="F">1</a>
-      13671232 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]</p>
+md0 : active raid1 sda1[0] sdb1[1](F)
+      96256 blocks [2/1] [U_]
 
-<p>md0 : active raid1 sda1[0] sdb1<a href="F">1</a>
-      96256 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]</p>
+unused devices: &lt;none&gt;</pre>
+<p>Si deve quindi rimuovere il disco dal raid:</p>
+<pre>mdadm /dev/md0 --fail /dev/hdb1 --remove /dev/hdb1
+mdadm /dev/md1 --fail /dev/hdb2 --remove /dev/hdb2
+mdadm /dev/md2 --fail /dev/hdb3 --remove /dev/hdb3</pre>
+<p>La situazione è quindi:</p>
+<pre>~# cat /proc/mdstat
 
-<p>unused devices: &lt;none&gt;</pre>
-Si deve quindi rimuovere il disco dal raid:
-<pre>mdadm /dev/md0 &ndash;fail /dev/hdb1 &ndash;remove /dev/hdb1
-mdadm /dev/md1 &ndash;fail /dev/hdb2 &ndash;remove /dev/hdb2
-mdadm /dev/md2 &ndash;fail /dev/hdb3 &ndash;remove /dev/hdb3</pre>
-La situazione è quindi:
-<pre>~# cat /proc/mdstat</p>
-
-<p>Personalities : [raid1]
+Personalities : [raid1]
 md1 : active raid1 sda2[0]
-Â Â Â Â Â  1951808 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]</p>
+Â Â Â Â Â  1951808 blocks [2/1] [U_]
 
-<p>md2 : active raid1 sda3[0]
-Â Â Â Â Â  13671232 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]</p>
+md2 : active raid1 sda3[0]
+Â Â Â Â Â  13671232 blocks [2/1] [U_]
 
-<p>md0 : active raid1 sda1[0]
-Â Â Â Â Â  96256 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]</p>
+md0 : active raid1 sda1[0]
+Â Â Â Â Â  96256 blocks [2/1] [U_]
 
-<p>unused devices: &lt;none&gt;</pre>
-Si può quindi spengere la macchina e sostituire il disco.</p>
-
+unused devices: &lt;none&gt;</pre>
+<p>Si può quindi spengere la macchina e sostituire il disco.</p>
 <p>Al riavvio bisogna creare sul nuovo disco lo stesso schema di partizioni presente su quello esistente. Questa procedura, molto semplice, può diventare rognosa se il nuovo disco è più piccolo (anche di poco) del vecchio. Consiglio quindi, quando si crea un sistema con partizioni in raid 1, di lasciare sempre un po&rsquo; di spazio libero alla fine del disco per essere maggiormente sicuri di non moccolare poi in futuro :)</p>
-
-<p>Ricreiamo le partizioni:
-<pre>sfdisk -d /dev/sda | sfdisk /dev/sdb</pre></p>
-
+<p>Ricreiamo le partizioni:</p>
+<pre>sfdisk -d /dev/sda | sfdisk /dev/sdb</pre>
 <p><strong>ATTENZIONE:</strong> Se <strong>sfdisk</strong> si rifiutasse di scrivere le partizioni per problemi con i cilindri, provate ad usare l&rsquo;opzione <em>&ndash;Linux</em> come descritto <a href="/2012/04/26/sostituire-un-disco-in-un-raid-software/">qui</a>. <em>(update 26/04/2012)</em>
 <br /><br />
-Se tutto è andato bene inseriamo le nuove partizioni nel raid:
-<pre>mdadm /dev/md0 &ndash;add /dev/sdb1
-mdadm /dev/md1 &ndash;add /dev/sdb2
-mdadm /dev/md2 &ndash;add /dev/sdb3</pre>
-L&rsquo;ordine non conta, ma vi consiglio di farlo in ordine crescente di grandezza delle partizioni, cosicchè le partizioni più piccole si riallineino subito.
-Adesso basta aspettare:
-<pre>~# cat /proc/mdstat</p>
+Se tutto è andato bene inseriamo le nuove partizioni nel raid:</p>
+<pre>mdadm /dev/md0 --add /dev/sdb1
+mdadm /dev/md1 --add /dev/sdb2
+mdadm /dev/md2 --add /dev/sdb3</pre>
+<p>L&rsquo;ordine non conta, ma vi consiglio di farlo in ordine crescente di grandezza delle partizioni, cosicchè le partizioni più piccole si riallineino subito.
+Adesso basta aspettare:</p>
+<pre>~# cat /proc/mdstat
 
-<p>Personalities : [raid1]
+Personalities : [raid1]
 md1 : active raid1 sdb2[2] sda2[0]
-Â Â Â Â Â  1951808 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]
-Â Â Â Â Â  [=&gt;&hellip;&hellip;&hellip;&hellip;&hellip;&hellip;.] recovery = 6.2% (<sup>123008</sup>&frasl;<sub>1951808</sub>) finish=2.4min speed=12300K/sec</p>
+Â Â Â Â Â  1951808 blocks [2/1] [U_]
+Â Â Â Â Â  [=&gt;...................] recovery = 6.2% (123008/1951808) finish=2.4min speed=12300K/sec
 
-<p>md2 : active raid1 sdb3[2] sda3[0]
-Â Â  Â Â  13671232 blocks [<sup>2</sup>&frasl;<sub>1</sub>] [U_]
-Â Â Â Â Â  resync=DELAYED</p>
+md2 : active raid1 sdb3[2] sda3[0]
+Â Â  Â Â  13671232 blocks [2/1] [U_]
+Â Â Â Â Â  resync=DELAYED
 
-<p>md0 : active raid1 sdb1[1] sda1[0]
-Â Â Â Â  96256 blocks [<sup>2</sup>&frasl;<sub>2</sub>] [UU]</p>
+md0 : active raid1 sdb1[1] sda1[0]
+Â Â Â Â  96256 blocks [2/2] [UU]
 
-<p>unused devices: &lt;none&gt;</pre>
-Per finire bisogna reinstallare il grub nell&rsquo;MBR del nuovo disco. Nei nuovi s.o. dovrebbe bastare:
+unused devices: &lt;none&gt;</pre>
+<p>Per finire bisogna reinstallare il grub nell&rsquo;MBR del nuovo disco. Nei nuovi s.o. dovrebbe bastare:</p>
 <pre>grub-install /dev/sdb</pre>
-altrimenti:
+<p>altrimenti:</p>
 <pre>grub&gt; root (hd1,0)
-grub&gt; setup (hd1)</pre></p>
+grub&gt; setup (hd1)</pre>
 
     </section>
     <footer class="post-footer">
@@ -157,7 +152,7 @@ grub&gt; setup (hd1)</pre></p>
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

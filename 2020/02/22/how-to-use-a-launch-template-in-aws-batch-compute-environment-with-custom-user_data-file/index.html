@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      How to use a launch template in AWS Batch compute environment with custom user_data file - TommyBlue.it
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="37e4FLC84-RVL93UW9xcAS-Goa_qi5yNloYPcho0Ydk" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           TommyBlue.it
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+        <img src="/images/2020/02/user_data-file-and-launch-template-in-aws-batch.jpeg"></img>
+      
+      <h2 class="post-title">How to use a launch template in AWS Batch compute environment with custom user_data file</h2>
+      <section class="post-meta">
+        <time class="post-date">2020-02-22</time>
+      </section>
+    </header>
+    <section class="post-content">
+      <p><a href="https://aws.amazon.com/it/batch/">AWS Batch</a> is a service from AWS to run batch processes on custom compute environments.</p>
+<p>Among all the services I&rsquo;ve used on AWS, Batch is, in my opinion, the most rough and less integrated with <a href="https://www.terraform.io/">Terraform</a>. One example of how Batch isn&rsquo;t the most shining service in the AWS world is the integration between the Batch compute environment and the EC2 launch template.</p>
+<p>A launch template is a &ldquo;description&rdquo; of the instance(s) we want to execute within a batch run. Using a launch template is handy because we can specify there all the features of the EC2 instances, overriding something directly in the compute environment in case we need it (but avoiding adding all instance features in batch).</p>
+<p>An important part of the launch template is the <code>user_data</code> shell script, which is a script that is executed in the instances upon launch. That script, used with any other AWS service (ECS is an example) is a standard shell script.
+This isn&rsquo;t true with Batch, and debugging the failure of the compute environment is all but easy or intuitive.</p>
+<p>So I&rsquo;m writing this post to help anyone having the same headaches I had while adding the launch template to a Batch environment :)</p>
+<p>Adding a launch template to the compute environment in Terraform is as simple as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#ff79c6">resource</span> <span style="color:#f1fa8c">&#34;aws_batch_compute_environment&#34; &#34;my_compute_environment&#34;</span> {
+<span style="color:#50fa7b">  compute_environment_name</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;my_compute_env&#34;</span>
+  compute_resources {
+    launch_template {
+<span style="color:#50fa7b">      launch_template_id</span> <span style="color:#ff79c6">=</span> aws_launch_template.my_launch_template.id
+<span style="color:#50fa7b">      version</span>            <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;$Latest&#34;</span>
+    }
+  }
+}
+</code></pre></div><p>And the <code>user_data</code> file can be added to the launch template with:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#ff79c6">resource</span> <span style="color:#f1fa8c">&#34;aws_launch_template&#34; &#34;my_launch_template&#34;</span> {
+<span style="color:#50fa7b">  user_data</span> <span style="color:#ff79c6">=</span> base<span style="color:#bd93f9">64</span>encode(data.template_file.userdata.rendered)
+}
+
+data <span style="color:#f1fa8c">&#34;template_file&#34; &#34;userdata&#34;</span> {
+<span style="color:#50fa7b">  template</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;${file(&#34;${path.module}/user_data.sh&#34;)}&#34;</span>
+<span style="color:#50fa7b">  vars</span> <span style="color:#ff79c6">=</span> {
+      // Any var you need to pass to the script
+  }
+}
+</code></pre></div><p>The content of a standard <code>user_data</code> shell script is something like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff79c6">#!/bin/bash
+</span><span style="color:#ff79c6"></span><span style="color:#6272a4"># Do something at startup</span>
+</code></pre></div><p>Unfortunately this doesn&rsquo;t work. The solution is to incapsulate the script in a <code>multipart/mixed</code> boundary section, but please don&rsquo;t ask why :)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">MIME-Version: 1.0
+Content-Type: multipart/mixed; <span style="color:#8be9fd;font-style:italic">boundary</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;==MYBOUNDARY==&#34;</span>
+
+--<span style="color:#ff79c6">==</span><span style="color:#8be9fd;font-style:italic">MYBOUNDARY</span><span style="color:#ff79c6">==</span>
+Content-Type: text/x-shellscript; <span style="color:#8be9fd;font-style:italic">charset</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;us-ascii&#34;</span>
+
+<span style="color:#6272a4">#!/bin/bash</span>
+<span style="color:#6272a4"># Do something at startup</span>
+
+--<span style="color:#ff79c6">==</span><span style="color:#8be9fd;font-style:italic">MYBOUNDARY</span><span style="color:#ff79c6">==</span>
+</code></pre></div><p>Et voilà, the compute environment will now work.</p>
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="https://tommyblue.it/tags/terraform/">terraform</a>
+          <a href="https://tommyblue.it/tags/aws/">aws</a>
+          <a href="https://tommyblue.it/tags/batch/">batch</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9338649-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-9338649-1');
+</script>
+
+    </body>
+</html>

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Monitoring on TommyBlue.it</title>
+    <title>monitoring on TommyBlue.it</title>
     <link>https://tommyblue.it/categories/monitoring/</link>
-    <description>Recent content in Monitoring on TommyBlue.it</description>
+    <description>Recent content in monitoring on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 13 Jun 2012 11:30:15 +0000</lastBuildDate>
@@ -28,7 +28,8 @@ Partendo quindi da una macchina con un server Icinga o Nagios funzionante, come 
       
       <guid>https://tommyblue.it/2011/03/08/realizzare-un-sistema-di-monitoraggio-con-icinga/</guid>
       <description>In questa breve guida spiegherò come installare Icinga (un fork di Nagios che ha ormai superato il genitore) e Icinga Web su Ubuntu 10.04 server.
-Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&amp;rsquo;installazione di Nagios (1 e 2). Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup &amp;ndash;system icinga adduser &amp;ndash;system &amp;ndash;no-create-home &amp;ndash;home /usr/local/icinga &amp;ndash;ingroup icinga &amp;ndash;disabled-password icinga addgroup &amp;ndash;system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&amp;gt; mysql -u root -p mysql&amp;gt; CREATE DATABASE icinga; GRANT USAGE ON .</description>
+Molti passi sono uguali a quelli che ho già descritto nelle due guide sull&amp;rsquo;installazione di Nagios (1 e 2).
+Operazioni preliminari Installare i pacchetti necessari: apt-get install apache2 bsd-mailx build-essential libgd2-xpm-dev libjpeg62 libjpeg62-dev libpng12-0 libpng12-0-dev snmp libsnmp-base git-core mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql Aggiungere utenti e gruppi: addgroup --system icinga adduser --system --no-create-home --home /usr/local/icinga --ingroup icinga --disabled-password icinga addgroup --system icinga-cmd usermod -a -G icinga-cmd icinga usermod -a -G icinga-cmd www-data Creare il database:  #&amp;gt; mysql -u root -p mysql&amp;gt; CREATE DATABASE icinga; GRANT USAGE ON *.</description>
     </item>
     
   </channel>

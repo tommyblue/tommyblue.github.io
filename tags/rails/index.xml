@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rails on TommyBlue.it</title>
+    <title>rails on TommyBlue.it</title>
     <link>https://tommyblue.it/tags/rails/</link>
-    <description>Recent content in Rails on TommyBlue.it</description>
+    <description>Recent content in rails on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 11 Apr 2014 06:59:27 +0000</lastBuildDate>

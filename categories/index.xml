@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on TommyBlue.it</title>
@@ -6,130 +6,31 @@
     <description>Recent content in Categories on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Aug 2011 12:41:51 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Feb 2020 22:31:07 +0100</lastBuildDate>
     
 	<atom:link href="https://tommyblue.it/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Alix</title>
-      <link>https://tommyblue.it/categories/alix/</link>
-      <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
+      <title>aws</title>
+      <link>https://tommyblue.it/categories/aws/</link>
+      <pubDate>Sat, 22 Feb 2020 22:31:07 +0100</pubDate>
       
-      <guid>https://tommyblue.it/categories/alix/</guid>
+      <guid>https://tommyblue.it/categories/aws/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Bind</title>
-      <link>https://tommyblue.it/categories/bind/</link>
-      <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
+      <title>terraform</title>
+      <link>https://tommyblue.it/categories/terraform/</link>
+      <pubDate>Sat, 22 Feb 2020 22:31:07 +0100</pubDate>
       
-      <guid>https://tommyblue.it/categories/bind/</guid>
+      <guid>https://tommyblue.it/categories/terraform/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Capistrano</title>
-      <link>https://tommyblue.it/categories/capistrano/</link>
-      <pubDate>Wed, 02 Apr 2014 07:53:27 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/capistrano/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Deploy</title>
-      <link>https://tommyblue.it/categories/deploy/</link>
-      <pubDate>Fri, 11 Apr 2014 06:59:27 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/deploy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dkim</title>
-      <link>https://tommyblue.it/categories/dkim/</link>
-      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/dkim/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dns</title>
-      <link>https://tommyblue.it/categories/dns/</link>
-      <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/dns/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Domainkeys</title>
-      <link>https://tommyblue.it/categories/domainkeys/</link>
-      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/domainkeys/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Editor</title>
-      <link>https://tommyblue.it/categories/editor/</link>
-      <pubDate>Sat, 01 Sep 2012 17:38:51 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/editor/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Elixir</title>
-      <link>https://tommyblue.it/categories/elixir/</link>
-      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/elixir/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Fedora</title>
-      <link>https://tommyblue.it/categories/fedora/</link>
-      <pubDate>Thu, 19 Mar 2009 09:05:06 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/fedora/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ghost</title>
-      <link>https://tommyblue.it/categories/ghost/</link>
-      <pubDate>Wed, 02 Apr 2014 07:53:27 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/ghost/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Git</title>
-      <link>https://tommyblue.it/categories/git/</link>
-      <pubDate>Fri, 29 Nov 2013 10:03:40 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Github</title>
-      <link>https://tommyblue.it/categories/github/</link>
-      <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Golang</title>
+      <title>golang</title>
       <link>https://tommyblue.it/categories/golang/</link>
       <pubDate>Fri, 05 Apr 2019 23:47:14 +0200</pubDate>
       
@@ -138,241 +39,7 @@
     </item>
     
     <item>
-      <title>Heroku</title>
-      <link>https://tommyblue.it/categories/heroku/</link>
-      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/heroku/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>How To</title>
-      <link>https://tommyblue.it/categories/how-to/</link>
-      <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/how-to/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Icinga</title>
-      <link>https://tommyblue.it/categories/icinga/</link>
-      <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/icinga/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Informatica</title>
-      <link>https://tommyblue.it/categories/informatica/</link>
-      <pubDate>Fri, 29 Nov 2013 10:03:40 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/informatica/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ipv6</title>
-      <link>https://tommyblue.it/categories/ipv6/</link>
-      <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/ipv6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Jekyll</title>
-      <link>https://tommyblue.it/categories/jekyll/</link>
-      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/jekyll/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://tommyblue.it/categories/linux/</link>
-      <pubDate>Tue, 28 Sep 2010 12:16:31 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Logs</title>
-      <link>https://tommyblue.it/categories/logs/</link>
-      <pubDate>Fri, 11 Apr 2014 06:59:27 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/logs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Lvm</title>
-      <link>https://tommyblue.it/categories/lvm/</link>
-      <pubDate>Thu, 19 Mar 2009 09:05:06 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/lvm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mdadm</title>
-      <link>https://tommyblue.it/categories/mdadm/</link>
-      <pubDate>Thu, 26 Apr 2012 11:47:30 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/mdadm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Memoria Ausiliaria</title>
-      <link>https://tommyblue.it/categories/memoria-ausiliaria/</link>
-      <pubDate>Thu, 10 Nov 2011 10:09:40 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/memoria-ausiliaria/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Monitoring</title>
-      <link>https://tommyblue.it/categories/monitoring/</link>
-      <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/monitoring/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Nagios</title>
-      <link>https://tommyblue.it/categories/nagios/</link>
-      <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/nagios/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Paypal</title>
-      <link>https://tommyblue.it/categories/paypal/</link>
-      <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/paypal/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Phoenix</title>
-      <link>https://tommyblue.it/categories/phoenix/</link>
-      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/phoenix/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Postfix</title>
-      <link>https://tommyblue.it/categories/postfix/</link>
-      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/postfix/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Raid</title>
-      <link>https://tommyblue.it/categories/raid/</link>
-      <pubDate>Thu, 26 Apr 2012 11:47:30 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/raid/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rails</title>
-      <link>https://tommyblue.it/categories/rails/</link>
-      <pubDate>Fri, 11 Apr 2014 06:59:27 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/rails/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>React</title>
-      <link>https://tommyblue.it/categories/react/</link>
-      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/react/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reverse Dns</title>
-      <link>https://tommyblue.it/categories/reverse-dns/</link>
-      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/reverse-dns/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ruby</title>
-      <link>https://tommyblue.it/categories/ruby/</link>
-      <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/ruby/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ruby on Rails</title>
-      <link>https://tommyblue.it/categories/ruby-on-rails/</link>
-      <pubDate>Thu, 23 Aug 2012 08:29:40 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/ruby-on-rails/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sinatra</title>
-      <link>https://tommyblue.it/categories/sinatra/</link>
-      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/sinatra/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sito</title>
-      <link>https://tommyblue.it/categories/sito/</link>
-      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/sito/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sixxs</title>
-      <link>https://tommyblue.it/categories/sixxs/</link>
-      <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/sixxs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Smtp</title>
-      <link>https://tommyblue.it/categories/smtp/</link>
-      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/smtp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Smugmug</title>
+      <title>smugmug</title>
       <link>https://tommyblue.it/categories/smugmug/</link>
       <pubDate>Fri, 05 Apr 2019 23:47:14 +0200</pubDate>
       
@@ -381,43 +48,34 @@
     </item>
     
     <item>
-      <title>Software Libero</title>
-      <link>https://tommyblue.it/categories/software-libero/</link>
-      <pubDate>Thu, 23 Aug 2012 08:29:40 +0000</pubDate>
+      <title>elixir</title>
+      <link>https://tommyblue.it/categories/elixir/</link>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
-      <guid>https://tommyblue.it/categories/software-libero/</guid>
+      <guid>https://tommyblue.it/categories/elixir/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Spam</title>
-      <link>https://tommyblue.it/categories/spam/</link>
-      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      <title>phoenix</title>
+      <link>https://tommyblue.it/categories/phoenix/</link>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
-      <guid>https://tommyblue.it/categories/spam/</guid>
+      <guid>https://tommyblue.it/categories/phoenix/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Spf</title>
-      <link>https://tommyblue.it/categories/spf/</link>
-      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      <title>react</title>
+      <link>https://tommyblue.it/categories/react/</link>
+      <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
-      <guid>https://tommyblue.it/categories/spf/</guid>
+      <guid>https://tommyblue.it/categories/react/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Ssh</title>
-      <link>https://tommyblue.it/categories/ssh/</link>
-      <pubDate>Thu, 10 Nov 2011 10:09:40 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/ssh/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Typescript</title>
+      <title>typescript</title>
       <link>https://tommyblue.it/categories/typescript/</link>
       <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
@@ -426,16 +84,7 @@
     </item>
     
     <item>
-      <title>Vim</title>
-      <link>https://tommyblue.it/categories/vim/</link>
-      <pubDate>Sat, 01 Sep 2012 17:38:51 +0000</pubDate>
-      
-      <guid>https://tommyblue.it/categories/vim/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Webpack</title>
+      <title>webpack</title>
       <link>https://tommyblue.it/categories/webpack/</link>
       <pubDate>Fri, 19 Oct 2018 18:26:09 +0000</pubDate>
       
@@ -444,7 +93,376 @@
     </item>
     
     <item>
-      <title>Xfs</title>
+      <title>deploy</title>
+      <link>https://tommyblue.it/categories/deploy/</link>
+      <pubDate>Fri, 11 Apr 2014 06:59:27 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/deploy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>logs</title>
+      <link>https://tommyblue.it/categories/logs/</link>
+      <pubDate>Fri, 11 Apr 2014 06:59:27 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/logs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rails</title>
+      <link>https://tommyblue.it/categories/rails/</link>
+      <pubDate>Fri, 11 Apr 2014 06:59:27 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/rails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>capistrano</title>
+      <link>https://tommyblue.it/categories/capistrano/</link>
+      <pubDate>Wed, 02 Apr 2014 07:53:27 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/capistrano/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ghost</title>
+      <link>https://tommyblue.it/categories/ghost/</link>
+      <pubDate>Wed, 02 Apr 2014 07:53:27 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/ghost/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://tommyblue.it/categories/git/</link>
+      <pubDate>Fri, 29 Nov 2013 10:03:40 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>informatica</title>
+      <link>https://tommyblue.it/categories/informatica/</link>
+      <pubDate>Fri, 29 Nov 2013 10:03:40 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/informatica/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>how-to</title>
+      <link>https://tommyblue.it/categories/how-to/</link>
+      <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/how-to/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>paypal</title>
+      <link>https://tommyblue.it/categories/paypal/</link>
+      <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/paypal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ruby</title>
+      <link>https://tommyblue.it/categories/ruby/</link>
+      <pubDate>Tue, 02 Jul 2013 20:12:19 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>editor</title>
+      <link>https://tommyblue.it/categories/editor/</link>
+      <pubDate>Sat, 01 Sep 2012 17:38:51 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/editor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vim</title>
+      <link>https://tommyblue.it/categories/vim/</link>
+      <pubDate>Sat, 01 Sep 2012 17:38:51 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heroku</title>
+      <link>https://tommyblue.it/categories/heroku/</link>
+      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/heroku/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jekyll</title>
+      <link>https://tommyblue.it/categories/jekyll/</link>
+      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/jekyll/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sinatra</title>
+      <link>https://tommyblue.it/categories/sinatra/</link>
+      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/sinatra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sito</title>
+      <link>https://tommyblue.it/categories/sito/</link>
+      <pubDate>Tue, 28 Aug 2012 10:49:43 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/sito/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ruby on rails</title>
+      <link>https://tommyblue.it/categories/ruby-on-rails/</link>
+      <pubDate>Thu, 23 Aug 2012 08:29:40 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/ruby-on-rails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>software libero</title>
+      <link>https://tommyblue.it/categories/software-libero/</link>
+      <pubDate>Thu, 23 Aug 2012 08:29:40 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/software-libero/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>icinga</title>
+      <link>https://tommyblue.it/categories/icinga/</link>
+      <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/icinga/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>monitoring</title>
+      <link>https://tommyblue.it/categories/monitoring/</link>
+      <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/monitoring/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nagios</title>
+      <link>https://tommyblue.it/categories/nagios/</link>
+      <pubDate>Wed, 13 Jun 2012 11:30:15 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/nagios/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mdadm</title>
+      <link>https://tommyblue.it/categories/mdadm/</link>
+      <pubDate>Thu, 26 Apr 2012 11:47:30 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/mdadm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raid</title>
+      <link>https://tommyblue.it/categories/raid/</link>
+      <pubDate>Thu, 26 Apr 2012 11:47:30 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/raid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bind</title>
+      <link>https://tommyblue.it/categories/bind/</link>
+      <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/bind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dns</title>
+      <link>https://tommyblue.it/categories/dns/</link>
+      <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/dns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://tommyblue.it/categories/github/</link>
+      <pubDate>Tue, 03 Apr 2012 13:34:43 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>memoria ausiliaria</title>
+      <link>https://tommyblue.it/categories/memoria-ausiliaria/</link>
+      <pubDate>Thu, 10 Nov 2011 10:09:40 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/memoria-ausiliaria/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ssh</title>
+      <link>https://tommyblue.it/categories/ssh/</link>
+      <pubDate>Thu, 10 Nov 2011 10:09:40 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>alix</title>
+      <link>https://tommyblue.it/categories/alix/</link>
+      <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/alix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ipv6</title>
+      <link>https://tommyblue.it/categories/ipv6/</link>
+      <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/ipv6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sixxs</title>
+      <link>https://tommyblue.it/categories/sixxs/</link>
+      <pubDate>Wed, 03 Aug 2011 12:41:51 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/sixxs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://tommyblue.it/categories/linux/</link>
+      <pubDate>Tue, 28 Sep 2010 12:16:31 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dkim</title>
+      <link>https://tommyblue.it/categories/dkim/</link>
+      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/dkim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>domainkeys</title>
+      <link>https://tommyblue.it/categories/domainkeys/</link>
+      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/domainkeys/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>postfix</title>
+      <link>https://tommyblue.it/categories/postfix/</link>
+      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/postfix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reverse dns</title>
+      <link>https://tommyblue.it/categories/reverse-dns/</link>
+      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/reverse-dns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>smtp</title>
+      <link>https://tommyblue.it/categories/smtp/</link>
+      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/smtp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spam</title>
+      <link>https://tommyblue.it/categories/spam/</link>
+      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/spam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spf</title>
+      <link>https://tommyblue.it/categories/spf/</link>
+      <pubDate>Mon, 18 Jan 2010 00:02:50 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/spf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fedora</title>
+      <link>https://tommyblue.it/categories/fedora/</link>
+      <pubDate>Thu, 19 Mar 2009 09:05:06 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/fedora/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lvm</title>
+      <link>https://tommyblue.it/categories/lvm/</link>
+      <pubDate>Thu, 19 Mar 2009 09:05:06 +0000</pubDate>
+      
+      <guid>https://tommyblue.it/categories/lvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xfs</title>
       <link>https://tommyblue.it/categories/xfs/</link>
       <pubDate>Thu, 19 Mar 2009 09:05:06 +0000</pubDate>
       

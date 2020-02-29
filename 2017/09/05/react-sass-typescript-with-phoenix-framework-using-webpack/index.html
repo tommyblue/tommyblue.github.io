@@ -67,40 +67,32 @@
       </section>
     </header>
     <section class="post-content">
-      
-
-<p>If you’re playing with <a href="https://elixir-lang.org/">Elixir</a> and <a href="http://phoenixframework.org/">Phoenix</a> you’ll probably already know that Phoenix uses Brunch.io to build the assets pipeline.
+      <p>If you’re playing with <a href="https://elixir-lang.org/">Elixir</a> and <a href="http://phoenixframework.org/">Phoenix</a> you’ll probably already know that Phoenix uses Brunch.io to build the assets pipeline.
 I initially started building my app with React / Redux + SASS and I was quite happy, but when I decided to add Typescript to the recipe, I found Brunch.io wasn’t very helpful!</p>
-
 <p>I’ve already used these tools using <a href="https://webpack.github.io/">Webpack</a> as building tool, so I decided to switch to it.
 I had a working Webpack configuration I was using in other projects, so I only had to find out how to apply it to Phoenix.</p>
-
 <p>When I initially generated the Phoenix app, I didn’t use the <code>--no-brunch</code> command line flag to generate it without Brunch, and the app itself was alreadyt working. So I wanted to replace the existing Brunch config with the new one without nuking any existing feature.</p>
-
 <p>Below you can find the (few) steps required for this upgrade.</p>
-
 <h2 id="remove-brunch-and-install-webpack">Remove Brunch and install Webpack</h2>
-
 <p>To remove Brunch, just remove the <code>assets/brunch-config.js</code> file and uninstall all brunch-related packages. In my case:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn remove brunch babel-brunch clean-css-brunch sass-brunch uglify-js-brunch</code></pre></div>
-<p>In the <code>assets/package.json</code> file you can also see that Brunch is mentioned in the scripts commands:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn remove brunch babel-brunch clean-css-brunch sass-brunch uglify-js-brunch
+</code></pre></div><p>In the <code>assets/package.json</code> file you can also see that Brunch is mentioned in the scripts commands:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#f1fa8c">&#34;scripts&#34;</span>: {
   <span style="color:#ff79c6">&#34;deploy&#34;</span>: <span style="color:#f1fa8c">&#34;brunch build --production&#34;</span>,
   <span style="color:#ff79c6">&#34;watch&#34;</span>: <span style="color:#f1fa8c">&#34;brunch watch --stdin&#34;</span>
-},</code></pre></div>
-<p>Replace them with the Webpack commands (to run the <code>webpack</code> command you’d probably need to globally install it with <code>yarn global add webpack</code>):</p>
+},
+</code></pre></div><p>Replace them with the Webpack commands (to run the <code>webpack</code> command you’d probably need to globally install it with <code>yarn global add webpack</code>):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#f1fa8c">&#34;scripts&#34;</span>: {
   <span style="color:#ff79c6">&#34;deploy&#34;</span>: <span style="color:#f1fa8c">&#34;webpack -p&#34;</span>,
   <span style="color:#ff79c6">&#34;compile&#34;</span>: <span style="color:#f1fa8c">&#34;webpack --progress --color&#34;</span>,
   <span style="color:#ff79c6">&#34;watch&#34;</span>: <span style="color:#f1fa8c">&#34;webpack --watch-stdin --progress --color&#34;</span>
-},</code></pre></div>
-<p>You’re now ready to install the webpack ecosystem we’re going to use:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D webpack babel-core babel-loader babel-preset-es2015 copy-webpack-plugin css-loader extract-text-webpack-plugin file-loader node-sass sass-loader style-loader webpack-notifier</code></pre></div>
-<h2 id="add-typescript-to-the-project">Add Typescript to the project</h2>
-
+},
+</code></pre></div><p>You’re now ready to install the webpack ecosystem we’re going to use:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D webpack babel-core babel-loader babel-preset-es2015 copy-webpack-plugin css-loader extract-text-webpack-plugin file-loader node-sass sass-loader style-loader webpack-notifier
+</code></pre></div><h2 id="add-typescript-to-the-project">Add Typescript to the project</h2>
 <p>To add Typescript support we need some more packages too:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D typescript ts-loader tslint tslint-react @types/phoenix @types/react @types/react-dom @types/react-redux</code></pre></div>
-<p>The Typescript configuration file is <code>assets/tsconfig.json</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn add -D typescript ts-loader tslint tslint-react @types/phoenix @types/react @types/react-dom @types/react-redux
+</code></pre></div><p>The Typescript configuration file is <code>assets/tsconfig.json</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#ff79c6">&#34;compilerOptions&#34;</span>: {
     <span style="color:#ff79c6">&#34;target&#34;</span>: <span style="color:#f1fa8c">&#34;es2015&#34;</span>,
@@ -116,22 +108,21 @@ I had a working Webpack configuration I was using in other projects, so I only h
     <span style="color:#f1fa8c">&#34;priv&#34;</span>,
     <span style="color:#f1fa8c">&#34;ts-build&#34;</span>
   ]
-}</code></pre></div>
-<p>As you probably noticed in the previous command, I also installed <a href="https://palantir.github.io/tslint/">TSLint</a> support for linting features. Add the related package to your editor (like vscode-tslint for VSCode) to have (almost-)real-time linting warnings.
+}
+</code></pre></div><p>As you probably noticed in the previous command, I also installed <a href="https://palantir.github.io/tslint/">TSLint</a> support for linting features. Add the related package to your editor (like vscode-tslint for VSCode) to have (almost-)real-time linting warnings.
 You also need a configuration file, here’s <code>mytslint.json</code> file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#ff79c6">&#34;extends&#34;</span>: [<span style="color:#f1fa8c">&#34;tslint:recommended&#34;</span>, <span style="color:#f1fa8c">&#34;tslint-react&#34;</span>],
   <span style="color:#ff79c6">&#34;rules&#34;</span>: {
     <span style="color:#ff79c6">&#34;no-console&#34;</span>: [<span style="color:#ff79c6">false</span>]
   }
-}</code></pre></div>
-<h2 id="webpack-configuration">Webpack configuration</h2>
-
+}
+</code></pre></div><h2 id="webpack-configuration">Webpack configuration</h2>
 <p>Before configuring Webpack, let’s configure Babel, using the <code>assets/.babelrc</code> file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#ff79c6">&#34;presets&#34;</span>: [<span style="color:#f1fa8c">&#34;es2015&#34;</span>, <span style="color:#f1fa8c">&#34;react&#34;</span>]
-}</code></pre></div>
-<p>And now, finally, the big part, the Webpack configuration file, <code>assets/webpack.config.js</code>:</p>
+}
+</code></pre></div><p>And now, finally, the big part, the Webpack configuration file, <code>assets/webpack.config.js</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#ff79c6">const</span> env <span style="color:#ff79c6">=</span> process.env.NODE_ENV
 <span style="color:#ff79c6">const</span> path <span style="color:#ff79c6">=</span> require(<span style="color:#f1fa8c">&#34;path&#34;</span>)
 <span style="color:#ff79c6">const</span> ExtractTextPlugin <span style="color:#ff79c6">=</span> require(<span style="color:#f1fa8c">&#34;extract-text-webpack-plugin&#34;</span>);
@@ -184,17 +175,14 @@ You also need a configuration file, here’s <code>mytslint.json</code> file:</p
   ]
 };
 module.exports <span style="color:#ff79c6">=</span> config;
-</code></pre></div>
-<h2 id="final-polishing-and-tests">Final polishing and tests</h2>
-
+</code></pre></div><h2 id="final-polishing-and-tests">Final polishing and tests</h2>
 <p>The final step is to update the main template file <code>app.html.eex</code> to use the generated files (that you can find in the <code>priv/static</code> folder once compiled):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">[..]
 &lt;<span style="color:#ff79c6">link</span> <span style="color:#50fa7b">rel</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;stylesheet&#34;</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&lt;%= static_path(@conn, &#34;</span>/<span style="color:#50fa7b">css</span>/<span style="color:#50fa7b">main</span>.<span style="color:#50fa7b">css</span>&#34;) %&gt;&#34;&gt;
 [..]
-&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&lt;%= static_path(@conn, &#34;</span>/<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">app</span>.<span style="color:#50fa7b">js</span>&#34;) %&gt;&#34;<span style="color:#ff79c6">&gt;</span>&lt;/<span style="color:#ff79c6">script</span>&gt;</code></pre></div>
-<p>The whole pipeline is now ready, except we must tell Phoenix to run Webpack when the server is launched.
+&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&lt;%= static_path(@conn, &#34;</span>/<span style="color:#50fa7b">js</span>/<span style="color:#50fa7b">app</span>.<span style="color:#50fa7b">js</span>&#34;) %&gt;&#34;<span style="color:#ff79c6">&gt;</span>&lt;/<span style="color:#ff79c6">script</span>&gt;
+</code></pre></div><p>The whole pipeline is now ready, except we must tell Phoenix to run Webpack when the server is launched.
 At the moment you can already test the pipeline running, from the <code>assets/</code> folder, the command: <code>yarn run compile</code></p>
-
 <p>To configure Phoenix, update the <code>config/dev.exs</code> file replacing Brunch command with Webpack:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">watchers<span style="color:#ff79c6">:</span> [
   node<span style="color:#ff79c6">:</span> [
@@ -202,8 +190,7 @@ At the moment you can already test the pipeline running, from the <code>assets/<
     cd<span style="color:#ff79c6">:</span> Path.expand(<span style="color:#f1fa8c">&#34;../assets&#34;</span>, __DIR__)
   ]
 ]
-</code></pre></div>
-<p>That’s it.
+</code></pre></div><p>That’s it.
 Run <code>mix phx.server</code> and you’ll have both the Phoenix server running and the assets pipeline compiled and watching for file updates.</p>
 
     </section>
@@ -217,7 +204,7 @@ Run <code>mix phx.server</code> and you’ll have both the Phoenix server runnin
   <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
   
   
-  <section class="copyright">&copy; 2019 TommyBlue.it</section>
+  <section class="copyright">&copy; 2020 TommyBlue.it</section>
   <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
 </footer>
 

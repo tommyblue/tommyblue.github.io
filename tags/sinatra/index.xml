@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sinatra on TommyBlue.it</title>
+    <title>sinatra on TommyBlue.it</title>
     <link>https://tommyblue.it/tags/sinatra/</link>
-    <description>Recent content in Sinatra on TommyBlue.it</description>
+    <description>Recent content in sinatra on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 28 Aug 2012 10:49:43 +0000</lastBuildDate>
