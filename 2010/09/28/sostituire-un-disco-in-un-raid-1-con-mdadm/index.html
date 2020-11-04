@@ -100,7 +100,7 @@ md0 : active raid1 sda1[0]
 
 unused devices: &lt;none&gt;</pre>
 <p>Si può quindi spengere la macchina e sostituire il disco.</p>
-<p>Al riavvio bisogna creare sul nuovo disco lo stesso schema di partizioni presente su quello esistente. Questa procedura, molto semplice, può diventare rognosa se il nuovo disco è più piccolo (anche di poco) del vecchio. Consiglio quindi, quando si crea un sistema con partizioni in raid 1, di lasciare sempre un po&rsquo; di spazio libero alla fine del disco per essere maggiormente sicuri di non moccolare poi in futuro :)</p>
+<p>Al riavvio bisogna creare sul nuovo disco lo stesso schema di partizioni presente su quello esistente. Questa procedura, molto semplice, può diventare rognosa se il nuovo disco è più piccolo (anche di poco) del vecchio. Consiglio quindi, quando si crea un sistema con partizioni in raid 1, di lasciare sempre un po' di spazio libero alla fine del disco per essere maggiormente sicuri di non moccolare poi in futuro :)</p>
 <p>Ricreiamo le partizioni:</p>
 <pre>sfdisk -d /dev/sda | sfdisk /dev/sdb</pre>
 <p><strong>ATTENZIONE:</strong> Se <strong>sfdisk</strong> si rifiutasse di scrivere le partizioni per problemi con i cilindri, provate ad usare l&rsquo;opzione <em>&ndash;Linux</em> come descritto <a href="/2012/04/26/sostituire-un-disco-in-un-raid-software/">qui</a>. <em>(update 26/04/2012)</em>
@@ -158,14 +158,6 @@ grub&gt; setup (hd1)</pre>
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9338649-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-9338649-1');
-</script>
 
     </body>
 </html>

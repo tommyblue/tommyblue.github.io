@@ -6,11 +6,7 @@
     <description>Recent content in webpack on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Oct 2018 18:26:09 +0000</lastBuildDate>
-    
-	<atom:link href="https://tommyblue.it/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 19 Oct 2018 18:26:09 +0000</lastBuildDate><atom:link href="https://tommyblue.it/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to add a JS frontend to an API-only Phoenix app</title>
       <link>https://tommyblue.it/2018/10/19/how-to-add-a-js-frontend-to-an-api-only-phoenix-app/</link>

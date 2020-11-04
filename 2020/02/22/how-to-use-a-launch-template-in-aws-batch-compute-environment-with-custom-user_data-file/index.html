@@ -74,25 +74,25 @@
 This isn&rsquo;t true with Batch, and debugging the failure of the compute environment is all but easy or intuitive.</p>
 <p>So I&rsquo;m writing this post to help anyone having the same headaches I had while adding the launch template to a Batch environment :)</p>
 <p>Adding a launch template to the compute environment in Terraform is as simple as:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#ff79c6">resource</span> <span style="color:#f1fa8c">&#34;aws_batch_compute_environment&#34; &#34;my_compute_environment&#34;</span> {
-<span style="color:#50fa7b">  compute_environment_name</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;my_compute_env&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#ff79c6">resource</span> <span style="color:#f1fa8c">&#34;aws_batch_compute_environment&#34;</span> <span style="color:#f1fa8c">&#34;my_compute_environment&#34;</span> {
+  <span style="color:#50fa7b">compute_environment_name</span> = <span style="color:#f1fa8c">&#34;my_compute_env&#34;</span>
   compute_resources {
     launch_template {
-<span style="color:#50fa7b">      launch_template_id</span> <span style="color:#ff79c6">=</span> aws_launch_template.my_launch_template.id
-<span style="color:#50fa7b">      version</span>            <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;$Latest&#34;</span>
+      <span style="color:#50fa7b">launch_template_id</span> = aws_launch_template.my_launch_template.id
+      <span style="color:#50fa7b">version</span>            = <span style="color:#f1fa8c">&#34;$Latest&#34;</span>
     }
   }
 }
 </code></pre></div><p>And the <code>user_data</code> file can be added to the launch template with:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#ff79c6">resource</span> <span style="color:#f1fa8c">&#34;aws_launch_template&#34; &#34;my_launch_template&#34;</span> {
-<span style="color:#50fa7b">  user_data</span> <span style="color:#ff79c6">=</span> base<span style="color:#bd93f9">64</span>encode(data.template_file.userdata.rendered)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-terraform" data-lang="terraform"><span style="color:#ff79c6">resource</span> <span style="color:#f1fa8c">&#34;aws_launch_template&#34;</span> <span style="color:#f1fa8c">&#34;my_launch_template&#34;</span> {
+  <span style="color:#50fa7b">user_data</span> =<span style="color:#8be9fd;font-style:italic"> base64encode</span>(<span style="color:#8be9fd;font-style:italic">data</span>.template_file.userdata.rendered)
 }
-
-data <span style="color:#f1fa8c">&#34;template_file&#34; &#34;userdata&#34;</span> {
-<span style="color:#50fa7b">  template</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;${file(&#34;${path.module}/user_data.sh&#34;)}&#34;</span>
-<span style="color:#50fa7b">  vars</span> <span style="color:#ff79c6">=</span> {
-      // Any var you need to pass to the script
-  }
+<span style="color:#ff79c6">
+</span><span style="color:#ff79c6">data</span> <span style="color:#f1fa8c">&#34;template_file&#34;</span> <span style="color:#f1fa8c">&#34;userdata&#34;</span> {
+  <span style="color:#50fa7b">template</span> = <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">file</span>(<span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">${</span>path.<span style="color:#8be9fd;font-style:italic">module</span><span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/user_data.sh&#34;</span>)<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>
+  <span style="color:#50fa7b">vars</span> = {<span style="color:#6272a4">
+</span><span style="color:#6272a4">      // Any var you need to pass to the script
+</span><span style="color:#6272a4"></span>  }
 }
 </code></pre></div><p>The content of a standard <code>user_data</code> shell script is something like:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ff79c6">#!/bin/bash
@@ -132,14 +132,6 @@ Content-Type: text/x-shellscript; <span style="color:#8be9fd;font-style:italic">
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9338649-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-9338649-1');
-</script>
 
     </body>
 </html>

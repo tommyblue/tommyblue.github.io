@@ -2,3 +2,11 @@ div.highlight pre {
     border-radius: 2px;
     padding: 1em;
 }
+
+a, .post a, .post a:visited {
+    color: #ff79c6;
+}
+
+code, tt, pre {
+    font-size: 0.9em;
+}

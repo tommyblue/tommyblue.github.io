@@ -103,7 +103,7 @@ DomainKeys e DKIM sono due sistemi per la verifica del mittente nel dominio e l'
 <pre>mailer1._domainkey IN TXT "v=DKIM1; g=*; k=rsa; t=y; p=MIGfMA0GC[...cut...]8FsXOPbuUQIDAQAB" ; ----- DKIM mailer1 for mydomain.com</pre>
 <p>Sebbene questo record sia corretto, le opzioni sono molte e consiglio un&rsquo;attenta lettura degli RFC (linkati sulla <a href="http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail" target="_blank">pagina dedicata di WikiPedia</a>), in particolare potreste essere interessati a modificare &ldquo;<strong>t=y;</strong>&rdquo; in &ldquo;<strong>t=;</strong>&rdquo; dichiarando che il servizio di firma non è in fase di test. A tale record consiglio di aggiungerne un secondo, più generale:</p>
 <pre>_domainkey.mydomain.com. IN TXT "o=~"</pre>
-<p>che indica che non tutte le email generate dal dominio vengono firmate (l&rsquo;alternativa è &ldquo;<strong>o=-</strong>&rdquo;).</p>
+<p>che indica che non tutte le email generate dal dominio vengono firmate (l&rsquo;alternativa è &ldquo;<strong>o=-</strong>&quot;).</p>
 <p>A questo punto si prosegue con la configurazione del file <strong>/etc/default/dkim-filter</strong>. Basta decommentare una delle righe che specificano un socket. Io ho scelto di utilizzare:</p>
 <pre>SOCKET="inet:20209@localhost"</pre>
 <p>Proseguiamo quindi con <strong>/etc/dkim-filter.conf.</strong> Riporto tutte le configurazioni fatte, ricordandovi che tale configurazione è studiata per permettere la personalizzazione dei campi From e Reply-To (e quindi una sorta di configurazione multidominio):</p>
@@ -190,14 +190,6 @@ milter_default_action = accept</pre>
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9338649-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-9338649-1');
-</script>
 
     </body>
 </html>

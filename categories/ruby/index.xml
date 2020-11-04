@@ -6,11 +6,7 @@
     <description>Recent content in ruby on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Jul 2013 20:12:19 +0000</lastBuildDate>
-    
-	<atom:link href="https://tommyblue.it/categories/ruby/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 02 Jul 2013 20:12:19 +0000</lastBuildDate><atom:link href="https://tommyblue.it/categories/ruby/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Paypal Express Checkout with Ruby on Rails and paypal-sdk-merchant</title>
       <link>https://tommyblue.it/2013/07/02/paypal-express-checkout-with-ruby-on-rails-and-paypal-sdk-merchant/</link>

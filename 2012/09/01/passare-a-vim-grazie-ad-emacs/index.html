@@ -66,7 +66,7 @@
     </header>
     <section class="post-content">
       <p><strong>Grazie <a href="http://scia.mp">Sciamp</a> per avermi convinto a passare a Vim parlandomi di Emacs :)</strong></p>
-<p>Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambiare editor passando da Textmate a qualcos&rsquo;altro, ho intravisto Sublime Text 2, ma volevo qualcosa di open source. Da un po&rsquo; di tempo <a href="https://github.com/sciamp">Alessandro</a> stava rompendo le scatole a tutti su quanto è figo Emacs :) e avevo iniziato a lavorarci un po&rsquo;, ma non sono mai riuscito ad entrarci in sintonia. Arriviamo ai giorni nostri e in particolare al primo incontro ufficiale del <a href="http://firenze.ruby-it.org/2012/05/02/2-maggio-al-pangoro">Ruby Social Club Firenze</a> dove ho assistito al talk proprio di Alessandro <a href="http://vimeo.com/41595912">&ldquo;Ma perchè non Emacs? - a caccia di feature che sicuramente esistono già </a>. Il talk è stato illuminante, talmente interessante che mi sono detto: &ldquo;Ma se Emacs fa tutte queste cose (e io mi trovo molto bene con Vim), possibile che anche Vim non le faccia?&quot;. Mi sono guardato un po&rsquo; di video (scoprendo che, ovviamente, le faceva) e alla fine ho deciso di abbandonare Textmate e passare a Vim!</p>
+<p>Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambiare editor passando da Textmate a qualcos&rsquo;altro, ho intravisto Sublime Text 2, ma volevo qualcosa di open source. Da un po' di tempo <a href="https://github.com/sciamp">Alessandro</a> stava rompendo le scatole a tutti su quanto è figo Emacs :) e avevo iniziato a lavorarci un po', ma non sono mai riuscito ad entrarci in sintonia. Arriviamo ai giorni nostri e in particolare al primo incontro ufficiale del <a href="http://firenze.ruby-it.org/2012/05/02/2-maggio-al-pangoro">Ruby Social Club Firenze</a> dove ho assistito al talk proprio di Alessandro <a href="http://vimeo.com/41595912">&ldquo;Ma perchè non Emacs? - a caccia di feature che sicuramente esistono già </a>. Il talk è stato illuminante, talmente interessante che mi sono detto: &ldquo;Ma se Emacs fa tutte queste cose (e io mi trovo molto bene con Vim), possibile che anche Vim non le faccia?&rdquo;. Mi sono guardato un po' di video (scoprendo che, ovviamente, le faceva) e alla fine ho deciso di abbandonare Textmate e passare a Vim!</p>
 <p>Lo ammetto: non è stato subito semplice: stupito dai video e dagli articoli letti quà  e là  ho installato plugin, clonato repository, fatto configurazioni per lo più senza sapere troppo cosa stavo facendo e mi sono trovato in situazioni veramente strane, tipo non capire perchè il Tab non tabbava oppure vedere apparire cose a caso in conseguenza di shortcut che non sapevo di aver digitato! L&rsquo;editor risultava comunque molto potente, ma non sentivo di padroneggiarlo abbastanza anche se non ho mai rimpianto troppo TextMate. Poi ho letto <a href="http://yehudakatz.com/2010/07/29/everyone-who-tried-to-convince-me-to-use-vim-was-wrong/">questo articolo di Yahuda Katz</a> e ho trovato le sue osservazioni molto giuste: quando si passa a editor potenti come Emacs o Vim bisogna evitare il <strong>troppo</strong>, ovvero le centinaia di funzioni e plugin che gli esperti di quell&rsquo;editor ti suggeriscono di installare subito come se fossero essenziali, quando invece ti trovi a non capirci più un tubo.</p>
 <p>Ho quindi deciso di eliminare <strong>~/.vim/</strong> e <strong>~/.vimrc</strong> e ricominciare da capo un passo alla volta. Userò questo articolo per tenere traccia delle cose che ho fatto.
 Non so bene cosa verrà  fuori, intanto sappiate che uso sia Vim (sui server e da terminale) che GVim (su Fedora) e Mvim (sul Mac), quindi mi aspetto che le configurazioni debbano funzionare su tutte e tre le varianti dell&rsquo;editor.
@@ -74,7 +74,7 @@ Troverete la versione aggiornata e completa dei file nel <a href="https://github
 <p><strong>N.B.</strong>: d&rsquo;ora in poi scriverò sempre le configurazioni riferendomi al file <em>~/.vimrc</em> ma se state usando il mio repository quel file è praticamente vuoto e include il file <em>~/.vim/vimrc</em>, dove effettivamente troverete le configurazioni. A parte il cambio di file, la sostanza non cambia :)</p>
 <h2 id="configurazioni-di-base">Configurazioni di base</h2>
 <p>Tutto ciò che concerne Vim è essenzialmente in due posti: il file <em>~/.vimrc</em> e la cartella <em>~/.vim/</em>. Il file <em>~/.vimrc</em> viene eseguito al lancio del programma mentre nella cartella si trovano tutte le estensioni (colori, plugin, ecc.).
-Come prima cosa impostiamo un po&rsquo; di configurazioni di base in <em>~/.vimrc</em>:</p>
+Come prima cosa impostiamo un po' di configurazioni di base in <em>~/.vimrc</em>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim">
 set showcmd     <span style="color:#6272a4">&#34;show incomplete cmds down the bottom</span>
 set showmode    <span style="color:#6272a4">&#34;show current mode down the bottom</span>
@@ -198,7 +198,7 @@ nmap wm :NERDTree&lt;cr&gt;
 silent! nmap &lt;silent&gt; &lt;Leader&gt;p :NERDTreeToggle&lt;CR&gt;
 
 </code></pre></div><h2 id="vundle">Vundle</h2>
-<p>Come abbiamo appena visto installare i plugin è molto semplice, specialmente con Pathogen, ma a lungo andare si potrebbe perdere un po&rsquo; traccia di cosa si è installato e, soprattutto, se i plugin installati sono anche aggiornati. Per ovviare al problema uso <a href="https://github.com/gmarik/vundle">Vundle</a>, un plugin che, sfruttando Pathogen, permette di automatizzare le operazioni di installazione e aggiornamento dei plugin. Per installarlo:</p>
+<p>Come abbiamo appena visto installare i plugin è molto semplice, specialmente con Pathogen, ma a lungo andare si potrebbe perdere un po' traccia di cosa si è installato e, soprattutto, se i plugin installati sono anche aggiornati. Per ovviare al problema uso <a href="https://github.com/gmarik/vundle">Vundle</a>, un plugin che, sfruttando Pathogen, permette di automatizzare le operazioni di installazione e aggiornamento dei plugin. Per installarlo:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
@@ -278,7 +278,7 @@ cp -R * ~/.vim
 </code></pre></div><p>Mica male&hellip; :)</p>
 <h2 id="command-t">Command-T</h2>
 <p><a href="https://github.com/wincent/Command-T">Command-T</a> prende direttamente spunto dal Command-T di TextMate e serve per trovare velocemente un file e aprirlo: basta digitare <em>leader-t</em> e iniziare a digitare il nome di un file per trovarlo.</p>
-<p>La sua installazione è molto più complessa dei plugin installati finora, quindi mi ci soffermerò un po&rsquo; di più.</p>
+<p>La sua installazione è molto più complessa dei plugin installati finora, quindi mi ci soffermerò un po' di più.</p>
 <p>Intanto i requisiti: Command-T richiede che sia installato Ruby (e che sia della stessa versione usata per compilare Vim) e alcune librerie di sistema. Su Fedora i pacchetti necessari sono:</p>
 <pre><code>yum install ruby ruby-devel libxml2-devel libxslt-devel
 </code></pre>
@@ -342,14 +342,6 @@ Bundle <span style="color:#f1fa8c">&#39;tpope/vim-rails.git&#39;</span>
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9338649-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-9338649-1');
-</script>
 
     </body>
 </html>

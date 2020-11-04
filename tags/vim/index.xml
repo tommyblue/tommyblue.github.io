@@ -6,11 +6,7 @@
     <description>Recent content in vim on TommyBlue.it</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Sep 2012 17:38:51 +0000</lastBuildDate>
-    
-	<atom:link href="https://tommyblue.it/tags/vim/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 01 Sep 2012 17:38:51 +0000</lastBuildDate><atom:link href="https://tommyblue.it/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Passare a Vim grazie ad Emacs</title>
       <link>https://tommyblue.it/2012/09/01/passare-a-vim-grazie-ad-emacs/</link>
@@ -18,7 +14,7 @@
       
       <guid>https://tommyblue.it/2012/09/01/passare-a-vim-grazie-ad-emacs/</guid>
       <description>Grazie Sciamp per avermi convinto a passare a Vim parlandomi di Emacs :)
-Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambiare editor passando da Textmate a qualcos&amp;rsquo;altro, ho intravisto Sublime Text 2, ma volevo qualcosa di open source. Da un po&amp;rsquo; di tempo Alessandro stava rompendo le scatole a tutti su quanto è figo Emacs :) e avevo iniziato a lavorarci un po&amp;rsquo;, ma non sono mai riuscito ad entrarci in sintonia.</description>
+Lo so, sembra uno scherzo, eppure è proprio vero! Era da tanto che volevo cambiare editor passando da Textmate a qualcos&amp;rsquo;altro, ho intravisto Sublime Text 2, ma volevo qualcosa di open source. Da un po&#39; di tempo Alessandro stava rompendo le scatole a tutti su quanto è figo Emacs :) e avevo iniziato a lavorarci un po&#39;, ma non sono mai riuscito ad entrarci in sintonia.</description>
     </item>
     
   </channel>
